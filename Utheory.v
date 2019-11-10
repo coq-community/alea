@@ -1,5 +1,7 @@
 (** * Utheory.v: Specification of $U$, interval $[0,1]$ *)
 
+(*Load Ccpo.
+Load Misc.*)
 Require Export Misc.
 Require Export Ccpo.
 Set Implicit Arguments.
@@ -29,7 +31,7 @@ Definition Umult x y := UMult x y.
 Infix "+" := Uplus : U_scope.
 Infix "*"  := Umult  : U_scope.
 Infix "/"  := Udiv  : U_scope.
-Notation "[1-]  x" := (Uinv x)  (at level 35, right associativity) : U_scope.
+Notation "[1-] x" := (Uinv x)  (at level 35, right associativity) : U_scope.
 Notation "1" := U1 : U_scope.
 Notation "[1/]1+ n" := (Unth n) (at level 35, right associativity) : U_scope.
 Open Scope U_scope.
@@ -37,6 +39,7 @@ Open Scope U_scope.
 (** ** Basic Properties *)
 
 Hypothesis Udiff_0_1 : ~0 == 1.
+
 Hypothesis Unit : forall x:U, x <= 1. 
 
 Hypothesis Uplus_sym : forall x y:U, x + y == y + x.
@@ -59,7 +62,7 @@ Hypothesis Uinv_plus_left : forall x y, y <= [1-] x -> [1-] (x + y) + x == [1-] 
 
 (** - Property  : $(x + y) \times z  = x \times z + y \times z$ 
     holds when $x+y$ does not overflow *)
-Hypothesis Udistr_plus_right : forall x y z, x <= [1-] y -> (x + y) * z == x * z + y * z.
+Hypothesis Udistr_plus_right : forall x y z (H : x <= [1-] y), (x + y) * z == x * z + y * z.
 
 (** - Property  : $1 - (x \times y) = (1 - x)\times y + (1-y)$ *)
 Hypothesis Udistr_inv_right : forall x y:U,  [1-] (x * y) == ([1-] x) * y + [1-] y.

@@ -1,13 +1,16 @@
 (** * Cover.v: Characteristic functions *)
 Require Export Prog.
 Set Implicit Arguments.
-Require Export Sets.
 Require Export Arith.
+Require Import Utheory.
+Require Import Sets.
 Module CoverFun (Univ:Universe).
 
 Module RP := (Rules Univ).
 (* begin hide *)
-Import Univ RP PP MP UP.
+Include Univ.
+Import RP.
+Import PP MP UP.
 Open Scope U_scope.
 Open Scope O_scope.
 (* end hide *)
@@ -132,8 +135,8 @@ Qed.
 Lemma zero_one_cover : forall (A:Type)(f:MF A),
    zero_one f -> cover (fun x => 1 <= f x) f.
 unfold zero_one,cover; intros; split; intros; auto.
-apply (H x); intros; auto.
-absurd (1 <= f x); auto.
+(*apply (H x); intros; auto.
+absurd (1 <= f x); auto.*)
 Qed.
 
 Lemma cover_esp_mult_left : forall (A:Type)(P:set A)(f:MF A)(p:U),
@@ -174,7 +177,7 @@ Qed.
 
 Lemma cover_eq_zero_elim : forall (A:Type)(P:set A)(f:MF A) (z:A),
        cover P f -> f z == 0 -> ~ P z.
-intros; apply (excluded_middle (A:=P z)); intros; auto.
+intros; apply (excluded_middle (A:=P z)); intros; auto. 
 case Udiff_0_1.
 rewrite <- H0.
 apply (cover_eq_one (P:=P) (f:=f)); auto.
@@ -215,7 +218,9 @@ apply (cover_incl_fle H H0); auto.
 apply (cover_incl_fle H0 H); auto.
 Qed.
 
-Lemma cover_equiv_stable : forall (A:Type)(P Q:set A)(EQ : equiv P Q)(f:MF A),
+Print equiv.
+
+Lemma cover_equiv_stable : forall (A:Type)(P Q:set A)(EQ : equiv P Q )(f:MF A),
       cover P f -> cover Q f.
 unfold cover; firstorder.
 Qed.
@@ -541,7 +546,7 @@ The distribution associated to [random_fin P] is
 Fixpoint sigma_fin (f:A->U)(P:A->Prop)(FP:finite P){struct FP}:U :=
 match FP with
   | (fin_eq_empty eq) => 0
-  | (fin_eq_add x Q nQx FQ eq) => (f x) + sigma_fin f FQ
+  | (@fin_eq_add _ _ x Q nQx FQ eq) => (f x) + sigma_fin f FQ
 end.
 
 Definition retract_fin (P:A->Prop) (f:A->U) :=

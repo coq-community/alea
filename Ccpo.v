@@ -118,7 +118,7 @@ Qed.
 (** *** Dual order *)
 
 (** - Iord x y := y <= x  *)
-Definition Iord (O:ord):ord.
+Definition Iord: ord -> ord.
 intros O; exists O (fun x y : O => y <= x); intros; auto.
 apply Ole_trans with y; auto.
 Defined.
@@ -126,7 +126,7 @@ Defined.
 (** *** Order on functions *)
 
 (** - ford f g := forall x, f x <= g x *)
-Definition ford (A:Type) (O:ord) : ord.
+Definition ford : Type -> ord -> ord.
 intros A O; exists (A->O) (fun f g:A->O => forall x, f x <= g x); intros; auto.
 apply Ole_trans with (y x0); auto.
 Defined.
@@ -179,7 +179,7 @@ Record fmono (O1 O2:ord) : Type := mk_fmono
 Hint Resolve fmonotonic.
 
 (** - fmon O1 O2 (f g : fmono O1 O2) := forall x, f x <= g x *)
-Definition fmon (O1 O2:ord) : ord.
+Definition fmon: ord -> ord -> ord.
 intros O1 O2; exists (fmono O1 O2) (fun f g:fmono O1 O2 => forall x, f x <= g x); intros; auto.
 apply Ole_trans with (y x0); auto.
 Defined.
@@ -605,10 +605,14 @@ Qed.
 
 (** *** Definition of cpos *)
 Record cpo : Type := mk_cpo 
-  {tcpo:>ord; D0 : tcpo; lub: (natO -m> tcpo) -> tcpo;
-   Dbot : forall x:tcpo, D0 <= x; 
-   le_lub : forall (f : natO -m> tcpo) (n:nat), f n <= lub f;
-   lub_le : forall (f : natO -m> tcpo) (x:tcpo), (forall n, f n <= x) -> lub f <= x}.
+  {
+    tcpo :> ord;
+    D0 : tcpo; 
+    lub: (natO -m> tcpo) -> tcpo;
+    Dbot : forall x : tcpo, D0 <= x; 
+    le_lub : forall (f : natO -m> tcpo) (n : nat), f n <= lub f;
+    lub_le : forall (f : natO -m> tcpo) (x : tcpo), (forall n, f n <= x) -> lub f <= x
+  }.
 
 Arguments D0 [c].
 Notation "0" := D0 : O_scope.
@@ -988,12 +992,12 @@ Hint Resolve fcont_monotonic.
 Definition fcont0 (D1 D2:cpo) : D1 -c> D2 := mk_fconti (cont0 D1 D2).
 
 Definition Fcontit (D1 D2:cpo) : (D1 -c> D2) -m> D1-m> D2.
-intros D1 D2; exists (fcontit (D1:=D1) (D2:=D2)); auto.
+exists (fcontit (D1:=D1) (D2:=D2)); auto.
 Defined.
 
 
 Definition fcont_lub (D1 D2:cpo) : (natO -m> D1 -c> D2) -> D1 -c> D2.
-intros D1 D2 f; exists (lub (c:=D1-M->D2) (Fcontit D1 D2 @f)).
+intros f; exists (lub (c:=D1-M->D2) (Fcontit D1 D2 @f)).
 apply cont_lub; intros; simpl; auto.
 Defined.
 
@@ -1282,19 +1286,19 @@ apply Ole_trans with b0; trivial.
 Defined.
 
 Definition Fst (O1 O2 : ord) : Oprod O1 O2 -m> O1.
-intros O1 O2; exists (fst (A:=O1) (B:=O2)); red; simpl; intuition.
+exists (fst (A:=O1) (B:=O2)); red; simpl; intuition.
 Defined.
 
 Definition Snd (O1 O2 : ord) : Oprod O1 O2 -m> O2.
-intros O1 O2; exists (snd (A:=O1) (B:=O2)); red; simpl; intuition.
+exists (snd (A:=O1) (B:=O2)); red; simpl; intuition.
 Defined.
 
 Definition Pairr (O1 O2 : ord) : O1 -> O2 -m> Oprod O1 O2.
-intros O1 O2 x; exists (fun y:O2 => (x,y)); red; auto.
+intros x; exists (fun y:O2 => (x,y)); red; auto.
 Defined.
 
 Definition Pair (O1 O2 : ord) : O1 -m> O2 -m> Oprod O1 O2.
-intros O1 O2; exists (Pairr (O1:=O1) O2); red; auto.
+exists (Pairr (O1:=O1) O2); red; auto.
 Defined.
 
 Lemma Fst_simpl : forall (O1 O2 : ord) (p:Oprod O1 O2), Fst O1 O2 p = fst p.
@@ -1992,13 +1996,13 @@ Defined.
 
 (** *** A Type is an ordered set and a setoid with Leibniz equality *)
 
-Definition type_ord (X:Type) : ord.
-intro X; exists X (fun x y:X => x = y); intros; auto.
+Definition type_ord : Type -> ord.
+intros X; exists X (fun x y:X => x = y); intros; auto.
 transitivity y; trivial.
 Defined.
 
-Definition type_setoid (X:Type) : setoid.
-intro X; exists X (fun x y:X => x = y); intros; auto.
+Definition type_setoid : Type -> setoid.
+intros X; exists X (fun x y:X => x = y); intros; auto.
 transitivity y; trivial.
 Defined.
 

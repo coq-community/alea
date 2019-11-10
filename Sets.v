@@ -95,7 +95,7 @@ Qed.
 
 Inductive finite (P: set) : Type := 
    fin_eq_empty : equiv P empty -> finite P
- | fin_eq_add : forall (x:A)(Q:set),
+ | fin_eq_add (*: forall *)(x:A)(Q:set):
              ~ Q x-> finite Q -> equiv P (add x Q) -> finite P.
 Hint Constructors finite.
 
@@ -129,10 +129,13 @@ apply (@equiv_add_empty x Q); auto.
 apply equiv_trans with P; auto.
 Qed.
 
+Print fin_eq_add.
+
 (** *** Size of a finite set *)
 Fixpoint size (P:set) (f:finite P) {struct f}: nat :=
-   match f with fin_eq_empty _ => 0%nat
-              | fin_eq_add _ Q _ f' _ => S (size f')
+   match f with 
+              | fin_eq_empty _ => 0%nat
+              | fin_eq_add  _ f' _ => S (size f')
    end.
 
 Lemma size_equiv : forall P Q  (f:finite P) (e:equiv P Q),
@@ -604,12 +607,15 @@ unfold inter; intro.
 generalize (H x); intuition.
 Qed.
 
+Set Printing All.
+Print fin_eq_add.
+
 (** *** Selecting elements in a finite set *)
 
 Fixpoint nth_finite (P:set) (k:nat) (PF : finite P) {struct PF}: (k < size PF) -> A := 
   match PF as F return (k < size F) -> A with 
        fin_eq_empty H => (fun (e : k<0) => match lt_n_O k e with end)
-     | fin_eq_add x Q nqx fq eqq => 
+     | @fin_eq_add _ x Q nqx fq eqq => 
            match k as k0 return k0<S (size fq)->A with 
                 O => fun e => x
          | (S k1) => fun (e:S k1<S (size fq)) => nth_finite fq (lt_S_n k1 (size fq) e)
@@ -628,9 +634,9 @@ Defined.
 Lemma select_diff : forall (P:set) (FP:finite P),
      (1 < size FP)%nat -> sigT (fun x => sigT (fun y => P x /\ P y /\ x<>y)).
 destruct FP; simpl; intros.
-absurd (1<0); omega.
+absurd (1<0). auto with arith. apply H.
 exists x; destruct FP; simpl in H.
-absurd (1<1); omega.
+absurd (1<1); auto with arith.
 exists x0; intuition.
 case (e x); auto.
 case (e0 x0); case (e x0); unfold add; intuition.

@@ -1,15 +1,20 @@
 (** * Prog.v: Composition of distributions *)
 
-Require Export Probas.
+Require Import Probas.
 Set Implicit Arguments.
+Require Import Utheory.
+
 
 Module Rules (Univ:Universe).
 Module PP := (Proba Univ).
 (* begin hide *)
-Import Univ PP MP UP.
+Include Univ .
+Export PP.
+Import UP MP.
 Open Scope U_scope.
 Open Scope O_scope.
 (* end hide *)
+Print distr.
 
 (** ** Conditional *)
 
@@ -46,7 +51,7 @@ trivial.
 Qed.
 
 Definition Mchoice (A:Type) (p:U) (m1 m2: Distr A) : Distr A.
-intros A p m1 m2; exists (pchoice p (mu m1) (mu m2)).
+exists (pchoice p (mu m1) (mu m2)).
 (* stable_inv *)
 red; intros; repeat (rewrite pchoice_simpl).
 apply Ole_trans with
@@ -208,7 +213,7 @@ Qed.
 Hint Immediate prod_distr_eq_compat.
 
 Definition Prod_distr (A B :Type): Distr A -m> Distr B -m> Distr (A*B).
-intros A B; apply le_compat2_mon with (prod_distr (A:=A) (B:=B)); auto.
+apply le_compat2_mon with (prod_distr (A:=A) (B:=B)); auto.
 Defined.
 
 Lemma Prod_distr_simpl : forall (A B:Type)(d1: Distr A) (d2:Distr B),
@@ -395,15 +400,16 @@ Qed.
  $\ok{p}{e}{q}$ is defined as $p \leq \mu(e)(q)$
  $\up{p}{e}{q}$ is defined as $ \mu(e)(q) \leq p$ *)
 
-Definition ok (A:Type) (p:U) (e:Distr A) (q:A->U) := p <= mu e q.
-
-Definition okfun (A B:Type)(p:A->U)(e:A->Distr B)(q:A->B->U)
-  := forall x:A, ok (p x) (e x) (q x).
-
-Definition okup (A:Type) (p:U) (e:Distr A) (q:A->U) := mu e q <= p.
+Definition okup (A:Type) (p : U) (e : Distr A) (q:A->U) := mu e q <= p.
 
 Definition upfun (A B:Type)(p:A->U)(e:A->Distr B)(q:A->B->U)
   := forall x:A, okup (p x) (e x) (q x).
+
+Definition ok (A : Type) (p : U) (e : Distr A) (q : A -> U) :=
+  p <= mu e q.
+
+Definition okfun (A B:Type)(p:A->U)(e:A->Distr B)(q:A->B->U)
+  := forall x:A, ok (p x) (e x) (q x).
 
 (** ** Stability properties *)
 Lemma ok_le_compat : forall (A:Type) (p p':U) (e:Distr A) (q q':A-o>U),
@@ -928,15 +934,15 @@ Hint Resolve Imu_monotonic Imu_stable_eq.
 Lemma Imu_singl : forall (A:Type) (e:Distr A) (f:A->U),
            Ieq (Imu e (fun x => singl (f x))) (singl (mu e f)).
 unfold Ieq,Imu,singl; simpl; intuition.
-apply (mu_stable_eq e); simpl; apply ford_eq_intro; intro x; auto.
-apply (mu_stable_eq e); simpl; apply ford_eq_intro; intro x; auto.
+(*apply (mu_stable_eq e); simpl; apply ford_eq_intro; intro x; auto.
+apply (mu_stable_eq e); simpl; apply ford_eq_intro; intro x; auto.*)
 Qed.
 
 Lemma Imu_inf : forall (A:Type) (e:Distr A) (f:A->U),
            Ieq (Imu e (fun x => inf (f x))) (inf (mu e f)).
 unfold Ieq,Imu,inf; simpl; intuition.
 exact (mu_zero e).
-apply (mu_stable_eq e); simpl; apply ford_eq_intro; intro x; auto.
+(*apply (mu_stable_eq e); simpl; apply ford_eq_intro; intro x; auto.*)
 Qed.
 
 Lemma Imu_sup : forall (A:Type) (e:Distr A) (f:A->U),

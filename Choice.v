@@ -1,10 +1,11 @@
 (** * Choice.v: An example of probabilistic choice *)
+Require Import Utheory.
 Require Export Prog.
 Set Implicit Arguments.
-Module Choice (Univ:Universe).
+Module Choice (Univ : Universe).
 Module RP := (Rules Univ).
 (* begin hide *)
-Import Univ.
+Include Univ.
 Import RP.
 Import RP.PP.
 Import RP.PP.MP.
