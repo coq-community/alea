@@ -1,7 +1,9 @@
 (** * Utheory.v: Specification of $U$, interval $[0,1]$ *)
 
-Require Export Misc.
-Require Export Ccpo.
+Load Ccpo.
+Load Misc.
+(*Require Export Misc.
+Require Export Ccpo.*)
 Set Implicit Arguments.
 Open Scope O_scope.
 
