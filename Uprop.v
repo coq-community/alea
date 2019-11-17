@@ -1,11 +1,11 @@
 (** * Uprop.v : Properties of operators on [[0,1]] *)
 Set Implicit Arguments.
-Require Export Utheory.
+Require Import Utheory.
 Require Export Arith.
 Require Export Omega.
 
-Module Univ_prop (Univ:Universe).
-Import Univ.
+Module Univ_prop (Univ : Universe).
+Include Univ.
 
 Hint Resolve Unit Udiff_0_1 Unth_prop.
 Hint Resolve Uplus_sym Uplus_assoc Umult_sym Umult_assoc.
@@ -747,11 +747,13 @@ intros; apply Ole_trans with ([1-] y); auto.
 Qed.
 Hint Resolve Uinv_mult_simpl.
 
+Print Udistr_plus_left.
+
 Lemma Umult_inv_plus :   forall x y, x * [1-] y + y == x + y * [1-] x.
 intros; apply Oeq_trans with (x * [1-] y + y * ([1-] x + x)).
 setoid_rewrite (Uinv_opp_left x); auto.
 assert (H:[1-] x <= [1-] x); auto.
-rewrite (Udistr_plus_left y ([1-]x) x H).
+rewrite (Udistr_plus_left y ([1-] x) x H).
 apply Oeq_trans with (x * [1-] y + y * x + y * [1-] x).
 norm_assoc_right; auto.
 rewrite (Umult_sym y x).
@@ -2389,7 +2391,7 @@ Hint Resolve Udiv_continuous.
 (** ** Greatest lower bounds *)
 
 
-Definition glb (f:natO-m>UI) := [1-]lub (UInv @ f).
+Definition glb (f : natO -m> UI) := [1-]lub (UInv @ f).
 
 Lemma glb_le:   forall (f : natO -m> UI) (n : nat), glb f <= (f n).
 unfold glb; intros; apply Uinv_le_perm_left.
@@ -2553,8 +2555,9 @@ Qed.
 
 (** Defining lubs of arbitrary sequences *)
 
-Fixpoint seq_max (f:nat->U) (n:nat) : U := match n with
-             O => f O | S p => max (seq_max f p) (f (S p)) end.
+Fixpoint seq_max (f : nat -> U) (n : nat) : U := match n with
+             | O => f O 
+             | S p => max (seq_max f p) (f (S p)) end.
 
 Lemma seq_max_incr : forall f n, seq_max f n <= seq_max f (S n).
 induction n; simpl; intros; auto.
@@ -2565,7 +2568,7 @@ induction n; simpl; intros; auto.
 Qed.
 Hint Resolve seq_max_le.
 
-Definition sMax (f:nat->U) : natO -m> U := fnatO_intro (seq_max_incr f).
+Definition sMax (f : nat -> U) : natO -m> U := fnatO_intro (seq_max_incr f).
 
 Lemma sMax_mult : forall k (f:nat->U),  sMax (fun n => k * f n) == UMult k @ sMax f.
 intros; apply fmon_eq_intro; simpl; intros.
@@ -2579,7 +2582,7 @@ induction n; simpl; intros; auto.
 rewrite IHn; auto.
 Qed.
 
-Definition Ulub  (f:nat-o>U)  := lub (sMax f).
+Definition Ulub  (f: nat -o> U)  := lub (sMax f).
 
 Lemma le_Ulub : forall f n, f n <= Ulub f.
 unfold Ulub; intros; apply Ole_trans with (seq_max f n); auto.
@@ -4377,9 +4380,11 @@ End Ifixpoint.
 
 (** ** Limits inf and sup *)
 
-Definition fsup (f:nat->U) (n:nat) := Ulub (fun k => f (n+k)%nat).
+Definition fsup (f : nat -> U) (n : nat) :=
+ Ulub (fun k => f (n+k)%nat).
 
-Definition finf (f:nat->U) (n:nat) := Uglb (fun k => f (n+k)%nat).
+Definition finf (f : nat -> U) (n : nat) := 
+ Uglb (fun k => f (n+k)%nat).
 
 Lemma fsup_mon : forall (f:nat->U) n, fsup f (S n) <= fsup f n.
 unfold fsup; intros.
@@ -4398,8 +4403,10 @@ Qed.
 
 Hint Resolve finf_mon.
 
-Definition Fsup (f:nat->U) : natO-m>UI := fnatO_intro (f:=fsup f:natO->UI) (fsup_mon f).
-Definition Finf (f:nat->U) : natO-m>U := fnatO_intro (f:=finf f:natO->U) (finf_mon f).
+Definition Fsup (f : nat -> U) : natO -m> UI :=
+ fnatO_intro (f := fsup f : natO -> UI) (fsup_mon f).
+Definition Finf (f:nat->U) : natO-m>U :=
+ fnatO_intro (f := finf f:natO -> U) (finf_mon f).
 
 Lemma fn_fsup : forall f n, f n <= fsup f n.
 unfold fsup; intros.
@@ -4562,15 +4569,17 @@ Qed.
 Hint Resolve liminf_eq_compat limsup_eq_compat.
 
 Lemma limsup_inv :  forall f : nat -> U, limsup (fun x => [1-]f x) == [1-] liminf f.
-unfold limsup, liminf; intros.
+unfold limsup, liminf; intros. 
 unfold glb; Usimpl.
 apply lub_eq_compat; apply fmon_eq_intro; intro n; simpl; unfold finf,fsup,Uglb; simpl; Usimpl.
 apply Ulub_eq_compat; apply ford_eq_intro; intro m; auto.
 Qed.
 
+Search Uinv_inv.
+
 Lemma liminf_inv :  forall f : nat -> U, liminf (fun x => [1-]f x) == [1-] limsup f.
 unfold limsup, liminf; intros.
-unfold glb; Usimpl.
+unfold glb. rewrite Uinv_inv.
 apply lub_eq_compat; apply fmon_eq_intro; intro n; simpl; unfold finf,fsup,Uglb; Usimpl.
 apply Ulub_eq_compat; apply ford_eq_intro; intro m; auto.
 Qed.

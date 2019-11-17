@@ -1,9 +1,10 @@
 (** * Monads.v: Monads for randomized constructions *)
 
 Set Implicit Arguments.
-Require Export Uprop.
+Require Import Uprop.
+Require Import Utheory.
 
-Module Monad (Univ:Universe).
+Module Monad (Univ : Universe).
 Module UP := (Univ_prop Univ).
 (* begin hide *)
 Import Univ.

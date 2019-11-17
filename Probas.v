@@ -1,12 +1,13 @@
 (** * Probas.v: The monad for distributions *)
 
-Require Export Monads.
+Require Import Monads.
+Require Import Utheory.
 Set Implicit Arguments.
-Module Proba (Univ:Universe).
+Module Proba (Univ : Universe).
 Module MP := (Monad Univ).
 (* begin hide *)
-Import Univ.
-Import MP.
+Include Univ.
+Include MP.
 Import MP.UP.
 Open Scope U_scope.
 Open Scope O_scope.
@@ -21,11 +22,13 @@ Distributions are monotonic measure functions such that
 *)
 
 Record distr (A:Type) : Type := 
-  {mu : M A;
+  {
+   mu : M A;
    mu_stable_inv : stable_inv mu; 
    mu_stable_plus : stable_plus mu;
    mu_stable_mult : stable_mult mu;
-   mu_continuous : continuous mu}.
+   mu_continuous : continuous mu
+  }.
 
 Hint Resolve mu_stable_plus mu_stable_inv mu_stable_mult mu_continuous.
 
@@ -43,7 +46,7 @@ Qed.
 Hint Resolve mu_stable_eq.
 Arguments mu_stable_eq [A].
 
-Lemma mu_zero : forall (A : Type)(m: distr A), mu m (fzero A) == 0.
+Lemma mu_zero : forall (A : Type)(m : distr A), mu m (fzero A) == 0.
 intros.
 apply Oeq_trans with (mu m (fmult 0 (fzero A))); auto.
 apply mu_stable_eq; unfold fmult; simpl; auto.
@@ -218,7 +221,7 @@ apply mu_monotonic; unfold fesp;  intro x; auto.
 Qed.
 
 Definition Distr (A:Type) : ord.
-intro A; exists (distr A) (fun (f g : distr A) => mu f <= mu g); auto.
+exists (distr A) (fun (f g : distr A) => mu f <= mu g); auto.
 intros; apply Ole_trans with (mu y); auto.
 Defined.
 
@@ -672,13 +675,15 @@ Qed.
 Hint Resolve sigma_fnth_le.
 
 (** [fnth] is a retract *)
-Lemma fnth_retract : forall n:nat,(retract (fnth n) (S n)).
-red; intros.
+Lemma fnth_retract : forall n : nat, (retract (fnth n) (S n)).
+red. intros. 
 unfold fnth at 1.
 apply Ole_trans with ([1-] (sigma (fnth n) n)); auto with arith.
 Qed.
 
-Arguments fnth_retract [].
+Print fnth_retract.
+
+Arguments fnth_retract n [k].
 
 (** ** Distributions and general summations *)
 
@@ -855,7 +860,7 @@ The distribution associated to [random n] is
        we cannot factorize $\frac{1}{n+1}$ because of possible overflow *)
 
 Definition random (n:nat):M nat.
-intro n; exists (fun (f:nat->U) => sigma (fun k => Unth n *  f k) (S n)).
+exists (fun (f:nat->U) => sigma (fun k => Unth n *  f k) (S n)).
 red; intros; auto.
 Defined.
 
@@ -865,6 +870,8 @@ trivial.
 Qed.
 
 (** *** Properties of [random] *)
+
+Print fnth_retract.
 
 Lemma random_stable_inv : forall n, stable_inv (random n).
 unfold random, stable_inv, finv; intros; simpl.
@@ -892,7 +899,7 @@ apply sigma_mult with (f:=fun k : nat => Unth n * f k).
 red; intros.
 apply Ole_trans with ([1/]1+n); auto.
 apply Ole_trans with ([1-] (sigma (fun k1 => Unth n) k0)); auto.
-apply (fnth_retract n k0); auto.
+apply (@fnth_retract n k0); auto.
 Qed.
 
 
@@ -908,7 +915,7 @@ rewrite sigma_lub1; auto.
 Qed.
 
 Definition Random (n:nat) : Distr nat.
-intro n; exists (random n).
+exists (random n).
 apply random_stable_inv.
 apply random_stable_plus.
 apply random_stable_mult.

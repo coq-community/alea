@@ -605,10 +605,14 @@ Qed.
 
 (** *** Definition of cpos *)
 Record cpo : Type := mk_cpo 
-  {tcpo:>ord; D0 : tcpo; lub: (natO -m> tcpo) -> tcpo;
-   Dbot : forall x:tcpo, D0 <= x; 
-   le_lub : forall (f : natO -m> tcpo) (n:nat), f n <= lub f;
-   lub_le : forall (f : natO -m> tcpo) (x:tcpo), (forall n, f n <= x) -> lub f <= x}.
+  {
+    tcpo :> ord;
+    D0 : tcpo; 
+    lub: (natO -m> tcpo) -> tcpo;
+    Dbot : forall x : tcpo, D0 <= x; 
+    le_lub : forall (f : natO -m> tcpo) (n : nat), f n <= lub f;
+    lub_le : forall (f : natO -m> tcpo) (x : tcpo), (forall n, f n <= x) -> lub f <= x
+  }.
 
 Arguments D0 [c].
 Notation "0" := D0 : O_scope.
