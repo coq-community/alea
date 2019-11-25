@@ -7,14 +7,14 @@ Require Export Omega.
 Module Univ_prop (Univ : Universe).
 Include Univ.
 
-Hint Resolve Unit Udiff_0_1 Unth_prop.
-Hint Resolve Uplus_sym Uplus_assoc Umult_sym Umult_assoc.
-Hint Resolve Uinv_one  Uinv_opp_left  Uinv_plus_left Umult_div Udiv_le_one Udiv_by_zero.
-Hint Resolve Uplus_zero_left Umult_one_left Udistr_plus_right Udistr_inv_right.
-Hint Resolve Uplus_le_compat_right Umult_le_compat_right Uinv_le_compat.
-Hint Resolve lub_le le_lub Uplus_right_continuous Umult_right_continuous.
+Hint Resolve Unit Udiff_0_1 Unth_prop: core.
+Hint Resolve Uplus_sym Uplus_assoc Umult_sym Umult_assoc: core.
+Hint Resolve Uinv_one  Uinv_opp_left  Uinv_plus_left Umult_div Udiv_le_one Udiv_by_zero: core.
+Hint Resolve Uplus_zero_left Umult_one_left Udistr_plus_right Udistr_inv_right: core.
+Hint Resolve Uplus_le_compat_right Umult_le_compat_right Uinv_le_compat: core.
+Hint Resolve lub_le le_lub Uplus_right_continuous Umult_right_continuous: core.
 (* lub_eq_mult lub_eq_plus_cte_left.*)
-Hint Resolve Ule_total Ule_class.
+Hint Resolve Ule_total Ule_class: core.
 
 Open Scope U_scope.
 
@@ -29,8 +29,8 @@ Qed.
 Lemma Ueq_double_neg : forall x y : U, ~ ~x == y -> x == y.
 exact Ueq_class.
 Qed.
-Hint Resolve Ueq_class.
-Hint Immediate Ueq_double_neg.
+Hint Resolve Ueq_class: core.
+Hint Immediate Ueq_double_neg: core.
 
 Lemma Ule_orc : forall x y : U, orc (x<=y) ( ~ x<=y).
 auto.
@@ -50,7 +50,7 @@ Lemma Ule_0_1 : 0 <= 1.
 auto.
 Qed.
 
-Hint Resolve Upos Ule_0_1.
+Hint Resolve Upos Ule_0_1: core.
 
 (** - Inverse order on U *)
 
@@ -62,13 +62,13 @@ Definition UI : ord := Iord U.
 Lemma Uplus_le_compat_left : forall x y z:U, x <= y -> x + z <= y + z.
 intros; rewrite (Uplus_sym x z); rewrite (Uplus_sym y z); auto.
 Qed.
-Hint Resolve Uplus_le_compat_left.
+Hint Resolve Uplus_le_compat_left: core.
 
 Lemma Uplus_eq_compat_left : forall x y z:U, x == y -> x + z == y + z.
 intros; apply Ole_antisym; auto.
 Qed.
 
-Hint Resolve Uplus_eq_compat_left.
+Hint Resolve Uplus_eq_compat_left: core.
 
 Lemma Uplus_eq_compat_right : forall x y z:U, x == y -> (z + x) == (z + y).
 intros; apply Oeq_trans with (x + z); auto.
@@ -84,7 +84,7 @@ Qed.
 Lemma Uplus_le_compat : forall x y z t, x <= y -> z <= t -> x +z <= y + t.
 intros; apply Ole_trans with (x+t); auto.
 Qed.
-Hint Immediate Uplus_le_compat.
+Hint Immediate Uplus_le_compat: core.
 
 Definition UPlus := le_compat2_mon Uplus_le_compat.
 
@@ -99,37 +99,37 @@ intro k; apply continuous_eq_compat with (2:=Uplus_right_continuous k).
 apply fmon_eq_intro; intro m; auto.
 Qed.
 
-Hint Resolve Uplus_continuous2.
+Hint Resolve Uplus_continuous2: core.
 
 Lemma Umult_le_compat_left : forall x y z:U, x <= y -> x * z <= y * z.
 intros; rewrite (Umult_sym x z); rewrite (Umult_sym y z); auto.
 Qed.
-Hint Resolve Umult_le_compat_left.
+Hint Resolve Umult_le_compat_left: core.
 
 Add Morphism Umult
 with signature (Ole (o:=U)) ++> (Ole (o:=U)) ++> (Ole (o:=U)) as Umult_le_compat_morph.
 intros x1 x2 H1 x3 x4 H2; apply Ole_trans with (x1 * x4); auto.
 Qed.
-Hint Immediate Umult_le_compat_morph.
+Hint Immediate Umult_le_compat_morph: core.
 
 Lemma Umult_le_compat : forall x y z t, x <= y -> z <= t -> x * z <= y * t.
 intros; apply Ole_trans with (x*t); auto.
 Qed.
-Hint Immediate Umult_le_compat.
+Hint Immediate Umult_le_compat: core.
 
 Definition UMult := le_compat2_mon Umult_le_compat.
 
 Lemma Umult_eq_compat_left : forall x y z:U, x == y -> (x * z) == (y * z).
 intros;  apply Ole_antisym; auto.
 Qed.
-Hint Resolve Umult_eq_compat_left.
+Hint Resolve Umult_eq_compat_left: core.
 
 Lemma Umult_eq_compat_right :  forall x y z:U, x == y -> (z * x) == (z * y).
 intros; apply Oeq_trans with (x * z); auto.
 apply Oeq_trans with (y * z); auto.
 Qed.
 
-Hint Resolve Uplus_eq_compat_right Umult_eq_compat_right.
+Hint Resolve Uplus_eq_compat_right Umult_eq_compat_right: core.
 
 Definition UMult_simpl : forall x y, UMult x y = x*y.
 trivial.
@@ -141,7 +141,7 @@ simpl; auto.
 intro k; apply continuous_eq_compat with (2:=Umult_right_continuous k).
 apply fmon_eq_intro; intro m; auto.
 Qed.
-Hint Resolve Umult_continuous2.
+Hint Resolve Umult_continuous2: core.
 
 (** ** [U] is a setoid *)
 
@@ -155,7 +155,7 @@ as Umult_eq_compat.
 intros x1 x2 eq1 x3 x4 eq2; apply Oeq_trans with (x1 * x4); auto.
 Qed.
 
-Hint Immediate Umult_eq_compat Uplus_eq_compat.
+Hint Immediate Umult_eq_compat Uplus_eq_compat: core.
 
 Add Morphism Uinv with signature Oeq (O:=U) ==> Oeq (O:=U) as Uinv_eq_compat.
 intros; apply Ole_antisym; auto.
@@ -182,7 +182,7 @@ Definition Ult (r1 r2:U) : Prop := ~ (r2 <= r1).
 
 Infix "<" := Ult : U_scope.
 
-Hint Unfold Ult.
+Hint Unfold Ult: core.
 
 Add Morphism Ult with signature Oeq (O:=U) ==> Oeq (O:=U) ==> iff as Ult_eq_compat_iff.
 unfold Ult, not; intros x1 x2 eq1 x3 x4 eq2.
@@ -197,7 +197,7 @@ Qed.
 Lemma Ult_class : forall x y, class (x<y).
 unfold Ult; auto.
 Qed.
-Hint Resolve Ult_class.
+Hint Resolve Ult_class: core.
 
 (* begin hide *)
 (** Tactic for left normal form with respect to associativity *)
@@ -224,7 +224,7 @@ Lemma Uge_one_eq : forall x:U, 1 <= x -> x == 1.
 intros; apply Ole_antisym; auto.
 Qed.
 
-Hint Immediate Ule_zero_eq Uge_one_eq.
+Hint Immediate Ule_zero_eq Uge_one_eq: core.
 
 (** *** Properties of $x < y$ *)
 
@@ -253,14 +253,14 @@ Lemma Ule_diff_lt : forall x y : U,  x <= y -> ~x==y -> x < y.
 red; intuition.
 Qed.
 
-Hint Immediate Ult_neq Ult_neq_rev Ult_le.
-Hint Resolve Ule_diff_lt.
+Hint Immediate Ult_neq Ult_neq_rev Ult_le: core.
+Hint Resolve Ule_diff_lt: core.
 
 Lemma Ult_neq_zero : forall x, ~0 == x -> 0 < x.
 auto.
 Qed.
 
-Hint Resolve Ule_total Ult_neq_zero.
+Hint Resolve Ule_total Ult_neq_zero: core.
 
 (** ** Properties of $+$ and $\times$  *)
 
@@ -278,7 +278,7 @@ setoid_rewrite (Umult_sym x y).
 setoid_rewrite (Udistr_inv_right y x); auto.
 Qed.
 
-Hint Resolve Uinv_eq_compat Udistr_plus_left Udistr_inv_left.
+Hint Resolve Uinv_eq_compat Udistr_plus_left Udistr_inv_left: core.
 
 Lemma Uplus_perm2 : forall x y z:U, x + (y + z) == y + (x + z).
 intros; setoid_rewrite (Uplus_assoc x y z).
@@ -298,12 +298,12 @@ Lemma Umult_perm3 : forall x y z : U, (x * (y * z)) == z * (x * y).
 intros; setoid_rewrite (Umult_assoc x y z); auto.
 Qed.
 
-Hint Resolve Uplus_perm2 Umult_perm2 Uplus_perm3 Umult_perm3.
+Hint Resolve Uplus_perm2 Umult_perm2 Uplus_perm3 Umult_perm3: core.
 
 Lemma Uplus_zero_right : forall x:U, x + 0 == x.
 intros; setoid_rewrite (Uplus_sym x 0); auto.
 Qed.
-Hint Resolve Uplus_zero_right.
+Hint Resolve Uplus_zero_right: core.
 
 (* ** Properties of [1-] *)
 
@@ -312,20 +312,20 @@ apply Oeq_trans with (([1-] (0 + 0))+0); auto.
 apply Oeq_trans with ([1-] (0 + 0)); auto.
 setoid_rewrite (Uplus_zero_right 0); auto.
 Qed.
-Hint Resolve Uinv_zero.
+Hint Resolve Uinv_zero: core.
 
 
 Lemma Uinv_opp_right : forall x, x + [1-] x == 1.
 intros; apply Oeq_trans with ([1-] x + x); auto.
 Qed.
-Hint Resolve Uinv_opp_right.
+Hint Resolve Uinv_opp_right: core.
 
 Lemma Uinv_inv : forall x : U, [1-] [1-] x == x.
 intros; apply Oeq_trans with ([1-] (x + [1-] x) + x); auto.
 apply Oeq_sym; auto.
 setoid_rewrite (Uinv_opp_right x); setoid_rewrite Uinv_one; auto.
 Qed.
-Hint Resolve Uinv_inv.
+Hint Resolve Uinv_inv: core.
 
 
 Lemma Uinv_simpl :  forall x y : U, [1-] x == [1-] y -> x == y.
@@ -333,14 +333,14 @@ intros; setoid_rewrite <- (Uinv_inv x);
  setoid_rewrite <- (Uinv_inv y); auto.
 Qed.
 
-Hint Immediate Uinv_simpl.
+Hint Immediate Uinv_simpl: core.
 
 Lemma Umult_decomp : forall x y, x == x * y + x * [1-]y.
 intros; apply Oeq_trans with (x * (y + [1-]y)); auto.
 apply Oeq_trans with (x * 1); auto.
 rewrite Umult_sym; auto.
 Qed.
-Hint Resolve Umult_decomp.
+Hint Resolve Umult_decomp: core.
 
 (** ** More properties on [+] and [*]  and [Uinv] *)
 (*
@@ -349,24 +349,24 @@ intros; setoid_rewrite (Umult_sym z x); setoid_rewrite (Umult_sym z y).
 apply Umult_le_compat_left; trivial.
 Qed.
 
-Hint Resolve Umult_le_compat_right.
+Hint Resolve Umult_le_compat_right: core.
 *)
 
 
 Lemma Umult_one_right : forall x:U, x * 1 == x.
 intros; setoid_rewrite (Umult_sym x 1); auto.
 Qed.
-Hint Resolve Umult_one_right.
+Hint Resolve Umult_one_right: core.
 
 Lemma Umult_one_right_eq : forall x y:U, y == 1 -> x * y == x.
 intros; rewrite H; auto.
 Qed.
-Hint Resolve Umult_one_right_eq.
+Hint Resolve Umult_one_right_eq: core.
 
 Lemma Umult_one_left_eq : forall x y:U, x == 1 -> x * y == y.
 intros; rewrite H; auto.
 Qed.
-Hint Resolve Umult_one_left_eq.
+Hint Resolve Umult_one_left_eq: core.
 
 Lemma Udistr_plus_left_le :  forall x y z : U, x * (y + z) <= x * y + x * z.
 intros; apply (Ule_total y ([1-]z)); intros; auto.
@@ -389,7 +389,7 @@ Qed.
 Lemma Ule_plus_left : forall x y, y <= x + y.
 intros; apply Ule_eq_compat with (0 + y) (x + y); auto.
 Qed.
-Hint Resolve Ule_plus_right Ule_plus_left.
+Hint Resolve Ule_plus_right Ule_plus_left: core.
 
 Lemma Ule_mult_right : forall x y, x * y <= x .
 intros; apply Ule_eq_compat with (x * y) (x * 1); auto.
@@ -398,63 +398,63 @@ Qed.
 Lemma Ule_mult_left : forall x y, x * y <= y.
 intros; apply Ule_eq_compat with (x * y) (1 * y); auto.
 Qed.
-Hint Resolve Ule_mult_right Ule_mult_left.
+Hint Resolve Ule_mult_right Ule_mult_left: core.
 
 Lemma Uinv_le_perm_right : forall x y:U, x <= [1-] y -> y <= [1-] x.
 intros; apply Ole_trans with ([1-] ([1-] y)); auto.
 Qed.
-Hint Immediate Uinv_le_perm_right.
+Hint Immediate Uinv_le_perm_right: core.
 
 Lemma Uinv_le_perm_left :  forall x y:U, [1-] x <= y -> [1-] y <= x.
 intros; apply Ole_trans with ([1-] ([1-] x)); auto.
 Qed.
-Hint Immediate Uinv_le_perm_left.
+Hint Immediate Uinv_le_perm_left: core.
 
 Lemma Uinv_le_simpl :  forall x y:U, [1-] x <= [1-] y -> y <= x.
 intros; apply Ole_trans with ([1-] ([1-] x)); auto.
 Qed.
-Hint Immediate Uinv_le_simpl.
+Hint Immediate Uinv_le_simpl: core.
 
 Lemma Uinv_double_le_simpl_right : forall x y, x<=y -> x <= [1-][1-]y.
 intros; apply Uinv_le_perm_right; auto.
 Qed.
-Hint Resolve Uinv_double_le_simpl_right.
+Hint Resolve Uinv_double_le_simpl_right: core.
 
 Lemma Uinv_double_le_simpl_left : forall x y, x<=y -> [1-][1-]x <= y.
 intros; apply Uinv_le_perm_left; auto.
 Qed.
-Hint Resolve Uinv_double_le_simpl_left.
+Hint Resolve Uinv_double_le_simpl_left: core.
 
 Lemma Uinv_eq_perm_left :  forall x y:U, x == [1-] y -> [1-] x == y.
 intros; apply Oeq_trans with ([1-] ([1-] y)); auto.
 Qed.
-Hint Immediate Uinv_eq_perm_left.
+Hint Immediate Uinv_eq_perm_left: core.
 
 Lemma Uinv_eq_perm_right :  forall x y:U, [1-] x == y ->  x == [1-] y.
 intros; apply Oeq_trans with ([1-] ([1-] x)); auto.
 Qed.
 
-Hint Immediate Uinv_eq_perm_right.
+Hint Immediate Uinv_eq_perm_right: core.
 
 Lemma Uinv_eq_simpl :  forall x y:U, [1-] x == [1-] y -> x == y.
 intros; apply Oeq_trans with ([1-] ([1-] x)); auto.
 Qed.
-Hint Immediate Uinv_eq_simpl.
+Hint Immediate Uinv_eq_simpl: core.
 
 Lemma Uinv_double_eq_simpl_right : forall x y, x==y -> x == [1-][1-]y.
 intros; apply Uinv_eq_perm_right; auto.
 Qed.
-Hint Resolve Uinv_double_eq_simpl_right.
+Hint Resolve Uinv_double_eq_simpl_right: core.
 
 Lemma Uinv_double_eq_simpl_left : forall x y, x==y -> [1-][1-]x == y.
 intros; apply Uinv_eq_perm_left; auto.
 Qed.
-Hint Resolve Uinv_double_eq_simpl_left.
+Hint Resolve Uinv_double_eq_simpl_left: core.
 
 Lemma Uinv_plus_right : forall x y, y <= [1-] x -> [1-] (x + y) + y == [1-] x.
 intros; setoid_rewrite (Uplus_sym x y); auto.
 Qed.
-Hint Resolve Uinv_plus_right.
+Hint Resolve Uinv_plus_right: core.
 
 Lemma Uplus_eq_simpl_left :
 forall x y z:U, x <= [1-] y -> x <= [1-] z -> (x + y) == (x + z) -> y == z.
@@ -485,14 +485,14 @@ rewrite Uinv_plus_right; auto.
 apply Ole_trans with y; auto.
 Qed.
 
-Hint Resolve Uinv_plus_left_le Uinv_plus_right_le.
+Hint Resolve Uinv_plus_left_le Uinv_plus_right_le: core.
 
 (** ** Disequality *)
 
 Lemma neq_sym : forall x y:U, ~x==y -> ~y==x.
 red; intros; apply H; auto.
 Qed.
-Hint Immediate neq_sym.
+Hint Immediate neq_sym: core.
 
 Lemma Uinv_neq_compat : forall x y, ~x == y -> ~ [1-] x == [1-] y.
 red; intros; apply H; auto.
@@ -502,8 +502,8 @@ Lemma Uinv_neq_simpl : forall x y, ~ [1-] x == [1-] y-> ~x == y.
 red; intros; apply H; auto.
 Qed.
 
-Hint Resolve Uinv_neq_compat.
-Hint Immediate Uinv_neq_simpl.
+Hint Resolve Uinv_neq_compat: core.
+Hint Immediate Uinv_neq_simpl: core.
 
 Lemma Uinv_neq_left : forall x y, ~x == [1-] y -> ~ [1-] x == y.
 red; intros; apply H; auto.
@@ -533,7 +533,7 @@ unfold Ult; intuition.
 apply H; apply Ole_trans with z; trivial.
 Qed.
 
-Hint Resolve Ult_0_1 Ult_antirefl.
+Hint Resolve Ult_0_1 Ult_antirefl: core.
 
 Lemma Ule_neq_zero : forall (x y:U), ~0 == x -> x <= y -> ~ 0 == y.
 red; intros.
@@ -560,7 +560,7 @@ repeat red; intros.
 apply H0; auto.
 Qed.
 
-Hint Immediate not_Ult_le Ule_not_lt.
+Hint Immediate not_Ult_le Ule_not_lt: core.
 
 Theorem Uplus_le_simpl_left : forall x y z : U, z <= [1-] x -> z + x <= z + y -> x <= y.
 intros.
@@ -582,7 +582,7 @@ intros; setoid_rewrite (Uplus_sym z y).
 apply Uplus_lt_compat_left; auto.
 Qed.
 
-Hint Resolve Uplus_lt_compat_right Uplus_lt_compat_left.
+Hint Resolve Uplus_lt_compat_right Uplus_lt_compat_left: core.
 
 Lemma Uplus_lt_compat :
 forall x y z t:U, z <= [1-] x -> t <= [1-] y -> x < y -> z < t -> (x + z) < (y + t).
@@ -591,7 +591,7 @@ apply Uplus_lt_compat_left; auto.
 apply Ole_trans with t; auto.
 Qed.
 
-Hint Immediate Uplus_lt_compat.
+Hint Immediate Uplus_lt_compat: core.
 
 Lemma Uplus_lt_simpl_left : forall x y z:U, z <= [1-] y -> (z + x) < (z + y) -> x < y.
 unfold lt; repeat red; intros.
@@ -610,7 +610,7 @@ assert (x + y < [1-] y + y); auto.
 assert (x + y < 1); auto.
 setoid_rewrite <- (Uinv_opp_left y); auto.
 Qed.
-Hint Immediate Uplus_one_le.
+Hint Immediate Uplus_one_le: core.
 
 Theorem Uplus_eq_zero : forall x, x <= [1-] x -> (x + x) == x -> x == 0.
 intros x H1 H2; apply Uplus_eq_simpl_left with x; auto.
@@ -623,12 +623,12 @@ setoid_rewrite (Udistr_inv_right 0 x); auto.
 setoid_rewrite Uinv_zero.
 setoid_rewrite (Umult_one_left x); auto.
 Qed.
-Hint Resolve Umult_zero_left.
+Hint Resolve Umult_zero_left: core.
 
 Lemma Umult_zero_right : forall x, (x * 0) == 0.
 intros; setoid_rewrite (Umult_sym x 0); auto.
 Qed.
-Hint Resolve Uplus_eq_zero Umult_zero_right.
+Hint Resolve Uplus_eq_zero Umult_zero_right: core.
 
 Lemma Umult_zero_left_eq : forall x y, x == 0 -> x * y == 0.
 intros; rewrite H; auto.
@@ -650,7 +650,7 @@ intros; apply Umult_le_simpl_left with z; auto.
 setoid_rewrite (Umult_sym z x);
 setoid_rewrite (Umult_sym z y);trivial.
 Qed.
-Hint Resolve Umult_le_simpl_right.
+Hint Resolve Umult_le_simpl_right: core.
 
 Lemma Umult_simpl_right : forall x y z, ~0 == z -> (x * z) == (y * z) -> x == y.
 intros; apply Ole_antisym; auto.
@@ -685,7 +685,7 @@ unfold Ult,not;intros.
 apply H0; auto.
 Qed.
 
-Hint Resolve Umult_lt_compat_left Umult_lt_compat_right.
+Hint Resolve Umult_lt_compat_left Umult_lt_compat_right: core.
 
 Lemma Umult_zero_simpl_right : forall x y, 0 == x*y -> ~0 == x -> 0 == y.
 intros.
@@ -704,12 +704,12 @@ Lemma Umult_neq_zero : forall x y, ~0 == x -> ~0 == y -> ~0 == x*y.
 red; intros.
 apply H0; apply Umult_zero_simpl_right with x; trivial.
 Qed.
-Hint Resolve Umult_neq_zero.
+Hint Resolve Umult_neq_zero: core.
 
 Lemma Umult_lt_zero : forall x y, 0 < x -> 0 < y -> 0 < x*y.
 auto.
 Qed.
-Hint Resolve Umult_lt_zero.
+Hint Resolve Umult_lt_zero: core.
 
 Lemma Umult_lt_compat : forall x y z t, x < y -> z < t -> x * z < y * t.
 intros.
@@ -730,7 +730,7 @@ Lemma Uplus_one : forall x y, [1-] x <= y -> x + y == 1.
 intros; apply Ole_antisym; auto.
 apply Ole_trans with (x + [1-] x); auto.
 Qed.
-Hint Resolve Uplus_one.
+Hint Resolve Uplus_one: core.
 
 Lemma Uplus_one_right : forall x, x + 1 == 1.
 auto.
@@ -739,13 +739,13 @@ Qed.
 Lemma Uplus_one_left : forall x:U, 1 + x == 1.
 auto.
 Qed.
-Hint Resolve Uplus_one_right Uplus_one_left.
+Hint Resolve Uplus_one_right Uplus_one_left: core.
 
 Lemma Uinv_mult_simpl : forall x y z t, x <= [1-] y -> (x * z) <= [1-] (y * t).
 intros; apply Ole_trans with x; auto.
 intros; apply Ole_trans with ([1-] y); auto.
 Qed.
-Hint Resolve Uinv_mult_simpl.
+Hint Resolve Uinv_mult_simpl: core.
 
 Print Udistr_plus_left.
 
@@ -761,14 +761,14 @@ assert (H1:[1-] y <= [1-] y); auto.
 rewrite <- (Udistr_plus_left x ([1-]y) y H1).
 setoid_rewrite (Uinv_opp_left y); auto.
 Qed.
-Hint Resolve Umult_inv_plus.
+Hint Resolve Umult_inv_plus: core.
 
 Lemma Umult_inv_plus_le : forall x y z, y <= z -> x * [1-] y + y <= x * [1-] z + z.
 intros.
 setoid_rewrite (Umult_inv_plus x y);
 setoid_rewrite (Umult_inv_plus x z); auto.
 Qed.
-Hint Resolve Umult_inv_plus_le.
+Hint Resolve Umult_inv_plus_le: core.
 
 Lemma Uplus_lt_Uinv :   forall x y, x+y < 1 -> x <= [1-] y.
 intros; apply (Ule_total x ([1-]y)); intro; auto.
@@ -784,7 +784,7 @@ Lemma Uinv_lt_perm_right: forall x y : U, x < [1-] y -> y < [1-] x.
 unfold Ult; intuition.
 Qed.
 
-Hint Immediate Uinv_lt_perm_left Uinv_lt_perm_right.
+Hint Immediate Uinv_lt_perm_left Uinv_lt_perm_right: core.
 
 Lemma Uinv_lt_one : forall x, 0 < x -> [1-]x < 1.
 intros; assert ([1-]1 < x); auto.
@@ -796,7 +796,7 @@ intros; assert (x < [1-]0); auto.
 rewrite Uinv_zero; auto.
 Qed.
 
-Hint Resolve Uinv_lt_one Uinv_lt_zero.
+Hint Resolve Uinv_lt_one Uinv_lt_zero: core.
 
 Lemma orc_inv_plus_one : forall x y, orc (x<=[1-]y) (x+y==1).
 intros; apply (Ule_total x ([1-]y)); intro; auto.
@@ -813,7 +813,7 @@ intros.
 apply Ult_le_trans with (p * 1); auto.
 Qed.
 
-Hint Resolve Umult_lt_right Umult_lt_left.
+Hint Resolve Umult_lt_right Umult_lt_left: core.
 
 (** ** Definition of $x^n$ *)
 Fixpoint Uexp (x:U) (n:nat) {struct n} : U :=
@@ -848,7 +848,7 @@ Lemma Uexp_le_compat_left :  forall x y n,  x<=y -> x^n <= y^n.
 induction n; simpl; intros; auto.
 apply Ole_trans with (x * (y^n)); auto.
 Qed.
-Hint Resolve Uexp_le_compat_left Uexp_le_compat_right.
+Hint Resolve Uexp_le_compat_left Uexp_le_compat_right: core.
 
 Lemma Uexp_le_compat : forall x y (n m:natO), x<=y -> n<=m -> x^m <= y^n.
 intros; apply Ole_trans with (x^n); auto.
@@ -874,31 +874,31 @@ destruct n; auto.
 apply Umult_lt_compat; auto with arith.
 Qed.
 
-Hint Resolve Uexp_lt_compat.
+Hint Resolve Uexp_lt_compat: core.
 
 Lemma Uexp_lt_zero : forall p n, (0<p)->(0<p^n).
 destruct n; intros; auto.
 rewrite <- (Uexp_zero (n:=S n)); auto with arith.
 Qed.
-Hint Resolve Uexp_lt_zero.
+Hint Resolve Uexp_lt_zero: core.
 
 Lemma Uexp_lt_one : forall p n, (0<n)%nat->(p<1)->(p^n<1).
 intros; rewrite <- (Uexp_one n); auto with arith.
 Qed.
-Hint Resolve Uexp_lt_one.
+Hint Resolve Uexp_lt_one: core.
 
 Lemma Uexp_lt_antimon: forall p n m, (n<m)%nat-> 0<p -> p < 1 -> p^m < p^n.
 induction 1; simpl; intros; auto with arith.
 apply Ult_trans with (p*p^n); auto with arith.
 Qed.
-Hint Resolve Uexp_lt_antimon.
+Hint Resolve Uexp_lt_antimon: core.
 
 (** *** Properties of division *)
 
 Lemma Udiv_mult : forall x y, ~0==y -> x <= y -> (x/y)*y == x.
 intros; rewrite Umult_sym; auto.
 Qed.
-Hint Resolve Udiv_mult.
+Hint Resolve Udiv_mult: core.
 
 Lemma Umult_div_le : forall x y, y * (x / y) <= x.
 intros; apply (Ueq_orc 0 y); auto; intros.
@@ -908,12 +908,12 @@ intros; apply (Ule_total x y); auto; intros.
 rewrite Udiv_le_one; auto.
 rewrite Umult_one_right; auto.
 Qed.
-Hint Resolve Umult_div_le.
+Hint Resolve Umult_div_le: core.
 
 Lemma Udiv_mult_le : forall x y, (x/y)*y <= x.
 intros; rewrite Umult_sym; auto.
 Qed.
-Hint Resolve Udiv_mult_le.
+Hint Resolve Udiv_mult_le: core.
 
 Lemma Udiv_le_compat_left :  forall x y z, x <= y -> x/z <= y/z.
 intros; apply (Ueq_orc 0 z); auto; intros.
@@ -925,12 +925,12 @@ rewrite (Udiv_mult y); auto.
 apply Ole_trans with y; auto.
 rewrite (Udiv_le_one y); auto.
 Qed.
-Hint Resolve Udiv_le_compat_left.
+Hint Resolve Udiv_le_compat_left: core.
 
 Lemma Udiv_eq_compat_left : forall x y z, x == y -> x/z == y/z.
 intros; apply Ole_antisym; auto.
 Qed.
-Hint Resolve Udiv_eq_compat_left.
+Hint Resolve Udiv_eq_compat_left: core.
 
 
 Lemma Umult_div_le_left : forall x y z, ~0==y -> x*y<=z -> x <= z/y.
@@ -951,7 +951,7 @@ apply Ole_trans with z; trivial.
 apply Umult_div_le_left; auto.
 apply Ole_trans with (x/z * z); auto.
 Qed.
-Hint Resolve Udiv_le_compat_right.
+Hint Resolve Udiv_le_compat_right: core.
 
 Lemma Udiv_eq_compat_right : forall x y z, y == z -> x/z == x/y.
 intros; apply (Ueq_orc 0 y); auto; intros.
@@ -962,7 +962,7 @@ assert ( ~ 0 == z).
 apply Ule_neq_zero with y; auto.
 apply Ole_antisym; auto.
 Qed.
-Hint Resolve Udiv_eq_compat_right.
+Hint Resolve Udiv_eq_compat_right: core.
 
 Add Morphism Udiv with signature Oeq (O:=U) ==> Oeq (O:=U) ==> Oeq (O:=U) as Udiv_eq_compat.
 intros.
@@ -999,22 +999,22 @@ Lemma Udiv_zero : forall x, 0/x==0.
 intros; apply (Ueq_orc 0 x); auto; intros.
 apply Oeq_sym; apply Umult_div_eq; auto.
 Qed.
-Hint Resolve Udiv_zero.
+Hint Resolve Udiv_zero: core.
 
 Lemma Udiv_zero_eq : forall x y, 0==x -> x/y==0.
 intros; rewrite <- H; auto.
 Qed.
-Hint Resolve Udiv_zero_eq.
+Hint Resolve Udiv_zero_eq: core.
 
 Lemma Udiv_one : forall x, ~0==x -> x/1==x.
 intros; apply Oeq_sym; apply Umult_div_eq; auto.
 Qed.
-Hint Resolve Udiv_one.
+Hint Resolve Udiv_one: core.
 
 Lemma Udiv_refl : forall x, ~0==x -> x/x==1.
 auto.
 Qed.
-Hint Resolve Udiv_refl.
+Hint Resolve Udiv_refl: core.
 
 Lemma Umult_div_assoc : forall x y z, y <= z->  (x*y) / z == x * (y/z).
 intros; apply (Ueq_orc 0 z); auto; intros.
@@ -1062,7 +1062,7 @@ apply Ole_trans with (x+[1-](x+y)); auto.
 rewrite Uplus_sym; rewrite Uinv_plus_left; auto.
 apply Ole_trans with (x+y); auto.
 Qed.
-Hint Resolve Uplus_div_inv.
+Hint Resolve Uplus_div_inv: core.
 
 Lemma Udiv_plus_le : forall x y z,  x/z + y/z <= (x+y)/z.
 intros; apply (Ueq_orc 0 z); auto; intros.
@@ -1071,7 +1071,7 @@ intros; apply Umult_div_le_left; auto.
 rewrite Umult_sym; rewrite Udistr_plus_left_le.
 apply Uplus_le_compat; rewrite Umult_sym; auto.
 Qed.
-Hint Resolve Udiv_plus_le.
+Hint Resolve Udiv_plus_le: core.
 
 Lemma Udiv_plus : forall x y z, (x+y)/z == x/z + y/z.
 intros; apply Ole_antisym; auto.
@@ -1089,7 +1089,7 @@ apply Ole_trans with 1; auto.
 rewrite (Udiv_le_one x H); auto.
 apply Ole_trans with 1; auto.
 Qed.
-Hint Resolve Udiv_plus.
+Hint Resolve Udiv_plus: core.
 
 Lemma UDiv (k:U) : U-m>U.
 intros; exists (fun x => x/k); red; intros; auto.
@@ -1111,13 +1111,13 @@ Lemma Uinv_plus_esp : forall x y, [1-] (x + y) == [1-] x & [1-] y.
 unfold Uesp; intros.
 setoid_rewrite (Uinv_inv x); setoid_rewrite (Uinv_inv y); auto.
 Qed.
-Hint Resolve Uinv_plus_esp.
+Hint Resolve Uinv_plus_esp: core.
 
 Lemma Uinv_esp_plus : forall x y, [1-] (x & y) == [1-] x + [1-] y.
 unfold Uesp; intros.
 setoid_rewrite (Uinv_inv ([1-] x + [1-] y)); trivial.
 Qed.
-Hint Resolve Uinv_esp_plus.
+Hint Resolve Uinv_esp_plus: core.
 
 
 Lemma Uesp_sym : forall x y : U, x & y == y & x.
@@ -1139,7 +1139,7 @@ intros; unfold Uesp.
 setoid_rewrite <- Uinv_one; auto.
 Qed.
 
-Hint Resolve Uesp_sym Uesp_one_right Uesp_one_left Uesp_zero.
+Hint Resolve Uesp_sym Uesp_one_right Uesp_one_left Uesp_zero: core.
 
 Lemma Uesp_zero_right : forall x : U, x & 0 == 0.
 auto.
@@ -1149,7 +1149,7 @@ Lemma Uesp_zero_left : forall x : U, 0 & x == 0.
 auto.
 Qed.
 
-Hint Resolve Uesp_zero_right Uesp_zero_left.
+Hint Resolve Uesp_zero_right Uesp_zero_left: core.
 
 Add Morphism Uesp with signature Oeq (O:=U) ==> Oeq (O:=U) ==> Oeq (O:=U) as Uesp_eq_compat.
 unfold Uesp; intros.
@@ -1163,7 +1163,7 @@ apply Uinv_le_compat.
 apply Uplus_le_compat; auto.
 Qed.
 
-Hint Immediate Uesp_le_compat Uesp_eq_compat.
+Hint Immediate Uesp_le_compat Uesp_eq_compat: core.
 
 Lemma Uesp_zero_one_mult_left : forall x y, orc (x == 0) (x == 1) -> x & y == x * y.
 intros; apply H; intros; auto.
@@ -1177,7 +1177,7 @@ rewrite H0; rewrite Uesp_zero_right; auto.
 rewrite H0; rewrite Uesp_one_right; auto.
 Qed.
 
-Hint Immediate Uesp_zero_one_mult_left Uesp_zero_one_mult_right.
+Hint Immediate Uesp_zero_one_mult_left Uesp_zero_one_mult_right: core.
 
 Definition UEsp : U -m> U -m> U := le_compat2_mon Uesp_le_compat.
 
@@ -1191,27 +1191,27 @@ unfold Uesp; intros.
 apply Uinv_le_perm_left; auto.
 Qed.
 
-Hint Resolve Uesp_le_left Uesp_le_right.
+Hint Resolve Uesp_le_left Uesp_le_right: core.
 
 Lemma Uesp_plus_inv : forall x y, [1-] y <= x -> x == x & y + [1-] y.
 unfold Uesp; intros.
 rewrite Uinv_plus_right; auto.
 Qed.
-Hint Resolve Uesp_plus_inv.
+Hint Resolve Uesp_plus_inv: core.
 
 Lemma Uesp_le_plus_inv : forall x y, x <= x & y + [1-] y.
 intros; apply (Ule_total ([1-]y) x); intros; auto.
 rewrite Uesp_zero; auto.
 rewrite Uplus_zero_left; auto.
 Qed.
-Hint Resolve Uesp_le_plus_inv.
+Hint Resolve Uesp_le_plus_inv: core.
 
 Lemma Uplus_inv_le_esp : forall x y z, x <= y + ([1-] z) -> x & z <= y.
 intros; unfold Uesp.
 apply Uinv_le_perm_left.
 apply Ole_trans with ([1-](y+[1-]z) + [1-]z); auto.
 Qed.
-Hint Immediate Uplus_inv_le_esp.
+Hint Immediate Uplus_inv_le_esp: core.
 
 (** ** Definition and properties of $x - y$ *)
 
@@ -1227,19 +1227,19 @@ Lemma Uminus_le_compat_right :  forall x y z, y <= z -> x - z <= x - y.
 unfold Uminus; auto.
 Qed.
 
-Hint Resolve Uminus_le_compat_left Uminus_le_compat_right.
+Hint Resolve Uminus_le_compat_left Uminus_le_compat_right: core.
 
 Lemma Uminus_le_compat : forall x y z t, x <= y ->  t <= z -> x - z <= y - t.
 intros; apply Ole_trans with (x-t); auto.
 Qed.
 
-Hint Immediate Uminus_le_compat.
+Hint Immediate Uminus_le_compat: core.
 
 Add Morphism Uminus with signature Oeq (O:=U) ==> Oeq (O:=U) ==> Oeq (O:=U) as Uminus_eq_compat.
 intros x1 x2 eq1 x3 x4 eq2; apply Ole_antisym;
 apply Ole_trans with (x1-x4); auto.
 Qed.
-Hint Immediate Uminus_eq_compat.
+Hint Immediate Uminus_eq_compat: core.
 
 Add Morphism Uminus with signature Ole (o:=U) ++> Ole (o:=U) --> Ole (o:=U) as Uminus_le_compat_morph.
 intros x1 x2 eq1 x3 x4 eq2; apply Uminus_le_compat; auto.
@@ -1264,18 +1264,18 @@ apply Ole_antisym; auto.
 apply Ole_trans with ([1-] y + y); auto.
 Qed.
 
-Hint Resolve Uminus_zero_right Uminus_one_left Uminus_le_zero.
+Hint Resolve Uminus_zero_right Uminus_one_left Uminus_le_zero: core.
 
 Lemma Uminus_eq : forall x, x-x == 0.
 auto.
 Qed.
-Hint Resolve Uminus_eq.
+Hint Resolve Uminus_eq: core.
 
 Lemma Uminus_le_left : forall x y, x - y <= x.
 unfold Uminus; auto.
 Qed.
 
-Hint Resolve Uminus_le_left.
+Hint Resolve Uminus_le_left: core.
 
 
 Lemma Uminus_le_inv : forall x y, x - y <= [1-]y.
@@ -1283,7 +1283,7 @@ intros.
 unfold Uminus.
 apply Uinv_le_compat; auto.
 Qed.
-Hint Resolve Uminus_le_inv.
+Hint Resolve Uminus_le_inv: core.
 
 Lemma Uminus_plus_simpl : forall x y, y <= x -> (x - y) + y == x.
 unfold Uminus; intros.
@@ -1294,7 +1294,7 @@ Lemma Uminus_plus_zero : forall x y, x <= y -> (x - y) + y == y.
 intros; rewrite (Uminus_le_zero x y); auto.
 Qed.
 
-Hint Resolve Uminus_plus_simpl Uminus_plus_zero.
+Hint Resolve Uminus_plus_simpl Uminus_plus_zero: core.
 
 Lemma Uminus_plus_le : forall x y, x <= (x - y) + y.
 intros; apply (Ule_total x y); intros; auto.
@@ -1302,7 +1302,7 @@ apply Ole_trans with y ; auto.
 rewrite (Uminus_plus_simpl x y H); trivial.
 Qed.
 
-Hint Resolve Uminus_plus_le.
+Hint Resolve Uminus_plus_le: core.
 
 Lemma Uesp_minus_distr_left : forall x y z, (x & y) - z  == (x - z) & y.
 unfold Uesp, Uminus; intros.
@@ -1318,7 +1318,7 @@ setoid_rewrite (Uesp_sym x (y - z));
 apply Uesp_minus_distr_left.
 Qed.
 
-Hint Resolve Uesp_minus_distr_left Uesp_minus_distr_right.
+Hint Resolve Uesp_minus_distr_left Uesp_minus_distr_right: core.
 
 Lemma Uesp_minus_distr : forall x y z t, (x & y) - (z + t) == (x - z) & (y - t).
 unfold Uesp, Uminus; intros.
@@ -1328,7 +1328,7 @@ setoid_rewrite (Uinv_inv ([1-] x + z)).
 setoid_rewrite (Uinv_inv ([1-] y + t)).
 repeat norm_assoc_right; auto.
 Qed.
-Hint Resolve Uesp_minus_distr.
+Hint Resolve Uesp_minus_distr: core.
 
 Lemma Uminus_esp_simpl_left : forall x y, [1-]x <= y -> x - (x & y) == [1-]y.
 unfold Uesp,Uminus; intros.
@@ -1343,7 +1343,7 @@ rewrite Uminus_esp_simpl_left; auto.
 rewrite (@Uplus_one x y); auto.
 rewrite (@Uesp_zero x y); auto.
 Qed.
-Hint Resolve Uminus_esp_simpl_left Uplus_esp_simpl.
+Hint Resolve Uminus_esp_simpl_left Uplus_esp_simpl: core.
 
 Lemma Uminus_esp_le_inv  : forall x y, x - (x & y) <= [1-]y.
 intros; apply (Ule_total ([1-]x) y); auto; intros.
@@ -1351,21 +1351,21 @@ rewrite (@Uesp_zero x y); auto.
 rewrite Uminus_zero_right; auto.
 Qed.
 
-Hint Resolve Uminus_esp_le_inv.
+Hint Resolve Uminus_esp_le_inv: core.
 
 Lemma Uplus_esp_inv_simpl : forall x y, x <= [1-]y -> (x + y) & [1-]y == x.
 unfold Uesp; intros.
 apply Uinv_eq_perm_left.
 rewrite Uinv_inv; auto.
 Qed.
-Hint Resolve Uplus_esp_inv_simpl.
+Hint Resolve Uplus_esp_inv_simpl: core.
 
 Lemma Uplus_inv_esp_simpl : forall x y, x <= y -> (x + [1-]y) & y == x.
 intros.
 apply Oeq_trans with ((x + [1-] y) & [1-][1-]y); auto.
 rewrite Uinv_inv; auto.
 Qed.
-Hint Resolve Uplus_inv_esp_simpl.
+Hint Resolve Uplus_inv_esp_simpl: core.
 
 Lemma Umult_inv_minus : forall x y, x * [1-]y == x - (x * y).
 unfold Uminus; intros.
@@ -1378,7 +1378,7 @@ rewrite Uinv_opp_left.
 rewrite Umult_one_right.
 rewrite Uinv_plus_right; auto.
 Qed.
-Hint Resolve Umult_inv_minus.
+Hint Resolve Umult_inv_minus: core.
 
 (** ** Definition and properties of max *)
 
@@ -1392,7 +1392,7 @@ Lemma max_eq_left : forall x y : U, x <= y -> max x y == y.
 unfold max; auto.
 Qed.
 
-Hint Resolve max_eq_right max_eq_left.
+Hint Resolve max_eq_right max_eq_left: core.
 
 Lemma max_eq_case : forall x y : U, orc (max x y == x) (max x y == y).
 intros; apply (Ule_total x y); auto.
@@ -1415,7 +1415,7 @@ rewrite max_eq_left; auto.
 rewrite max_eq_right; auto.
 Qed.
 
-Hint Resolve max_le_right max_le_left.
+Hint Resolve max_le_right max_le_left: core.
 
 Lemma max_le : forall x y z : U, x <= z -> y <= z -> max x y <= z.
 intros; apply (Ule_total x y); intros; auto.
@@ -1443,7 +1443,7 @@ apply max_le; auto.
 apply (max_eq_case (x:=x) (y:= y)); auto; intro H; rewrite H; auto.
 Qed.
 
-Hint Resolve max_eq_mult max_eq_plus_cte_right.
+Hint Resolve max_eq_mult max_eq_plus_cte_right: core.
 
 (** ** Definition and properties of min *)
 
@@ -1459,7 +1459,7 @@ unfold min; intros.
 rewrite Uminus_le_zero; auto.
 Qed.
 
-Hint Resolve min_eq_right min_eq_left.
+Hint Resolve min_eq_right min_eq_left: core.
 
 Lemma min_eq_case : forall x y : U, orc (min x y == x) (min x y == y).
 intros; apply (Ule_total x y); auto.
@@ -1481,7 +1481,7 @@ intros; apply (Ule_total x y); intros; auto.
 rewrite min_eq_right; auto.
 Qed.
 
-Hint Resolve min_le_right min_le_left.
+Hint Resolve min_le_right min_le_left: core.
 
 Lemma min_le : forall x y z : U, z <= x -> z <= y -> z <= min x y.
 intros; apply (Ule_total x y); intros; auto.
@@ -1507,20 +1507,20 @@ intros; apply (Ule_total x y); intros; auto.
 rewrite min_eq_right; auto; rewrite min_eq_right; auto.
 rewrite min_eq_left; auto; rewrite min_eq_left; auto.
 Qed.
-Hint Resolve min_mult.
+Hint Resolve min_mult: core.
 
 Lemma min_plus : forall x1 x2 y1 y2,
     (min x1 x2)  + (min y1 y2) <= min (x1+y1) (x2+y2).
 intros; apply min_le; auto.
 Qed.
-Hint Resolve min_plus.
+Hint Resolve min_plus: core.
 
 Lemma min_plus_cte : forall x y k, min (x + k) (y + k) == (min x y) + k.
 intros; apply (Ule_total x y); intros; auto.
 rewrite min_eq_right; auto; rewrite min_eq_right; auto.
 rewrite min_eq_left; auto; rewrite min_eq_left; auto.
 Qed.
-Hint Resolve min_plus_cte.
+Hint Resolve min_plus_cte: core.
 
 Lemma min_le_compat : forall x1 y1 x2 y2,
       x1<=y1 -> x2 <=y2 -> min x1 x2 <= min y1 y2.
@@ -1538,7 +1538,7 @@ rewrite min_eq_left; auto.
 rewrite min_eq_left; auto.
 rewrite min_eq_right; auto.
 Qed.
-Hint Resolve min_sym.
+Hint Resolve min_sym: core.
 
 
 Lemma incr_decomp_aux : forall f g : fmon natO  U,
@@ -1573,7 +1573,7 @@ Lemma Uplus_minus_simpl_right : forall x y, y <= [1-] x -> (x + y) - y == x.
 unfold Uminus; intros.
 rewrite (Uinv_plus_right x y); auto.
 Qed.
-Hint Resolve Uplus_minus_simpl_right.
+Hint Resolve Uplus_minus_simpl_right: core.
 
 Lemma Uplus_minus_simpl_left : forall x y, y <= [1-] x -> (x + y) - x == y.
 intros; setoid_rewrite (Uplus_sym x y); auto.
@@ -1585,13 +1585,13 @@ apply Uinv_eq_compat.
 setoid_rewrite (Uinv_inv ([1-] x + y)); auto.
 Qed.
 
-Hint Resolve Uminus_assoc_left.
+Hint Resolve Uminus_assoc_left: core.
 
 Lemma Uminus_perm : forall x y z, (x - y) - z == (x - z) - y.
 intros; rewrite Uminus_assoc_left.
 rewrite (Uplus_sym y z); auto.
 Qed.
-Hint Resolve Uminus_perm.
+Hint Resolve Uminus_perm: core.
 
 Lemma Uminus_le_perm_left : forall x y z, y <= x -> x - y <= z -> x <= z + y.
 intros; rewrite <- (Uminus_plus_simpl x y); auto.
@@ -1621,8 +1621,8 @@ intros; setoid_rewrite H0; auto.
 setoid_rewrite (Uplus_sym y z); auto.
 Qed.
 
-Hint Resolve Uminus_le_perm_left Uminus_eq_perm_left.
-Hint Resolve Uplus_le_perm_left Uplus_eq_perm_left.
+Hint Resolve Uminus_le_perm_left Uminus_eq_perm_left: core.
+Hint Resolve Uplus_le_perm_left Uplus_eq_perm_left: core.
 
 Lemma Uminus_le_perm_right : forall x y z, z <= y -> x <= y - z -> x + z <= y.
 intros; rewrite <- (Uminus_plus_simpl y z); auto.
@@ -1631,18 +1631,18 @@ Qed.
 Lemma Uplus_le_perm_right : forall x y z, z <= [1-] x -> x + z <= y  -> x <= y - z.
 intros; apply Uplus_le_simpl_right with z; auto.
 Qed.
-Hint Resolve Uminus_le_perm_right Uplus_le_perm_right.
+Hint Resolve Uminus_le_perm_right Uplus_le_perm_right: core.
 
 Lemma Uminus_le_perm : forall x y z, z <= y -> x <= [1-] z -> x <= y - z -> z <= y - x.
 intros; apply Uplus_le_perm_right; auto.
 setoid_rewrite (Uplus_sym z x); auto.
 Qed.
-Hint Resolve Uminus_le_perm.
+Hint Resolve Uminus_le_perm: core.
 
 Lemma Uminus_eq_perm_right : forall x y z, z <= y -> x == y - z -> x + z == y.
 intros; apply Oeq_trans with (y - z + z); auto.
 Qed.
-Hint Resolve Uminus_eq_perm_right.
+Hint Resolve Uminus_eq_perm_right: core.
 
 Lemma Uminus_plus_perm : forall x y z, y <= x -> z <= [1-]x -> x - y + z == x + z - y.
 intros; apply Uminus_eq_perm_right.
@@ -1662,7 +1662,7 @@ apply Ole_trans with (x - y + [1-]x); auto.
 unfold Uminus at 2.
 rewrite Uinv_plus_left; auto.
 Qed.
-Hint Resolve Uplus_minus_perm_le.
+Hint Resolve Uplus_minus_perm_le: core.
 
 Lemma Uminus_zero_le : forall x y, x - y == 0 -> x <= y.
 intros x y; unfold Uminus; intros.
@@ -1677,7 +1677,7 @@ red; intros.
 apply H; auto.
 apply Uminus_zero_le; auto.
 Qed.
-Hint Immediate Uminus_zero_le Uminus_lt_non_zero.
+Hint Immediate Uminus_zero_le Uminus_lt_non_zero: core.
 
 Lemma Ult_le_nth_minus : forall x y, x < y -> exc (fun n => x <= y - [1/]1+n).
 intros; apply (archimedian (x:=(y - x))); intros; auto.
@@ -1713,7 +1713,7 @@ rewrite (Uinv_plus_right _ _ H1).
 rewrite (Uinv_inv x); auto.
 Qed.
 
-Hint Resolve Uminus_distr_left.
+Hint Resolve Uminus_distr_left: core.
 
 Lemma Uminus_distr_right : forall x y z,  x * (y - z) == (x * y) - (x * z).
 intros; setoid_rewrite (Umult_sym x y).
@@ -1721,7 +1721,7 @@ setoid_rewrite (Umult_sym x z).
 setoid_rewrite (Umult_sym x (y - z)); auto.
 Qed.
 
-Hint Resolve Uminus_distr_right.
+Hint Resolve Uminus_distr_right: core.
 
 
 Lemma Uminus_assoc_right :  forall x y z, y <= x -> z <= y -> x - (y - z) == (x - y) + z.
@@ -1782,7 +1782,7 @@ Lemma sigma_incr : forall (f : nat -> U) (n m:nat), (n <= m)%nat -> sigma f n <=
 intros f n m H; apply (fmonotonic (sigma f)); trivial.
 Qed.
 
-Hint Resolve sigma_incr.
+Hint Resolve sigma_incr: core.
 
 Lemma sigma_eq_compat : forall (f g: nat -> U) (n:nat),
  (forall k, (k < n)%nat -> f k == g k) -> sigma f n == sigma g n.
@@ -1846,7 +1846,7 @@ assert (0 < sigma f n); auto.
 apply sigma_not_zero with k; auto.
 Qed.
 
-Hint Resolve sigma_eq_compat sigma_le_compat sigma_zero.
+Hint Resolve sigma_eq_compat sigma_le_compat sigma_zero: core.
 
 Lemma sigma_le : forall f n k, (k<n)%nat -> f k <= sigma f n.
 induction n; intros.
@@ -1912,7 +1912,7 @@ intros; rewrite prod_S.
 apply Ole_trans with (2:=IHle); auto.
 Qed.
 
-Hint Resolve prod_decr.
+Hint Resolve prod_decr: core.
 
 Lemma prod_eq_compat : forall (f g: nat -> U) (n:nat),
  (forall k, (k < n)%nat -> f k == g k) -> (prod f n) == (prod g n).
@@ -1954,7 +1954,7 @@ absurd (0 < prod f n); auto.
 apply prod_not_zero; auto.
 Qed.
 
-Hint Resolve prod_eq_compat prod_le_compat prod_not_zero.
+Hint Resolve prod_eq_compat prod_le_compat prod_not_zero: core.
 
 Lemma prod_le : forall f n k, (k<n)%nat -> prod f n <= f k.
 induction n; simpl; intros.
@@ -1981,7 +1981,7 @@ Defined.
 Lemma Prod_simpl : forall f n, Prod f n = prod f n.
 trivial.
 Qed.
-Hint Resolve Prod_simpl.
+Hint Resolve Prod_simpl: core.
 
 (** ** Properties of [Unth] *)
 Lemma Unth_zero : [1/]1+0 == 1.
@@ -1994,12 +1994,12 @@ Lemma Unth_one : [1/2] == [1-] [1/2].
 apply Oeq_trans with (1:=Unth_prop 1); simpl; auto.
 Qed.
 
-Hint Resolve Unth_zero Unth_one.
+Hint Resolve Unth_zero Unth_one: core.
 
 Lemma Unth_one_plus : [1/2] + [1/2] == 1.
 apply Oeq_trans with  ([1/2] + [1-][1/2]); auto.
 Qed.
-Hint Resolve Unth_one_plus.
+Hint Resolve Unth_one_plus: core.
 
 Lemma Unth_not_null : forall n, ~ (0 == [1/]1+n).
 red; intros.
@@ -2012,27 +2012,27 @@ apply Uinv_eq_compat.
 apply sigma_eq_compat; auto.
 apply Oeq_trans with ([1-] 0); auto.
 Qed.
-Hint Resolve Unth_not_null.
+Hint Resolve Unth_not_null: core.
 
 Lemma Unth_lt_zero : forall n, 0 < [1/]1+n.
 auto.
 Qed.
-Hint Resolve Unth_lt_zero.
+Hint Resolve Unth_lt_zero: core.
 
 Lemma Unth_inv_lt_one : forall n, [1-][1/]1+n<1.
 intro; rewrite <- Uinv_zero; auto.
 Qed.
-Hint Resolve Unth_inv_lt_one.
+Hint Resolve Unth_inv_lt_one: core.
 
 Lemma Unth_not_one : forall n, ~ (1 == [1-][1/]1+n).
 auto.
 Qed.
-Hint Resolve Unth_not_one.
+Hint Resolve Unth_not_one: core.
 
 Lemma Unth_prop_sigma : forall n, [1/]1+n == [1-] (sigma (fun k => [1/]1+n) n).
 exact Unth_prop.
 Qed.
-Hint Resolve Unth_prop_sigma.
+Hint Resolve Unth_prop_sigma: core.
 
 Lemma Unth_sigma_n : forall n : nat, ~ (1 == sigma (fun k => [1/]1+n) n).
 intros; apply Uinv_neq_simpl.
@@ -2046,7 +2046,7 @@ apply Oeq_trans with
 ([1-] (sigma (fun k => [1/]1+n) n) + (sigma (fun k => [1/]1+n) n));auto.
 Qed.
 
-Hint Resolve Unth_sigma_n Unth_sigma_Sn.
+Hint Resolve Unth_sigma_n Unth_sigma_Sn: core.
 
 
 Lemma Unth_decr : forall n, [1/]1+(S n) < [1/]1+n.
@@ -2055,19 +2055,19 @@ apply (Unth_sigma_n (S n)).
 apply Ole_antisym; auto.
 apply Ole_trans with (sigma (fun _ : nat => [1/]1+n) (S n)); auto.
 Qed.
-Hint Resolve Unth_decr.
+Hint Resolve Unth_decr: core.
 
 Lemma Unth_anti_mon :
 forall n m, (n <= m)%nat -> [1/]1+m <= [1/]1+n.
 induction 1; auto.
 apply Ole_trans with ([1/]1+m); auto.
 Qed.
-Hint Resolve Unth_anti_mon.
+Hint Resolve Unth_anti_mon: core.
 
 Lemma Unth_le_half : forall n, [1/]1+(S n) <= [1/2].
 auto with arith.
 Qed.
-Hint Resolve Unth_le_half.
+Hint Resolve Unth_le_half: core.
 
 (** *** Mean of two numbers : $\frac{1}{2}x+\frac{1}{2}y$*)
 Definition mean (x y:U) := [1/2] * x + [1/2] * y.
@@ -2081,7 +2081,7 @@ Qed.
 Lemma mean_sym : forall x y,  mean x y == mean y x.
 unfold mean; auto.
 Qed.
-Hint Resolve mean_sym.
+Hint Resolve mean_sym: core.
 
 Lemma mean_le_compat_right : forall x y z, y <= z -> mean x y <= mean x z.
 unfold mean; intros.
@@ -2093,7 +2093,7 @@ unfold mean; intros.
 apply Uplus_le_compat_left; auto.
 Qed.
 
-Hint Resolve mean_eq mean_le_compat_left mean_le_compat_right.
+Hint Resolve mean_eq mean_le_compat_left mean_le_compat_right: core.
 
 Add Morphism mean with signature (Ole (o:=U)) ++> (Ole (o:=U)) ++> (Ole (o:=U)) as
     mean_le_compat.
@@ -2115,8 +2115,8 @@ unfold mean; intros.
 apply Uplus_lt_compat_left; auto.
 Qed.
 
-Hint Resolve mean_eq mean_le_compat_left mean_le_compat_right.
-Hint Resolve mean_lt_compat_left mean_lt_compat_right.
+Hint Resolve mean_eq mean_le_compat_left mean_le_compat_right: core.
+Hint Resolve mean_lt_compat_left mean_lt_compat_right: core.
 
 Lemma mean_le_up : forall x y, x <= y -> mean x y <= y.
 intros; apply Ole_trans with (mean y y); auto.
@@ -2134,7 +2134,7 @@ Lemma mean_lt_down : forall x y, x < y -> x < mean x y.
 intros; apply Ule_lt_trans with (mean x x); auto.
 Qed.
 
-Hint Resolve mean_le_up mean_le_down mean_lt_up mean_lt_down.
+Hint Resolve mean_le_up mean_le_down mean_lt_up mean_lt_down: core.
 
 Lemma mean_inv : forall x, mean x ([1-]x) == [1/2].
 unfold mean; intros.
@@ -2174,14 +2174,14 @@ intros; apply Ole_trans with ([1/2]); auto.
 setoid_rewrite Unth_one; auto.
 Qed.
 
-Hint Immediate le_half_inv.
+Hint Immediate le_half_inv: core.
 
 Lemma ge_half_inv : forall x, [1/2] <= x  -> [1-] x <= x.
 intros; apply Ole_trans with ([1/2]); auto.
 setoid_rewrite Unth_one; auto.
 Qed.
 
-Hint Immediate ge_half_inv.
+Hint Immediate ge_half_inv: core.
 
 Lemma Uinv_le_half_left : forall x, x <= [1/2] -> [1/2] <= [1-] x.
 intros; setoid_rewrite Unth_one; auto.
@@ -2191,7 +2191,7 @@ Lemma Uinv_le_half_right : forall x, [1/2] <= x -> [1-] x <= [1/2].
 intros; setoid_rewrite Unth_one; auto.
 Qed.
 
-Hint Resolve Uinv_le_half_left Uinv_le_half_right.
+Hint Resolve Uinv_le_half_left Uinv_le_half_right: core.
 
 Lemma half_twice : forall x,  (x <= [1/2]) -> ([1/2]) * (x + x) == x.
 intros; assert (H1 : x <= [1-] x); auto.
@@ -2229,7 +2229,7 @@ setoid_rewrite H0.
 setoid_rewrite (Umult_zero_right ([1/2])).
 setoid_rewrite (Uplus_zero_left ([1/2])); auto.
 Qed.
-Hint Resolve half_esp_le.
+Hint Resolve half_esp_le: core.
 
 
 Lemma half_le : forall x y, y <= [1-] y -> x <= y + y -> ([1/2]) * x <= y.
@@ -2249,7 +2249,7 @@ apply sigma_le_compat; auto.
 apply Ole_trans with
 ([1-] (sigma (fun _ : nat => [1/]1+(S n)) (S n)) + [1/]1+(S n)); auto.
 Qed.
-Hint Resolve half_le half_Unth.
+Hint Resolve half_le half_Unth: core.
 
 Lemma half_exp : forall n, [1/2]^n == [1/2]^(S n) + [1/2]^(S n).
 intros; simpl; apply Oeq_sym; exact (mean_eq ([1/2]^n)).
@@ -2277,7 +2277,7 @@ Qed.
 Lemma lub_un : (lub (fmon_cte natO 1)) == 1.
 apply lub_cte.
 Qed.
-Hint Resolve lub_un.
+Hint Resolve lub_un: core.
 
 Lemma UPlusk_eq : forall k, UPlus k == mk_fmono (Uplus_le_compat_right k).
 intros k; apply fmon_eq_intro; simpl; intros; auto.
@@ -2290,32 +2290,32 @@ Qed.
 Lemma UPlus_continuous_right : forall k, continuous (UPlus k).
 intros; rewrite UPlusk_eq; auto.
 Qed.
-Hint Resolve UPlus_continuous_right.
+Hint Resolve UPlus_continuous_right: core.
 
 Lemma UPlus_continuous_left : continuous (UPlus : U -m> U -M-> U).
 apply continuous_sym; auto; simpl; auto.
 Qed.
-Hint Resolve UPlus_continuous_left.
+Hint Resolve UPlus_continuous_left: core.
 
 Lemma UMult_continuous_right : forall k, continuous (UMult k).
 intros; rewrite UMultk_eq; auto.
 Qed.
-Hint Resolve UMult_continuous_right.
+Hint Resolve UMult_continuous_right: core.
 
 Lemma UMult_continuous_left : continuous (UMult : U -m> U -M-> U).
 apply continuous_sym; auto; simpl; auto.
 Qed.
-Hint Resolve UMult_continuous_left.
+Hint Resolve UMult_continuous_left: core.
 
 Lemma lub_eq_plus_cte_left : forall (f:natO -m> U) (k:U), lub ((UPlus k) @ f) == k + lub f.
 intros; apply Oeq_sym; apply lub_comp_eq with (f:=UPlus k) (h:=f); red; intros; auto.
 Qed.
-Hint Resolve lub_eq_plus_cte_left.
+Hint Resolve lub_eq_plus_cte_left: core.
 
 Lemma lub_eq_mult : forall (k:U) (f:natO -m> U), lub ((UMult k) @ f) ==  k * lub f.
 intros; apply Oeq_sym; apply lub_comp_eq with (f:=UMult k) (h:=f); trivial.
 Qed.
-Hint Resolve lub_eq_mult.
+Hint Resolve lub_eq_mult: core.
 
 Lemma lub_eq_plus_cte_right : forall (f : natO -m> U) (k:U),
            lub ((UPlus <_> k) @ f) == lub f + k.
@@ -2325,7 +2325,7 @@ apply lub_eq_compat; simpl; intros.
 apply fmon_eq_intro; simpl; intros.
 rewrite (Uplus_sym (f n) k); auto.
 Qed.
-Hint Resolve lub_eq_plus_cte_right.
+Hint Resolve lub_eq_plus_cte_right: core.
 
 Lemma min_lub_le : forall f g : natO-m>U,
          lub ((Min @2 f) g) <= min (lub f) (lub g).
@@ -2364,7 +2364,7 @@ apply Uplus_inv_le_esp.
 rewrite <- lub_eq_plus_cte_right.
 apply lub_le_compat; simpl; auto.
 Qed.
-Hint Resolve lub_eq_esp_right.
+Hint Resolve lub_eq_esp_right: core.
 
 
 Lemma Udiv_continuous : forall (k:U), continuous (UDiv k).
@@ -2386,7 +2386,7 @@ apply Ole_trans with (h x / k).
 rewrite (Udiv_le_one (h x) H); auto.
 apply le_lub with (f:=UDiv k @ h) (n:=x).
 Qed.
-Hint Resolve Udiv_continuous.
+Hint Resolve Udiv_continuous: core.
 
 (** ** Greatest lower bounds *)
 
@@ -2402,7 +2402,7 @@ Lemma le_glb: forall (f : natO -m> UI) (x:U), (forall n : nat, x <= f n)-> x <= 
 unfold glb; intros; apply Uinv_le_perm_right.
 apply lub_le with (f:=UInv @ f); auto.
 Qed.
-Hint Resolve glb_le le_glb.
+Hint Resolve glb_le le_glb: core.
 
 Definition Uopp : cpo.
    exists UI 1 glb; auto.
@@ -2417,13 +2417,13 @@ Qed.
 Lemma Uopp_eq : forall x y:Uopp,  (x:U)==y -> x==y.
 unfold Oeq; intuition.
 Qed.
-Hint Immediate Ueq_opp Uopp_eq.
+Hint Immediate Ueq_opp Uopp_eq: core.
 
 Lemma Uopp_mon_seq : forall f:natO-m>Uopp,
    forall n m:nat, (n <= m)%nat -> (f m:U) <= f n.
 intros f n m H; exact (fmonotonic f H).
 Qed.
-Hint Resolve Uopp_mon_seq.
+Hint Resolve Uopp_mon_seq: core.
 
 
 (** Infinite product $\Pi_{i=0}^{\infty} f\,i$ *)
@@ -2435,18 +2435,18 @@ Lemma glb_le_compat:
   forall f g :  natO -m> UI, (f :natO-o>U) <= g -> glb f <= glb g.
 intros f g; exact (lub_le_compat (D:=Uopp) (f:=g) (g:=f)).
 Qed.
-Hint Resolve glb_le_compat.
+Hint Resolve glb_le_compat: core.
 
 Lemma glb_eq_compat:
   forall f g : natO -m> UI, f == g -> glb f == glb g.
 intros; apply Ole_antisym; auto.
 Qed.
-Hint Resolve glb_eq_compat.
+Hint Resolve glb_eq_compat: core.
 
 Lemma glb_cte: forall c : U, glb (fmon_cte natO (c:Uopp)) == c.
 intros; apply Oeq_sym; exact (lub_cte (D:=Uopp) c).
 Qed.
-Hint Resolve glb_cte.
+Hint Resolve glb_cte: core.
 
 Lemma glb_eq_plus_cte_right:
   forall (f : natO -m> UI) (k : U), glb (Imon (UPlus <_> k) @ f) == glb f + k.
@@ -2457,7 +2457,7 @@ apply Oeq_trans with ([1-] (lub (UInv @ f) & [1-] k)).
 apply Uinv_eq_compat; apply (lub_eq_esp_right (UInv @ f) ([1-]k)).
 rewrite Uinv_esp_plus; auto.
 Qed.
-Hint Resolve glb_eq_plus_cte_right.
+Hint Resolve glb_eq_plus_cte_right: core.
 
 Lemma glb_eq_plus_cte_left:
   forall (f : natO -m> UI) (k : U), glb (Imon (UPlus k) @ f) == k + glb f.
@@ -2465,7 +2465,7 @@ intros; apply Oeq_trans with (glb f + k); auto.
 apply Oeq_trans with (glb (Imon (UPlus <_> k) @ f)); auto.
 apply glb_eq_compat; apply fmon_eq_intro; simpl; auto.
 Qed.
-Hint Resolve glb_eq_plus_cte_left.
+Hint Resolve glb_eq_plus_cte_left: core.
 
 Lemma glb_eq_mult:
   forall (k : U) (f : natO -m> UI), glb (Imon (UMult k) @ f) == k * glb f.
@@ -2488,7 +2488,7 @@ change (glb (Imon (UPlus <_> y) @ h) <= glb h + y).
 rewrite glb_eq_plus_cte_right; trivial.
 Qed.
 
-Hint Resolve  Imon2_plus_continuous.
+Hint Resolve  Imon2_plus_continuous: core.
 
 Lemma Uinv_continuous : continuous (D1:=Uopp) UInv.
 red; intros.
@@ -2512,7 +2512,7 @@ rewrite UInvopp_simpl; simpl lub at 2.
 unfold glb; auto.
 Qed.
 
-Hint Resolve Uinv_continuous Uinvopp_continuous.
+Hint Resolve Uinv_continuous Uinvopp_continuous: core.
 
 Definition UMinus : U -m> Uopp -m> U :=
     fcomp2 U Uopp Uopp U UInv (Imon2 UPlus @ UInvopp).
@@ -2526,7 +2526,7 @@ unfold UMinus.
 apply continuous2_comp2; auto.
 apply continuous2_comp with (D1:=U) (D2:=Uopp) (D3:=Uopp)(D4:=Uopp); auto.
 Qed.
-Hint Resolve Uminus_continuous2.
+Hint Resolve Uminus_continuous2: core.
 (*
 min_lub_le_incr:
   forall f g : nat -> U,
@@ -2545,7 +2545,7 @@ min_lub_le:
 Lemma glb_le_esp :  forall f g :natO-m>UI, (glb f) & (glb g) <= glb ((Imon2 UEsp @2 f) g).
 intros; apply le_glb; auto.
 Qed.
-Hint Resolve glb_le_esp.
+Hint Resolve glb_le_esp: core.
 
 Lemma Uesp_min : forall a1 a2 b1 b2, min a1 b1 & min a2 b2 <= min (a1 & a2) (b1 & b2).
 intros; apply min_le.
@@ -2566,7 +2566,7 @@ Qed.
 Lemma seq_max_le : forall f n, f n <= seq_max f n.
 induction n; simpl; intros; auto.
 Qed.
-Hint Resolve seq_max_le.
+Hint Resolve seq_max_le: core.
 
 Definition sMax (f : nat -> U) : natO -m> U := fnatO_intro (seq_max_incr f).
 
@@ -2595,18 +2595,18 @@ induction n; simpl; intros; auto.
 apply max_le; auto.
 Qed.
 
-Hint Resolve le_Ulub Ulub_le.
+Hint Resolve le_Ulub Ulub_le: core.
 
 Lemma Ulub_le_compat : forall f g : nat-o>U, f <=g -> Ulub f <= Ulub g.
 intros; apply Ulub_le; intros; auto.
 apply Ole_trans with (g n); auto.
 Qed.
-Hint Resolve Ulub_le_compat.
+Hint Resolve Ulub_le_compat: core.
 
 Add Morphism Ulub with signature Oeq (O:=nat-o>U) ==> Oeq (O:=U) as Ulub_eq_compat.
 intros; apply Ole_antisym; auto.
 Qed.
-Hint Resolve Ulub_eq_compat.
+Hint Resolve Ulub_eq_compat: core.
 
 Lemma Ulub_eq_mult : forall k (f:nat->U), Ulub (fun n => k * f n)== k * Ulub f.
 intros; unfold Ulub.
@@ -2618,7 +2618,7 @@ intros; unfold Ulub.
 rewrite sMax_plus_cte_right; auto.
 Qed.
 
-Hint Resolve Ulub_eq_mult Ulub_eq_plus_cte_right.
+Hint Resolve Ulub_eq_mult Ulub_eq_plus_cte_right: core.
 
 Lemma Ulub_eq_esp_right :
   forall (f : nat -> U) (k : U), Ulub (fun n => f n & k) == Ulub f & k.
@@ -2627,12 +2627,12 @@ apply Ulub_le; auto.
 apply Uplus_inv_le_esp.
 apply Ole_trans with (Ulub (fun n => (f n & k) + ([1-]k))); auto.
 Qed.
-Hint Resolve lub_eq_esp_right.
+Hint Resolve lub_eq_esp_right: core.
 
 Lemma Ulub_le_plus : forall f g, Ulub (fun n => f n + g n) <= Ulub f + Ulub g.
 intros; apply Ulub_le; auto.
 Qed.
-Hint Resolve Ulub_le_plus.
+Hint Resolve Ulub_le_plus: core.
 
 Definition Uglb (f:nat-o>U) :U := [1-]Ulub (fun n => [1-](f n)).
 
@@ -2645,18 +2645,18 @@ Lemma le_Uglb: forall (f : nat -> U) (x:U), (forall n : nat, x <= f n)-> x <= Ug
 unfold Uglb; intros; apply Uinv_le_perm_right.
 apply Ulub_le with (f:=fun n => [1-]f n); auto.
 Qed.
-Hint Resolve Uglb_le le_Uglb.
+Hint Resolve Uglb_le le_Uglb: core.
 
 Lemma Uglb_le_compat : forall f g : nat-o>U, f <=g -> Uglb f <= Uglb g.
 intros; apply le_Uglb; intros; auto.
 apply Ole_trans with (f n); auto.
 Qed.
-Hint Resolve Uglb_le_compat.
+Hint Resolve Uglb_le_compat: core.
 
 Add Morphism Uglb with signature Oeq (O:=nat-o>U) ==> Oeq (O:=U) as Uglb_eq_compat.
 intros; apply Ole_antisym; auto.
 Qed.
-Hint Resolve Uglb_eq_compat.
+Hint Resolve Uglb_eq_compat: core.
 
 Lemma Uglb_eq_plus_cte_right:
   forall (f : nat -> U) (k : U), Uglb (fun n => f n + k) == Uglb f + k.
@@ -2666,7 +2666,7 @@ apply Oeq_trans with ([1-] (Ulub (fun n => [1-]f n) & [1-] k)).
 apply Uinv_eq_compat; apply (Ulub_eq_esp_right (fun n => [1-]f n) ([1-]k)).
 apply Oeq_trans with ([1-]Ulub (fun n => [1-]f n) + [1-][1-]k); auto.
 Qed.
-Hint Resolve Uglb_eq_plus_cte_right.
+Hint Resolve Uglb_eq_plus_cte_right: core.
 
 Lemma Uglb_eq_mult:
   forall (k : U) (f : nat -> U), Uglb (fun n => k * f n) == k * Uglb f.
@@ -2678,49 +2678,49 @@ apply Oeq_trans with ([1-](k * Ulub (fun n => [1-]f n) + [1-]k)); auto.
 apply Uinv_eq_perm_left; auto.
 apply Oeq_trans with (k* [1-][1-](Ulub (fun n => [1-]f n)) + [1-]k); auto.
 Qed.
-Hint Resolve Uglb_eq_mult Uglb_eq_plus_cte_right.
+Hint Resolve Uglb_eq_mult Uglb_eq_plus_cte_right: core.
 
 Lemma Uglb_le_plus : forall f g, Uglb f + Uglb g <= Uglb (fun n => f n + g n).
 intros; apply le_Uglb; auto.
 Qed.
-Hint Resolve Uglb_le_plus.
+Hint Resolve Uglb_le_plus: core.
 
 Lemma Ulub_lub : forall f:natO-m>U, Ulub f == lub f.
 intros; unfold Ulub; apply lub_eq_compat; apply fmon_eq_intro; simpl; intros; auto.
 induction n; simpl; intros; auto.
 rewrite IHn; apply Ole_antisym; auto.
 Qed.
-Hint Resolve Ulub_lub.
+Hint Resolve Ulub_lub: core.
 
 Lemma Uglb_glb : forall f:natO-m>UI, Uglb f == glb f.
 intros; unfold Uglb,glb.
 apply Uinv_eq_compat; apply (Ulub_lub (UInv @ f)).
 Qed.
-Hint Resolve Uglb_glb.
+Hint Resolve Uglb_glb: core.
 
 Lemma lub_le_plus : forall (f g : natO-m>U), lub ((UPlus @2 f) g) <= lub f + lub g.
 intros; apply lub_le; auto.
 Qed.
-Hint Resolve lub_le_plus.
+Hint Resolve lub_le_plus: core.
 
 
 Lemma glb_le_plus : forall (f g:natO-m>UI) , glb f + glb g <= glb ((Imon2 UPlus @2 f) g).
 intros; apply le_glb; auto.
 Qed.
-Hint Resolve glb_le_plus.
+Hint Resolve glb_le_plus: core.
 
 (*
 Lemma glb_le_plus : forall f g, glb f + glb g <= glb (fun n => f n + g n).
 apply le_glb; auto.
 Qed.
-Hint Resolve glb_le_plus.
+Hint Resolve glb_le_plus: core.
 *)
 
 Lemma lub_eq_plus : forall f g : natO-m>U, lub ((UPlus @2 f) g) == lub f + lub g.
 intros; apply Oeq_sym.
 apply lub_comp2_eq with (D1:=U) (D2:=U) (D3:=U) (F:=UPlus) (f:=f) (g:=g); auto.
 Qed.
-Hint Resolve lub_eq_plus.
+Hint Resolve lub_eq_plus: core.
 
 Lemma glb_mon : forall f : natO-m>U, Uglb f == f O.
 intros; apply Ole_antisym; auto.
@@ -2741,7 +2741,7 @@ Lemma glb_lift_left : forall (f:natO-m>UI) n,  glb f == glb (mseq_lift_left f n)
 intros; apply Ueq_opp.
 exact (lub_lift_left (D:=Uopp) f n).
 Qed.
-Hint Resolve glb_lift_left.
+Hint Resolve glb_lift_left: core.
 
 Lemma Ulub_mon : forall f : natO-m>UI, Ulub f == f O.
 intros; apply Ole_antisym; auto.
@@ -2777,7 +2777,7 @@ change (glb (Imon (UPlus <_> k) @ h) <= glb h +k).
 rewrite glb_eq_plus_cte_right; trivial.
 Qed.
 
-Hint Resolve Uplus_opp_continuous_right Uplus_opp_continuous_left.
+Hint Resolve Uplus_opp_continuous_right Uplus_opp_continuous_left: core.
 
 Lemma glb_eq_plus : forall (f g : natO-m>UI), glb ((Imon2 UPlus @2 f)  g) == glb f + glb g.
 intros; apply Ueq_opp; apply Oeq_sym.
@@ -2785,7 +2785,7 @@ apply (lub_comp2_eq (D1:=Uopp) (D2:=Uopp) (D3:=Uopp) (F:=Imon2 UPlus)) with (f:=
 apply continuous_eq_compat with (Imon (UPlus k)); auto.
 apply continuous_eq_compat with (Imon2 UPlus); auto.
 Qed.
-Hint Resolve glb_eq_plus.
+Hint Resolve glb_eq_plus: core.
 
 Definition Sigma : (natO-O->U)-m>natO-M->U.
 exists (fun (f:natO-O->U) => sigma f); red; intros.
@@ -2889,7 +2889,7 @@ trivial.
 Qed.
 
 
-Hint Resolve fplus_eq fmult_eq fzero_eq finv_eq flub_eq.
+Hint Resolve fplus_eq fmult_eq fzero_eq finv_eq flub_eq: core.
 
 
 Definition fone (A:Type) : MF A := fun x => 1.
@@ -2977,7 +2977,7 @@ Lemma fconj_decomp : forall A (f g : MF A),
              f == fplus (fconj f g) (fconj f (finv g)).
 intros; simpl; apply ford_eq_intro; intros; apply Umult_decomp.
 Qed.
-Hint Resolve fconj_decomp.
+Hint Resolve fconj_decomp: core.
 
 (** *** Defining morphisms *)
 
@@ -3123,12 +3123,12 @@ Qed.
 
 Hint Immediate fplus_le_compat fplus_eq_compat fesp_le_compat fesp_eq_compat
 fmult_le_compat fmult_eq_compat fminus_le_compat fminus_eq_compat 
-fconj_eq_compat.
+fconj_eq_compat: core.
 
 Hint Resolve fle_fplus_left  fle_fplus_right fle_zero  fle_one feq_finv_finv finv_le_compat
-fle_fmult fle_fesp_left fle_fesp_right fle_fconj_left fle_fconj_right.
+fle_fmult fle_fesp_left fle_fesp_right fle_fconj_left fle_fconj_right : core.
 
-Hint Resolve finv_eq_compat.
+Hint Resolve finv_eq_compat: core.
 
 Definition Fconj A : MF A -m> MF A -M-> MF A
                := le_compat2_mon (fconj_le_compat (A:=A)).
@@ -3185,24 +3185,24 @@ Definition nufix : MF A := fixp G.
 Lemma mufix_inv : forall f : MF A, F f <= f -> mufix  <= f.
 unfold mufix; intros; apply fixp_inv; auto.
 Qed.
-Hint Resolve mufix_inv.
+Hint Resolve mufix_inv: core.
 
 Lemma nufix_inv : forall f :MF A, f  <= F f -> f <= nufix.
 unfold nufix; intros.
 change (fixp (D:=MF_opp A) G <= f); apply fixp_inv with (D:=MF_opp A); auto.
 Qed.
-Hint Resolve nufix_inv.
+Hint Resolve nufix_inv: core.
 
 Lemma mufix_le : mufix  <= F mufix.
 unfold mufix; auto.
 Qed.
-Hint Resolve mufix_le.
+Hint Resolve mufix_le: core.
 
 Lemma nufix_sup : F nufix <= nufix.
 unfold nufix.
 change (fixp (D:=MF_opp A) G <= G (fixp (D:=MF_opp A) G)); auto.
 Qed.
-Hint Resolve nufix_sup.
+Hint Resolve nufix_sup: core.
 
 (*
 Definition Fcontlub := forall (fn : nat -> A -> U), increase fn ->
@@ -3238,22 +3238,22 @@ Lemma decr_nuiter : decrease nuiter.
 red; intros; induction n; red; simpl; intros; auto.
 Qed.
 
-Hint Resolve incr_muiter decr_nuiter.
+Hint Resolve incr_muiter decr_nuiter: core.
 *)
 
 Lemma mufix_eq : continuous F -> mufix  == F mufix.
 intros; unfold mufix; auto.
 Qed.
-Hint Resolve mufix_eq.
+Hint Resolve mufix_eq: core.
 
 Lemma nufix_eq : continuous G -> nufix  == F nufix.
 intros; unfold nufix.
 assert (fixp G == G (fixp G)); auto.
 Qed.
-Hint Resolve nufix_eq.
+Hint Resolve nufix_eq: core.
 
 End FixDef.
-Hint Resolve mufix_le mufix_eq nufix_sup nufix_eq.
+Hint Resolve mufix_le mufix_eq nufix_sup nufix_eq: core.
 
 Definition Fcte (A:Type) (f:MF A) : MF A -m> MF A := fmon_cte (MF A) (O2:=MF A) f.
 
@@ -3265,7 +3265,7 @@ Lemma nufix_cte : forall (A:Type) (f:MF A), nufix (Fcte f) == f.
 intros A f; apply Oeq_sym; exact (fixp_cte (D:=MF_opp A) f).
 Qed.
 
-Hint Resolve mufix_cte nufix_cte.
+Hint Resolve mufix_cte nufix_cte: core.
 
 (** ** Properties of barycenter of two points *)
 Section Barycenter.
@@ -3310,14 +3310,14 @@ intros; rewrite Uinv_bary; auto.
 Qed.
 
 End Barycenter.
-Hint Resolve Uinv_bary_le.
+Hint Resolve Uinv_bary_le: core.
 
 Lemma Uinv_half_bary :
    forall x y : U, [1-] ([1/2] * x + [1/2] * y) == [1/2] * [1-] x + [1/2] * [1-] y.
 intros; rewrite Uinv_bary; auto.
 rewrite Unth_one_plus; rewrite Uinv_one; auto.
 Qed.
-Hint Resolve Uinv_half_bary.
+Hint Resolve Uinv_half_bary: core.
 
 (** ** Properties of generalized sums [sigma] *)
 Lemma sigma_plus : forall (f g : nat -> U) (n:nat),
@@ -3344,13 +3344,13 @@ Lemma retractS: forall (f : nat -> U) (n : nat), retract f (S n) -> f n <= [1-] 
 unfold retract; auto with arith.
 Qed.
 
-Hint Immediate retract_pred retractS.
+Hint Immediate retract_pred retractS: core.
 
 Lemma retractS_inv :
      forall (f : nat -> U) (n : nat), retract f (S n) -> sigma f n <= [1-] f n.
 intros; apply Uinv_le_perm_right; auto.
 Qed.
-Hint Immediate retractS_inv.
+Hint Immediate retractS_inv: core.
 
 Lemma retractS_intro: forall (f : nat -> U) (n : nat),
    retract f n -> f n <= [1-] (sigma f n) -> retract f (S n).
@@ -3358,7 +3358,7 @@ unfold retract; intros.
 assert ((k<n)%nat \/ k=n); try omega; intuition; subst; auto.
 Qed.
 
-Hint Resolve retract0 retractS_intro.
+Hint Resolve retract0 retractS_intro: core.
 
 Lemma retract_lt : forall (f : nat -> U) (n : nat),  sigma f n < 1 -> retract f n.
 induction n; auto.
@@ -3380,7 +3380,7 @@ apply Ole_trans with (sigma f n); auto with arith.
 apply Uinv_le_perm_right; auto.
 Qed.
 
-Hint Resolve retract_unif.
+Hint Resolve retract_unif: core.
 
 Lemma sigma_mult :
   forall (f : nat -> U) n c, retract f n -> sigma (fun k => c * (f k)) n == c * (sigma f n).
@@ -3390,14 +3390,14 @@ assert (H1: retract f n); auto.
 rewrite (IHn H1).
 rewrite (Udistr_plus_left c _ _ (retractS H)); auto.
 Qed.
-Hint Resolve sigma_mult.
+Hint Resolve sigma_mult: core.
 
 Lemma sigma_prod_maj :  forall (f g : nat -> U) n,
    sigma (fun k => (f k) * (g k)) n <= sigma f n.
 auto.
 Qed.
 
-Hint Resolve sigma_prod_maj.
+Hint Resolve sigma_prod_maj: core.
 
 Lemma sigma_prod_le :  forall (f g : nat -> U) (c:U), (forall k, (f k) <= c)
    -> forall n, retract g n -> sigma (fun k => (f k) * (g k)) n <= c * (sigma g n).
@@ -3416,7 +3416,7 @@ rewrite (Udistr_plus_left c _ _ (retractS H0)); auto.
 apply Ole_trans with (c * (g n) + sigma (fun k : nat => f k * g k) n); auto.
 Qed.
 
-Hint Resolve sigma_prod_maj sigma_prod_le  sigma_prod_ge.
+Hint Resolve sigma_prod_maj sigma_prod_le  sigma_prod_ge: core.
 
 Lemma sigma_inv : forall (f g : nat -> U) (n:nat), (retract f n) ->
   [1-] (sigma (fun k => f k * g k) n) == (sigma (fun k => f k * [1-] (g k)) n) + [1-] (sigma f n).
@@ -3466,39 +3466,39 @@ Definition Nmult_def (n: nat) (x : U) :=
 Lemma Nmult_def_O : forall x, Nmult_def O x.
 simpl; auto.
 Qed.
-Hint Resolve Nmult_def_O.
+Hint Resolve Nmult_def_O: core.
 
 Lemma Nmult_def_1 : forall x, Nmult_def (S O) x.
 simpl; intro; rewrite Unth_zero; auto.
 Qed.
-Hint Resolve Nmult_def_1.
+Hint Resolve Nmult_def_1: core.
 
 Lemma Nmult_def_intro : forall n x , x <= [1/]1+n -> Nmult_def (S n) x.
 destruct n; simpl; auto.
 Qed.
-Hint Resolve Nmult_def_intro.
+Hint Resolve Nmult_def_intro: core.
 
 Lemma Nmult_def_Unth: forall n , Nmult_def (S n) ([1/]1+n).
 auto.
 Qed.
-Hint Resolve Nmult_def_Unth.
+Hint Resolve Nmult_def_Unth: core.
 
 Lemma Nmult_def_pred : forall n x, Nmult_def (S n) x -> Nmult_def n x.
 intros n x; case n; simpl; intros; auto.
 apply Ole_trans with ([1/]1+(S n0)); auto.
 Qed.
 
-Hint Immediate Nmult_def_pred.
+Hint Immediate Nmult_def_pred: core.
 
 Lemma Nmult_defS : forall n x, Nmult_def (S n) x -> x <= [1/]1+n.
 destruct n; simpl; intros; auto.
 Qed.
-Hint Immediate Nmult_defS.
+Hint Immediate Nmult_defS: core.
 
 Lemma Nmult_def_class : forall n p, class (Nmult_def n p).
 unfold class; destruct n; intuition.
 Qed.
-Hint Resolve Nmult_def_class.
+Hint Resolve Nmult_def_class: core.
 
 Infix "*/" := Nmult (at level 60) : U_scope.
 
@@ -3512,7 +3512,7 @@ Qed.
 Lemma Nmult_def_zero : forall n, Nmult_def n 0.
 destruct n; auto.
 Qed.
-Hint Resolve Nmult_def_zero.
+Hint Resolve Nmult_def_zero: core.
 
 (** *** Properties of [n */ x] *)
 
@@ -3541,7 +3541,7 @@ Lemma Nmult_S : forall (n:nat) (x:U), S n */ x == x + (n*/x).
 destruct n; simpl; auto.
 Qed.
 
-Hint Resolve Nmult_1 Nmult_SS Nmult_2 Nmult_S.
+Hint Resolve Nmult_1 Nmult_SS Nmult_2 Nmult_S: core.
 
 Add Morphism Nmult with signature eq (A:=nat) ==> Oeq (O:=U) ==> Oeq (O:=U)
 as Nmult_eq_compat_left.
@@ -3549,13 +3549,13 @@ intros n x1 x2 eq1; induction n; simpl; auto; intros.
 destruct n; repeat rewrite Nmult_SS; trivial.
 apply Uplus_eq_compat; auto.
 Qed.
-Hint Resolve Nmult_eq_compat_left.
+Hint Resolve Nmult_eq_compat_left: core.
 
 
 Lemma Nmult_eq_compat_right : forall (n m:nat) (x:U), (n = m)%nat -> n */ x == m */ x.
 intros; subst n; trivial.
 Qed.
-Hint Resolve Nmult_eq_compat_right.
+Hint Resolve Nmult_eq_compat_right: core.
 
 Lemma Nmult_le_compat_right :  forall n x y, x <= y -> n */ x <= n */ y.
 intros; induction n; auto.
@@ -3568,7 +3568,7 @@ rewrite (Nmult_S m x); auto.
 apply Ole_trans with (m */ x); auto.
 Qed.
 
-Hint Resolve Nmult_eq_compat_right Nmult_le_compat_right Nmult_le_compat_left.
+Hint Resolve Nmult_eq_compat_right Nmult_le_compat_right Nmult_le_compat_left: core.
 
 Lemma Nmult_le_compat : forall (n m:natO) x y, n <= m -> x<=y -> n */ x <= m */ y.
 intros; apply Ole_trans with (n */y); auto.
@@ -3584,14 +3584,14 @@ destruct n; auto.
 Qed.
 
 Hint Resolve Nmult_eq_compat_right Nmult_le_compat_right
-Nmult_le_compat_left Nmult_sigma.
+Nmult_le_compat_left Nmult_sigma: core.
 
 Lemma Nmult_Unth_prop : forall n:nat, [1/]1+n == [1-] (n*/ ([1/]1+n)).
 intro.
 rewrite (Nmult_sigma n ([1/]1+n)).
 exact (Unth_prop n).
 Qed.
-Hint Resolve Nmult_Unth_prop.
+Hint Resolve Nmult_Unth_prop: core.
 
 Lemma Nmult_n_Unth: forall n:nat, n */ [1/]1+n == [1-] ([1/]1+n).
 intro; apply Uinv_eq_perm_right; auto.
@@ -3602,7 +3602,7 @@ intro; rewrite (Nmult_S n ([1/]1+n)).
 rewrite (Nmult_n_Unth n); auto.
 Qed.
 
-Hint Resolve Nmult_n_Unth Nmult_Sn_Unth.
+Hint Resolve Nmult_n_Unth Nmult_Sn_Unth: core.
 
 Lemma Nmult_ge_Sn_Unth: forall n k, (S n <= k)%nat -> k */ [1/]1+n == 1.
 induction 1; auto.
@@ -3613,7 +3613,7 @@ Lemma Nmult_le_n_Unth: forall n k, (k <= n)%nat -> k */ [1/]1+n <= [1-] ([1/]1+n
 intros; apply Ole_trans with (n */ [1/]1+n); auto.
 Qed.
 
-Hint Resolve Nmult_ge_Sn_Unth Nmult_le_n_Unth.
+Hint Resolve Nmult_ge_Sn_Unth Nmult_le_n_Unth: core.
 
 
 Lemma Nmult_Umult_assoc_left : forall n x y, Nmult_def n x -> n*/(x*y) == (n*/x)*y.
@@ -3629,13 +3629,13 @@ apply Ole_trans with ((S n) */ ([1/]1+(S n))); auto.
 apply Oeq_sym; auto.
 Qed.
 
-Hint Resolve Nmult_Umult_assoc_left.
+Hint Resolve Nmult_Umult_assoc_left: core.
 
 Lemma Nmult_Umult_assoc_right : forall n x y, Nmult_def n y -> n*/(x*y) == x*(n*/y).
 intros; rewrite (Umult_sym x y); rewrite (Nmult_Umult_assoc_left n y x H); auto.
 Qed.
 
-Hint Resolve Nmult_Umult_assoc_right.
+Hint Resolve Nmult_Umult_assoc_right: core.
 
 Lemma plus_Nmult_distr : forall n m x, (n + m) */ x== (n */ x) + (m */ x).
 intros n m x; induction n; auto; intros.
@@ -3677,7 +3677,7 @@ rewrite (Nmult_Sn_Unth n); auto.
 Qed.
 
 Hint Resolve Nmult_Umult_assoc_right plus_Nmult_distr Nmult_Uplus_distr
-Nmult_mult_assoc Nmult_Unth_simpl_left Nmult_Unth_simpl_right.
+Nmult_mult_assoc Nmult_Unth_simpl_left Nmult_Unth_simpl_right : core.
 
 Lemma Uinv_Nmult : forall k n, [1-] (k */ [1/]1+n) == ((S n) - k)  */ [1/]1+n.
 intros k n; case (le_lt_dec (S n) k); intro.
@@ -3705,7 +3705,7 @@ Lemma Nmult_neq_zero : forall n x, ~0==x -> ~0==S n */ x.
 intros; rewrite (Nmult_S n x); auto.
 apply Uplus_neq_zero_left; trivial.
 Qed.
-Hint Resolve Nmult_neq_zero.
+Hint Resolve Nmult_neq_zero: core.
 
 
 Lemma Nmult_le_simpl :  forall (n:nat) (x y:U),
@@ -3747,7 +3747,7 @@ apply Nmult_eq_compat_left; auto.
 (* rewrite (Nmult_Unth_simpl_left m1 ([1/]1+n1)); auto. *)
 Qed.
 
-Hint Resolve Nmult_Unth_le Nmult_Unth_eq.
+Hint Resolve Nmult_Unth_le Nmult_Unth_eq: core.
 
 Lemma Nmult_def_lt : forall n x, n */ x <1 -> Nmult_def n x.
 red; destruct n; intros; auto.
@@ -3756,7 +3756,7 @@ case H.
 apply Ole_trans with (S n */ [1/]1+n); auto.
 Qed.
 
-Hint Immediate Nmult_def_lt.
+Hint Immediate Nmult_def_lt: core.
 
 (*
 Lemma Unth_half : forall n, [1/2] * [1/]1+n == [1/]1+(2*n+1).
@@ -3796,7 +3796,7 @@ simpl; apply ford_eq_intro.
 unfold NB2U,finv,B2U; intro b; case b; auto.
 Qed.
 
-Hint Resolve B2Uinv NB2Uinv.
+Hint Resolve B2Uinv NB2Uinv: core.
 
 (** ** Particular sequences *)
   (**  $pmin (p)(n) = p - \frac{1}{2^n}$ *)
@@ -3836,7 +3836,7 @@ induction n; simpl; intros; auto.
 apply Ole_trans with ([1/2] * ([1/]1+n)); auto.
 Qed.
 
-Hint Resolve pmin_0 pmin_le.
+Hint Resolve pmin_0 pmin_le: core.
 
 Lemma pmin_le_compat : forall p (n m : natO), n <= m -> pmin p n <= pmin p m.
 unfold pmin; intros.
@@ -3858,13 +3858,13 @@ Qed.
 Lemma le_lim_pmin_p : forall p, lub (Pmin p) <= p.
 intro; apply lub_le; simpl; unfold pmin; auto.
 Qed.
-Hint Resolve le_p_lim_pmin le_lim_pmin_p.
+Hint Resolve le_p_lim_pmin le_lim_pmin_p: core.
 
 Lemma eq_lim_pmin_p : forall p, lub (Pmin p) == p.
 intros; apply Ole_antisym; auto.
 Qed.
 
-Hint Resolve eq_lim_pmin_p.
+Hint Resolve eq_lim_pmin_p: core.
 
 (** Particular case where p = 1 *)
 
@@ -3886,7 +3886,7 @@ Lemma U1min_0 : U1min O == 0.
 unfold U1min; simpl; auto.
 Qed.
 
-Hint Resolve eq_lim_U1min U1min_S U1min_0.
+Hint Resolve eq_lim_U1min U1min_S U1min_0: core.
 
 Lemma glb_half_exp : glb (UExp [1/2]) == 0.
 unfold glb; apply Uinv_eq_perm_left.
@@ -3894,7 +3894,7 @@ apply Oeq_trans with (lub U1min).
 apply lub_eq_compat; apply fmon_eq_intro; simpl; unfold U1min,pmin; simpl; auto.
 rewrite eq_lim_U1min; auto.
 Qed.
-Hint Resolve glb_half_exp.
+Hint Resolve glb_half_exp: core.
 
 Lemma Ule_lt_half_exp : forall x y, (forall p, x <= y + [1/2]^p) -> x <= y.
 intros; apply Ole_trans with (glb (UExp [1/2]) + y).
@@ -3907,13 +3907,13 @@ Qed.
 Lemma half_exp_le_half : forall p, [1/2]^(S p) <= [1/2].
 simpl; auto.
 Qed.
-Hint Resolve half_exp_le_half.
+Hint Resolve half_exp_le_half: core.
 
 Lemma twice_half_exp : forall p, [1/2]^(S p) + [1/2]^(S p) ==  [1/2]^p.
 simpl; intros.
 rewrite <- Udistr_plus_right; auto.
 Qed.
-Hint Resolve twice_half_exp.
+Hint Resolve twice_half_exp: core.
 
 (** *** Dyadic numbers *)
 Fixpoint exp2 (n:nat) : nat :=
@@ -3922,12 +3922,12 @@ Fixpoint exp2 (n:nat) : nat :=
 Lemma exp2_pos : forall n, (O < exp2 n)%nat.
 induction n; simpl; auto with arith.
 Qed.
-Hint Resolve exp2_pos.
+Hint Resolve exp2_pos: core.
 
 Lemma S_pred_exp2 : forall n, S (pred (exp2 n))=exp2 n.
 intro; rewrite S_pred with (exp2 n) O; trivial.
 Qed.
-Hint Resolve S_pred_exp2.
+Hint Resolve S_pred_exp2: core.
 
 Notation "k  /2^ p" := (k */ ([1/2])^p) (at level 35, no associativity).
 
@@ -3964,13 +3964,13 @@ rewrite <- plus_n_O.
 rewrite Unth_half; auto.
 Qed.
 
-Hint Resolve Unth_exp2.
+Hint Resolve Unth_exp2: core.
 
 Lemma Nmult_exp2 : forall p, (exp2 p)/2^p == 1.
 intros; rewrite Unth_exp2.
 replace (exp2 p) with (S (pred (exp2 p))); auto.
 Qed.
-Hint Resolve Nmult_exp2.
+Hint Resolve Nmult_exp2: core.
 
 (** ** Tactic for simplification of goals *)
 
@@ -4051,7 +4051,7 @@ Qed.
 (** *** Definition *)
 Record IU : Type := mk_IU {low:U; up:U; proper:low <= up}.
 
-Hint Resolve proper.
+Hint Resolve proper: core.
 
 (** the all set : [[0,1]] *)
 Definition full := mk_IU 0 1 (Upos 1).
@@ -4068,7 +4068,7 @@ Definition Iin (x:U) (I:IU) := low I <= x /\ x <= up I.
 Definition Iincl I J := low J <= low I /\ up I <= up J.
 
 Definition Ieq I J := low I == low J /\ up I == up J.
-Hint Unfold Iin Iincl Ieq.
+Hint Unfold Iin Iincl Ieq: core.
 
 (** *** Properties *)
 Lemma Iin_low : forall I, Iin (low I) I.
@@ -4079,7 +4079,7 @@ Lemma Iin_up : forall I, Iin (up I) I.
 auto.
 Qed.
 
-Hint Resolve Iin_low Iin_up.
+Hint Resolve Iin_low Iin_up: core.
 
 Lemma Iin_singl_elim : forall x y, Iin x (singl y) -> x == y.
 unfold Iin; intuition (simpl; auto).
@@ -4106,8 +4106,8 @@ Lemma Iin_sup_intro : forall x y, y <= x -> Iin x (sup y).
 auto.
 Qed.
 
-Hint Immediate Iin_inf_elim Iin_sup_elim Iin_singl_elim.
-Hint Resolve Iin_inf_intro Iin_sup_intro Iin_singl_intro.
+Hint Immediate Iin_inf_elim Iin_sup_elim Iin_singl_elim: core.
+Hint Resolve Iin_inf_intro Iin_sup_intro Iin_singl_intro: core.
 
 Lemma Iin_class : forall I x, class (Iin x I).
 unfold class, Iin; split.
@@ -4126,7 +4126,7 @@ unfold class, Ieq; split.
 apply Ueq_class; intuition.
 apply Ueq_class; intuition.
 Qed.
-Hint Resolve Iin_class Iincl_class Ieq_class.
+Hint Resolve Iin_class Iincl_class Ieq_class: core.
 
 Lemma Iincl_in : forall I J, Iincl I J -> forall x, Iin x I -> Iin x J.
 unfold Iin,Iincl; intuition.
@@ -4142,12 +4142,12 @@ Lemma Iincl_up : forall I J, Iincl I J -> up I <= up J.
 unfold Iincl; intuition.
 Qed.
 
-Hint Immediate Iincl_low Iincl_up.
+Hint Immediate Iincl_low Iincl_up: core.
 
 Lemma Iincl_refl : forall I, Iincl I I.
 unfold Iincl; intuition.
 Qed.
-Hint Resolve Iincl_refl.
+Hint Resolve Iincl_refl: core.
 
 Lemma Iincl_trans : forall I J K, Iincl I J -> Iincl J K -> Iincl I K.
 unfold Iincl; intuition.
@@ -4179,7 +4179,7 @@ Qed.
 Lemma Ieq_incl_sym : forall I J, Ieq I J -> Iincl J I.
 unfold Ieq,Iincl; intuition.
 Qed.
-Hint Immediate Ieq_incl Ieq_incl_sym.
+Hint Immediate Ieq_incl Ieq_incl_sym: core.
 
 Lemma lincl_eq_compat : forall I J K L,
      Ieq I J -> Iincl J K -> Ieq K L -> Iincl I L.
@@ -4200,17 +4200,17 @@ Qed.
 Lemma Iincl_antisym : forall I J, Iincl I J -> Iincl J I -> Ieq I J.
 unfold Iincl; intuition.
 Qed.
-Hint Immediate Iincl_antisym.
+Hint Immediate Iincl_antisym: core.
 
 Lemma Ieq_refl : forall I, Ieq I I.
 unfold Ieq; auto.
 Qed.
-Hint Resolve Ieq_refl.
+Hint Resolve Ieq_refl: core.
 
 Lemma Ieq_sym : forall I J, Ieq I J -> Ieq J I.
 unfold Ieq; intuition.
 Qed.
-Hint Immediate Ieq_sym.
+Hint Immediate Ieq_sym: core.
 
 Lemma Ieq_trans : forall I J K, Ieq I J -> Ieq J K -> Ieq I K.
 unfold Ieq; intuition.
@@ -4221,12 +4221,12 @@ Qed.
 Lemma Isingl_eq : forall x y, Iincl (singl x) (singl y) -> x==y.
 unfold Iincl, singl; intuition.
 Qed.
-Hint Immediate Isingl_eq.
+Hint Immediate Isingl_eq: core.
 
 Lemma Iincl_full : forall I, Iincl I full.
 unfold Iincl, full; intuition.
 Qed.
-Hint Resolve Iincl_full.
+Hint Resolve Iincl_full: core.
 
 (** *** Operations on intervals *)
 
@@ -4322,7 +4322,7 @@ unfold Ilim,Iincl; simpl; split.
 apply le_lub with (f:=Low @ I) (n:=n).
 apply glb_le with (f:=Up @ I) (n:=n).
 Qed.
-Hint Resolve lim_Iincl.
+Hint Resolve lim_Iincl: core.
 
 Lemma Iincl_lim :  forall J (I:natO-m>IUord), (forall n, Iincl J (I n)) -> Iincl J (Ilim I).
 unfold Ilim,Iincl; simpl; split.
@@ -4336,7 +4336,7 @@ Lemma IIim_incl_stable : forall (I J:natO-m>IUord), (forall n, Iincl (I n) (J n)
 intros; apply Iincl_lim.
 intros; apply Iincl_trans with (I n); auto.
 Qed.
-Hint Resolve IIim_incl_stable.
+Hint Resolve IIim_incl_stable: core.
 
 Definition IUcpo : cpo.
 exists IUord full Ilim; intros; auto.
@@ -4356,7 +4356,7 @@ Fixpoint Iiter (n:nat) : A -> IU :=
 Lemma Iiter_decr : forall x n, Iincl (Iiter (S n) x) (Iiter n x).
 intros x n; generalize x; induction n; simpl; auto.
 Qed.
-Hint Resolve Iiter_decr.
+Hint Resolve Iiter_decr: core.
 
 Definition Ifix (x:A) := Ilim (fun n => Iiter n x) (Iiter_decr x).
 
@@ -4392,7 +4392,7 @@ apply Ulub_le; intros.
 replace (S n+n0)%nat with (n+S n0)%nat; try omega.
 apply le_Ulub with (f:=fun k : nat => f (n+k)%nat).
 Qed.
-Hint Resolve fsup_mon.
+Hint Resolve fsup_mon: core.
 
 Lemma finf_mon : forall (f:nat->U) n, finf f n <= finf f (S n).
 unfold finf; intros.
@@ -4401,7 +4401,7 @@ replace (S n+n0)%nat with (n+S n0)%nat; try omega.
 apply Uglb_le with (f:=fun k : nat => f (n+k)%nat).
 Qed.
 
-Hint Resolve finf_mon.
+Hint Resolve finf_mon: core.
 
 Definition Fsup (f : nat -> U) : natO -m> UI :=
  fnatO_intro (f := fsup f : natO -> UI) (fsup_mon f).
@@ -4413,14 +4413,14 @@ unfold fsup; intros.
 pattern n at 1; replace n with (n+O)%nat; auto with arith.
 apply le_Ulub with (f:=fun k : nat => f (n+k)%nat) (n:=O).
 Qed.
-Hint Resolve fn_fsup.
+Hint Resolve fn_fsup: core.
 
 Lemma finf_fn : forall f n, finf f n <= f n.
 unfold finf; intros.
 pattern n at 2; replace n with (n+O)%nat; auto with arith.
 apply Uglb_le with (f:=fun k : nat => f (n+k)%nat) (n:=O).
 Qed.
-Hint Resolve finf_fn.
+Hint Resolve finf_fn: core.
 
 Definition limsup f := glb (Fsup f).
 Definition liminf f := lub (Finf f).
@@ -4438,7 +4438,7 @@ apply Ulub_le_compat; simpl; intro.
 replace ((x0+x)%nat) with ((x+x0)%nat); auto with arith.
 Qed.
 
-Hint Resolve le_liminf_sup.
+Hint Resolve le_liminf_sup: core.
 
 Definition has_lim f := limsup f <= liminf f.
 
@@ -4491,7 +4491,7 @@ Qed.
 Lemma limit_unique : forall f l1 l2, is_limit f l1 -> is_limit f l2 -> l1 == l2.
 intros; apply Ole_antisym; apply (limit_le_unique (f:=f)); auto.
 Qed.
-Hint Resolve limit_unique.
+Hint Resolve limit_unique: core.
 
 Lemma has_limit_compute : forall f l, is_limit f l -> is_limit f (limsup f).
 intros; apply cauchy_lim; auto.
@@ -4544,7 +4544,7 @@ apply Ole_trans with (lub ((UPlus @2 (Finf f)) (Finf g))); auto.
 apply lub_le_compat; simpl; unfold finf; auto.
 Qed.
 
-Hint Resolve liminf_le_plus limsup_le_plus.
+Hint Resolve liminf_le_plus limsup_le_plus: core.
 
 Lemma limsup_le_compat : forall f g : nat -o> U, f <= g -> limsup f <= limsup g.
 unfold limsup; intros.
@@ -4556,7 +4556,7 @@ unfold liminf; intros.
 apply lub_le_compat; simpl; intros; unfold finf; apply Uglb_le_compat; auto.
 Qed.
 
-Hint Resolve limsup_le_compat liminf_le_compat.
+Hint Resolve limsup_le_compat liminf_le_compat: core.
 
 Lemma limsup_eq_compat : forall f g : nat -o> U, f == g -> limsup f == limsup g.
 intros; apply Ole_antisym; auto.
@@ -4566,7 +4566,7 @@ Lemma liminf_eq_compat : forall f g : nat -o> U, f == g -> liminf f == liminf g.
 intros; apply Ole_antisym; auto.
 Qed.
 
-Hint Resolve liminf_eq_compat limsup_eq_compat.
+Hint Resolve liminf_eq_compat limsup_eq_compat: core.
 
 Lemma limsup_inv :  forall f : nat -> U, limsup (fun x => [1-]f x) == [1-] liminf f.
 unfold limsup, liminf; intros. 
@@ -4584,7 +4584,7 @@ apply lub_eq_compat; apply fmon_eq_intro; intro n; simpl; unfold finf,fsup,Uglb;
 apply Ulub_eq_compat; apply ford_eq_intro; intro m; auto.
 Qed.
 
-Hint Resolve limsup_inv liminf_inv.
+Hint Resolve limsup_inv liminf_inv: core.
 
 (** ** limits *)
 Lemma liminf_incr : forall f:natO-m>U, liminf f == lub f.
@@ -4705,7 +4705,7 @@ assert (0 < serie f); auto.
 apply serie_not_zero with k; auto.
 Qed.
 
-Hint Resolve serie_eq_compat serie_le_compat serie_zero.
+Hint Resolve serie_eq_compat serie_le_compat serie_zero: core.
 
 Lemma serie_le : forall f k, f k <= serie f.
 intros; apply Ole_trans with (sigma f (S k)); auto.
@@ -4757,7 +4757,7 @@ Lemma wretract_retract : forall f, wretract f -> forall n, retract f n.
 red; intros; auto.
 Qed.
 
-Hint Resolve wretract_retract.
+Hint Resolve wretract_retract: core.
 
 Lemma wretract_lt : forall (f : nat -> U), (forall (n : nat),  sigma f n < 1) -> wretract f.
 intros; apply retract_wretract; intros.
@@ -4785,14 +4785,14 @@ apply Oeq_trans with (lub (UMult c @ sigma f)); auto.
 apply lub_eq_compat; apply fmon_eq_intro; intro n.
 apply (sigma_mult (f:=f) c (n:=n)); auto.
 Qed.
-Hint Resolve serie_mult.
+Hint Resolve serie_mult: core.
 
 Lemma serie_prod_maj :  forall (f g : nat -> U),
    serie (fun k => f k * g k) <= serie f.
 auto.
 Qed.
 
-Hint Resolve serie_prod_maj.
+Hint Resolve serie_prod_maj: core.
 
 Lemma serie_prod_le :  forall (f g : nat -> U) (c:U), (forall k, f k <= c)
    -> wretract g -> serie (fun k => f k * g k) <= c * serie g.
@@ -4805,7 +4805,7 @@ intros; apply Ole_trans with (serie (fun k => c * g k)); auto.
 rewrite serie_mult; auto.
 Qed.
 
-Hint Resolve serie_prod_le  serie_prod_ge.
+Hint Resolve serie_prod_le  serie_prod_ge: core.
 
 (*
 Lemma serie_inv : forall (f g : nat -> U), wretract f ->

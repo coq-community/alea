@@ -54,17 +54,17 @@ Definition stable_inv (A:Type) (m:M A) : Prop := forall f :MF A, m (finv f) <= [
 
 
 Definition fplusok (A:Type) (f g : MF A) :=  f <= finv g.
-Hint Unfold fplusok.
+Hint Unfold fplusok: core.
 
 Lemma fplusok_sym : forall (A:Type) (f g : MF A) , fplusok f g -> fplusok g f.
 unfold fplusok, finv; intros;  intro; auto.
 Qed.
-Hint Immediate fplusok_sym.
+Hint Immediate fplusok_sym: core.
 
 Lemma fplusok_inv : forall (A:Type) (f : MF A) , fplusok f (finv f).
 intros; apply fplusok_sym; unfold fplusok; auto.
 Qed.
-Hint Resolve fplusok_inv.
+Hint Resolve fplusok_inv: core.
 
 Lemma fplusok_le_compat : forall (A:Type)(f1 f2 g1 g2:MF A), 
       fplusok f2 g2 -> f1 <= f2 -> g1 <= g2 -> fplusok f1 g1.
@@ -78,7 +78,7 @@ Lemma fconj_fplusok : forall (A:Type)(f g h:MF A), fplusok g h ->
           fplusok (fconj f g) (fconj f h).
 intros; apply fplusok_le_compat with g h; auto.
 Qed.
-Hint Resolve fconj_fplusok.
+Hint Resolve fconj_fplusok: core.
 
 
 Definition stable_plus (A:Type) (m:M A) : Prop :=
@@ -113,7 +113,7 @@ apply Ole_trans with (m (finv g)); auto.
 simpl; apply ford_eq_intro; intro x; unfold fplus,fminus; auto.
 Qed.
 
-Hint Resolve stable_minus_distr.
+Hint Resolve stable_minus_distr: core.
 
 Lemma inv_minus_distr : forall (A:Type) (m:M A),
      stable_plus m -> stable_inv m ->
@@ -123,14 +123,14 @@ apply Oeq_trans with (m (fminus (fone A) f)); auto.
 apply (fmon_stable m).
 simpl; apply ford_eq_intro; intro x; unfold fminus,finv,fone,fplus; intros; auto.
 Qed.
-Hint Resolve inv_minus_distr.
+Hint Resolve inv_minus_distr: core.
 
 Lemma le_minus_distr : forall (A : Type)(m:M A),
     forall  (f g:A -> U), m (fminus f g) <= m f.
 intros A m; intros.
 apply (fmonotonic m); intro x; rewrite fminus_eq; auto.
 Qed.
-Hint Resolve le_minus_distr.
+Hint Resolve le_minus_distr: core.
 
 Lemma le_plus_distr : forall (A : Type)(m:M A),
     stable_plus m -> stable_inv m -> forall (f g:MF A), m (fplus f g) <= m f + m g.
@@ -141,7 +141,7 @@ rewrite (splus (fminus f (fesp f g)) g).
 Usimpl; auto.
 red; intro x; unfold fminus,fesp,finv; auto.
 Qed.
-Hint Resolve le_plus_distr.
+Hint Resolve le_plus_distr: core.
 
 Lemma le_esp_distr : forall (A : Type) (m:M A),
      stable_plus m -> stable_inv m -> le_esp m.
