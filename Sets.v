@@ -38,8 +38,8 @@ Lemma equiv_trans : forall P Q R:set,
 unfold equiv; firstorder.
 Qed.
 
-Hint Resolve equiv_refl.
-Hint Immediate equiv_sym.
+Hint Resolve equiv_refl: core.
+Hint Immediate equiv_sym: core.
 
 (** ** Setoid structure *)
 Lemma set_setoid : Setoid_Theory set equiv.
@@ -56,12 +56,12 @@ Qed.
 Add Morphism rem : equiv_rem.
 unfold equiv,rem; firstorder.
 Qed.
-Hint Resolve equiv_add equiv_rem.
+Hint Resolve equiv_add equiv_rem: core.
 
 Add Morphism union : equiv_union.
 unfold equiv,union; firstorder.
 Qed.
-Hint Immediate equiv_union.
+Hint Immediate equiv_union: core.
 
 Lemma equiv_union_left : 
   forall P1 Q P2,
@@ -75,17 +75,17 @@ Lemma equiv_union_right :
 auto.
 Qed.
 
-Hint Resolve equiv_union_left equiv_union_right.
+Hint Resolve equiv_union_left equiv_union_right: core.
 
 Add Morphism inter : equiv_inter.
 unfold equiv,inter; firstorder.
 Qed.
-Hint Immediate equiv_inter.
+Hint Immediate equiv_inter: core.
 
 Add Morphism compl : equiv_compl.
 unfold equiv,compl; firstorder.
 Qed.
-Hint Resolve equiv_compl.
+Hint Resolve equiv_compl: core.
 
 Lemma equiv_add_empty : forall (a:A) (P:set), ~equiv (add a P) empty.
 red; unfold equiv,empty,add; intros a P eqH; assert (H:=eqH a);  intuition.
@@ -97,7 +97,7 @@ Inductive finite (P: set) : Type :=
    fin_eq_empty : equiv P empty -> finite P
  | fin_eq_add (*: forall *)(x:A)(Q:set):
              ~ Q x-> finite Q -> equiv P (add x Q) -> finite P.
-Hint Constructors finite.
+Hint Constructors finite: core.
 
 Lemma fin_empty : (finite empty).
 auto.
@@ -116,7 +116,7 @@ apply fin_eq_add with x Q0; auto.
 apply equiv_trans with P; auto.
 Defined.
 
-Hint Resolve fin_empty fin_add.
+Hint Resolve fin_empty fin_add: core.
 
 (** *** Emptyness is decidable for finite sets *)
 Definition isempty (P:set) := equiv P empty.
@@ -168,8 +168,8 @@ forall (P Q : set), incl P Q -> incl Q P -> equiv P Q.
 unfold equiv, incl; firstorder.
 Qed.
 
-Hint Resolve incl_refl incl_trans equiv_incl_intro. 
-Hint Immediate equiv_incl equiv_incl_sym. 
+Hint Resolve incl_refl incl_trans equiv_incl_intro: core. 
+Hint Immediate equiv_incl equiv_incl_sym: core. 
 
 (** ** Properties of operations on sets *)
 
@@ -190,7 +190,7 @@ Lemma equiv_empty_false : forall P a, equiv P empty -> P a -> False.
 unfold equiv; firstorder.
 Qed.
 
-Hint Immediate incl_empty_false equiv_empty_false incl_add_empty.
+Hint Immediate incl_empty_false equiv_empty_false incl_add_empty: core.
 
 Lemma incl_rem_stable :   forall a P Q, incl P Q -> incl (rem a P) (rem a Q).
 unfold incl,rem;intuition.
@@ -223,7 +223,7 @@ case (decA x a); intros; auto.
 subst; case H; auto.
 Qed.
 
-Hint Immediate incl_rem_add incl_add_rem.
+Hint Immediate incl_rem_add incl_add_rem: core.
 
 Lemma equiv_rem_add : 
  forall (a:A) (P Q:set), 
@@ -241,7 +241,7 @@ assert (incl P (add a Q)); auto.
 case (incl_rem_add_iff a P Q); auto.
 Qed.
 
-Hint Immediate equiv_rem_add equiv_add_rem.
+Hint Immediate equiv_rem_add equiv_add_rem: core.
 
 Lemma add_rem_eq_equiv : 
   forall x (P:set), equiv (add x (rem x P)) (add x P).
@@ -262,7 +262,7 @@ unfold equiv, add; intuition.
 subst;auto.
 Qed.
 
-Hint Resolve add_rem_eq_equiv add_rem_diff_equiv add_equiv_in.
+Hint Resolve add_rem_eq_equiv add_rem_diff_equiv add_equiv_in: core.
 
 
 Lemma add_rem_equiv_in : 
@@ -270,7 +270,7 @@ Lemma add_rem_equiv_in :
 intros; apply equiv_trans with (add x P); auto.
 Qed.
 
-Hint Resolve add_rem_equiv_in.
+Hint Resolve add_rem_equiv_in: core.
 
 Lemma rem_add_eq_equiv : 
   forall x (P:set), equiv (rem x (add x P)) (rem x P).
@@ -289,14 +289,14 @@ unfold equiv, rem; intuition.
 subst;auto.
 Qed.
 
-Hint Resolve rem_add_eq_equiv rem_add_diff_equiv rem_equiv_notin.
+Hint Resolve rem_add_eq_equiv rem_add_diff_equiv rem_equiv_notin: core.
 
 Lemma rem_add_equiv_notin : 
   forall x (P:set), ~P x -> equiv (rem x (add x P)) P.
 intros; apply equiv_trans with (rem x P); auto.
 Qed.
 
-Hint Resolve rem_add_equiv_notin.
+Hint Resolve rem_add_equiv_notin: core.
 
 
 Lemma rem_not_in : forall x (P:set), ~ rem x P x.
@@ -327,7 +327,7 @@ Lemma rem_incl : forall x (P:set), incl (rem x P) P.
 unfold incl, rem; intuition.
 Qed.
 
-Hint Resolve rem_not_in add_in rem_incl add_incl.
+Hint Resolve rem_not_in add_in rem_incl add_incl: core.
 
 Lemma union_sym : forall P Q : set,
       equiv (union P Q) (union Q P).
@@ -355,7 +355,7 @@ unfold equiv, union, add; intuition.
 Qed.
 
 Hint Resolve union_sym union_empty_left union_empty_right
-union_add_left union_add_right.
+union_add_left union_add_right : core.
 
 Lemma union_incl_left : forall P Q, incl P (union P Q).
 unfold incl,union; intuition.
@@ -369,13 +369,13 @@ Lemma union_incl_intro : forall P Q R, incl P R -> incl Q R -> incl (union P Q) 
 unfold incl,union; intuition.
 Qed.
 
-Hint Resolve union_incl_left union_incl_right union_incl_intro.
+Hint Resolve union_incl_left union_incl_right union_incl_intro: core.
 
 Lemma incl_union_stable : forall P1 P2 Q1 Q2,
 	incl P1 P2 -> incl Q1 Q2 -> incl (union P1 Q1) (union P2 Q2).
 intros; apply union_incl_intro; unfold incl,union; intuition.
 Qed.
-Hint Immediate incl_union_stable.
+Hint Immediate incl_union_stable: core.
 
 Lemma inter_sym : forall P Q : set,
       equiv (inter P Q) (inter Q P).
@@ -417,7 +417,7 @@ subst; case H; auto.
 Qed.
 
 Hint Resolve inter_sym inter_empty_left inter_empty_right
-inter_add_left_in inter_add_left_out inter_add_right_in inter_add_right_out.
+inter_add_left_in inter_add_left_out inter_add_right_in inter_add_right_out : core.
 
 (** ** Generalized union *)
 Definition gunion (I:Type)(F:I->set) : set := fun z => exists i, F i z.
@@ -645,16 +645,16 @@ Qed.
 
 End sets.
 
-Hint Resolve equiv_refl.
-Hint Resolve equiv_add equiv_rem.
-Hint Immediate equiv_sym finite_dec finite_full_dec equiv_incl equiv_incl_sym equiv_incl_intro.
+Hint Resolve equiv_refl: core.
+Hint Resolve equiv_add equiv_rem: core.
+Hint Immediate equiv_sym finite_dec finite_full_dec equiv_incl equiv_incl_sym equiv_incl_intro: core.
 
-Hint Resolve incl_refl.
-Hint Immediate incl_union_stable.
+Hint Resolve incl_refl: core.
+Hint Immediate incl_union_stable: core.
 Hint Resolve union_incl_left union_incl_right union_incl_intro incl_empty rem_incl
 incl_rem_stable incl_add_stable.
 
-Hint Constructors finite.
+Hint Constructors finite: core.
 Hint Resolve add_in add_in_eq add_intro add_incl add_incl_intro union_sym union_empty_left union_empty_right
 union_add_left union_add_right finite_union equiv_union_left 
 equiv_union_right.

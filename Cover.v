@@ -18,7 +18,7 @@ Open Scope O_scope.
 (** Properties of zero_one functions *)
 
 Definition zero_one (A:Type)(f:MF A) := forall x, orc (f x == 0) (f x == 1).
-Hint Unfold zero_one.
+Hint Unfold zero_one: core.
 
 Lemma zero_one_not_one :
 forall (A:Type)(f:MF A) x, zero_one f -> ~ 1 <= f x -> f x == 0.
@@ -32,7 +32,7 @@ intros; apply (H x); intros; auto.
 absurd (0 <= f x); auto.
 Qed.
 
-Hint Resolve zero_one_not_one zero_one_not_zero.
+Hint Resolve zero_one_not_one zero_one_not_zero: core.
 
 Definition fesp_zero_one : forall (A:Type)(f g:MF A),
       zero_one f -> zero_one g ->  zero_one (fesp f g).
@@ -101,7 +101,7 @@ Lemma fesp_zero_one_mult_right : forall (A:Type)(p:U)(f:MF A),
      zero_one f -> forall x, p & f x == p * f x.
 intros; apply Uesp_zero_one_mult_right; auto.
 Qed.
-Hint Resolve fesp_zero_one_mult_left fesp_zero_one_mult_right.
+Hint Resolve fesp_zero_one_mult_left fesp_zero_one_mult_right: core.
 
 (** ** Covering functions *)
 
@@ -150,7 +150,7 @@ Lemma cover_esp_mult_right : forall (A:Type)(P:set A)(p:U)(f:MF A),
 intros; apply Uesp_zero_one_mult_right.
 exact (cover_orc_0_1 H x).
 Qed.
-Hint Immediate cover_esp_mult_left cover_esp_mult_right.
+Hint Immediate cover_esp_mult_left cover_esp_mult_right: core.
 
 Lemma cover_elim : forall (A:Type)(P:set A)(f:MF A),
 cover P f -> forall x, orc (~P x /\ f x == 0) (P x /\ f x == 1).
@@ -319,13 +319,13 @@ intros; unfold carac; case (Pdec x); intros; auto.
 case (Qdec y); intros; auto.
 absurd (Q y); auto.
 Qed.
-Hint Resolve carac_monotonic.
+Hint Resolve carac_monotonic: core.
 
 Lemma carac_eq_compat : forall (A B:Type)(P:A -> Prop)(Q:B->Prop)(Pdec: dec P)(Qdec: dec Q) x y,
                                 (P  x <-> Q y) -> carac Pdec x == carac Qdec y.
 intros; apply Ole_antisym; intuition.
 Qed.
-Hint Resolve carac_eq_compat.
+Hint Resolve carac_eq_compat: core.
 
 Lemma carac_one : forall (A:Type)(P:A -> Prop)(Pdec:dec P)(z:A),
        P z -> carac Pdec z == 1.
@@ -365,7 +365,7 @@ apply (cover_elim H0 x); auto; intuition.
 rewrite H3; repeat Usimpl; auto.
 rewrite H3; repeat Usimpl; auto.
 Qed.
-Hint Resolve cover_esp_fun_le.
+Hint Resolve cover_esp_fun_le: core.
 
 Lemma cover_ok : forall (A:Type)(P Q:set A)(f g : MF A),
         (forall x, P x -> ~ Q x) -> cover P f -> cover Q g -> fplusok f g.
@@ -377,7 +377,7 @@ apply (cover_elim H1 x); auto; intuition.
 rewrite H6; auto.
 case (H x H3 H5).
 Qed.
-Hint Resolve cover_ok.
+Hint Resolve cover_ok: core.
 
 (** * Conditional probabilities *)
 
@@ -558,7 +558,7 @@ Lemma retract_fin_inv :
 intros; apply Uinv_le_perm_right; auto.
 Qed.
 
-Hint Immediate retract_fin_inv.
+Hint Immediate retract_fin_inv: core.
 
 Lemma retract_fin_incl : forall P Q f, retract_fin P f -> incl Q P -> retract_fin Q f.
 unfold retract_fin; intros.
@@ -650,7 +650,7 @@ apply Ole_trans with ((f x) * (g x) + (c * sigma_fin g FP)); auto.
 apply Ole_trans with ( c * (g x) + (c * sigma_fin g FP)); auto.
 case (e x); intuition.
 Qed.
-Hint Resolve sigma_fin_prod_maj sigma_fin_prod_ge sigma_fin_prod_le.
+Hint Resolve sigma_fin_prod_maj sigma_fin_prod_ge sigma_fin_prod_le: core.
 
 Lemma sigma_fin_inv : forall (f g : A -> U)(P:A->Prop)(FP:finite P),
        retract_fin P f ->
@@ -800,7 +800,7 @@ Let s:= (size FP - 1)%nat.
 Lemma pred_size_le : (size FP <=S s)%nat.
 unfold s; omega.
 Qed.
-Hint Resolve pred_size_le.
+Hint Resolve pred_size_le: core.
 
 
 Lemma pred_size_eq : notempty P -> size FP =S s.
@@ -957,7 +957,7 @@ induction n; simpl; intros; auto.
 case (Pdec n); intros; auto with arith.
 absurd (P n); auto with arith.
 Qed.
-Hint Resolve nb_elts_true.
+Hint Resolve nb_elts_true: core.
 
 (** - the probability for a random number between 0 and n to satisfy P is equal
      to the number of elements below n which satisfy P divided by n+1 *)
@@ -980,7 +980,7 @@ Qed.
 Lemma nb_elts_lt_ge : forall k n, (n <= k)%nat -> nb_elts (lt_dec k) n = n.
 intros; auto with zarith.
 Qed.
-Hint Resolve nb_elts_lt_ge nb_elts_lt_le.
+Hint Resolve nb_elts_lt_ge nb_elts_lt_le: core.
 
 Lemma Random_lt : forall n k, mu (Random n) (carac_lt k) == k */ [1/]1+n.
 unfold carac_lt; intros; rewrite Random_carac.
@@ -991,7 +991,7 @@ apply Ole_antisym; auto.
 apply Ole_trans with 1; auto.
 Qed.
 
-Hint Resolve Random_lt.
+Hint Resolve Random_lt: core.
 
 Lemma Random_le : forall n k, mu (Random n) (carac_le k) == (S k) */ [1/]1+n.
 intros; apply Oeq_trans with (mu (Random n) (carac_lt (S k))); auto.
@@ -1001,6 +1001,6 @@ simpl; apply ford_eq_intro; intro x.
 apply carac_eq_compat; intuition.
 Qed.
 
-Hint Resolve Random_le.
+Hint Resolve Random_le: core.
 
 End CoverFun.

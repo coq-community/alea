@@ -98,7 +98,7 @@ as Mchoice_eq_compat.
 intros; apply eq_distr_intro; simpl; intros.
 rewrite H; apply Uplus_eq_compat; repeat Usimpl; auto.
 Qed.
-Hint Immediate  Mchoice_eq_compat.
+Hint Immediate  Mchoice_eq_compat: core.
 
 Definition MChoice A (p:U) : Distr A -m> Distr A -m> Distr A :=
                le_compat2_mon (Mchoice_mon (A:=A) p).
@@ -113,7 +113,7 @@ Lemma Mchoice_sym_le : forall (A:Type) (p:U) (m1 m2: Distr A),
 simpl; intros.
 rewrite Uplus_sym; repeat Usimpl; auto.
 Qed.
-Hint Resolve Mchoice_sym_le.
+Hint Resolve Mchoice_sym_le: core.
 
 Lemma Mchoice_sym : forall (A:Type) (p:U) (m1 m2: Distr A),
             Mchoice p m1 m2 == Mchoice ([1-]p) m2 m1.
@@ -131,7 +131,7 @@ rewrite lub_fun_eq.
 rewrite <- (lub_eq_mult ([1-]p) ((Mu A @ h) <_> f)).
 rewrite <- lub_eq_plus_cte_left; auto.
 Qed.
-Hint Resolve Mchoice_continuous_right.
+Hint Resolve Mchoice_continuous_right: core.
 
 Lemma Mchoice_continuous_left : forall (A:Type) (p:U),
     continuous (D1:=cDistr A) (D2:=cDistr A -M-> cDistr A) (MChoice A p).
@@ -203,14 +203,14 @@ with signature (Ole (o:=Distr A)) ++> (Ole (o:=Distr B)) ++> (Ole (o:=Distr (A*B
 as prod_distr_le_compat.
 intros; unfold prod_distr; auto.
 Qed.
-Hint Resolve prod_distr_le_compat.
+Hint Resolve prod_distr_le_compat: core.
 
 Add Parametric Morphism (A B : Type) : (prod_distr (A:=A) (B:=B))
 with signature (Oeq (O:=Distr A)) ==> (Oeq (O:=Distr B)) ==> (Oeq (O:=Distr (A*B)))
 as prod_distr_eq_compat.
 intros; apply Ole_antisym; auto.
 Qed.
-Hint Immediate prod_distr_eq_compat.
+Hint Immediate prod_distr_eq_compat: core.
 
 Definition Prod_distr (A B :Type): Distr A -m> Distr B -m> Distr (A*B).
 apply le_compat2_mon with (prod_distr (A:=A) (B:=B)); auto.
@@ -519,19 +519,19 @@ unfold fplusok, fmult, finv; intros; intro x.
 apply Ole_trans with p; auto.
 apply Ole_trans with ([1-]q); auto.
 Qed.
-Hint Resolve combiok.
+Hint Resolve combiok: core.
 
 Lemma fmult_fplusok : forall (A:Type) p q (f1 f2 : A -> U), fplusok f1 f2 -> fplusok (fmult p f1) (fmult q f2).
 unfold fplusok, fmult, finv; intros; intro x.
 apply Ole_trans with (f1 x); auto.
 apply Ole_trans with ([1-]f2 x); auto.
 Qed.
-Hint Resolve fmult_fplusok.
+Hint Resolve fmult_fplusok: core.
 
 Lemma ifok : forall f1 f2, fplusok (fmult f1 ctrue) (fmult f2 cfalse).
 intros; apply fmult_fplusok; unfold fplusok,ctrue,cfalse,finv; intro x; case x; auto.
 Qed.
-Hint Resolve ifok.
+Hint Resolve ifok: core.
 
 Lemma Mif_eq : forall (A:Type)(b:(Distr bool))(f1 f2:Distr A)(q:MF A),
 	mu (Mif b f1 f2) q == (mu f1 q) * (mu b ctrue) + (mu f2 q) * (mu b cfalse).
@@ -722,7 +722,7 @@ Qed.
 
 Definition mu_muF_commute_le  :=
   forall f x,  f <= Mfix F ->  mu (F f x) (q x) <= muF (fun y => mu (f y) (q y)) x.
-Hint Unfold mu_muF_commute_le.
+Hint Unfold mu_muF_commute_le: core.
 
 Section F_muF_results.
 Hypothesis F_muF_le : mu_muF_commute_le.
@@ -737,7 +737,7 @@ unfold Mfix,fixp; intros.
 apply le_lub.
 apply (fmonotonic muF); auto.
 Qed.
-Hint Resolve mu_mufix_le.
+Hint Resolve mu_mufix_le: core.
 
 Lemma muF_le : forall f, muF f <= f
       ->  forall x, mu (Mfix F x) (q x) <= f x.
@@ -760,7 +760,7 @@ apply le_lub with (c:=U) (f:=(Mu B @ (Ccpo.iter (D:=A -O-> cDistr B) F <o> y)) <
 Qed.
 
 End F_muF_results.
-Hint Resolve mu_mufix_le mufix_mu_le.
+Hint Resolve mu_mufix_le mufix_mu_le: core.
 
 Lemma mufix_mu :
    (forall f x, f <= Mfix F -> mu (F f x) (q x) == muF (fun y => mu (f y) (q y)) x)
@@ -769,7 +769,7 @@ intros; apply Ole_antisym; auto.
 apply mufix_mu_le; intros; auto.
 rewrite (H f x0); auto.
 Qed.
-Hint Resolve mufix_mu.
+Hint Resolve mufix_mu: core.
 End Fix_muF.
 
 Section Fix_Term.
@@ -794,7 +794,7 @@ red; apply muF_stable; auto.
 simpl; apply ford_eq_intro; intro; auto.
 apply (mufix_mu (fun (x:A) => fone B) muFone F_muF_eq_one n).
 Qed.
-Hint Resolve muF_pterm.
+Hint Resolve muF_pterm: core.
 End Fix_Term.
 
 Section Fix_muF_Term.
@@ -929,7 +929,7 @@ unfold Ieq,Imu; simpl; intuition.
 apply (mu_stable_eq e); simpl; apply ford_eq_intro; intro x; case (H x); auto.
 apply (mu_stable_eq e); simpl; apply ford_eq_intro; intro x; case (H x); auto.
 Qed.
-Hint Resolve Imu_monotonic Imu_stable_eq.
+Hint Resolve Imu_monotonic Imu_stable_eq: core.
 
 Lemma Imu_singl : forall (A:Type) (e:Distr A) (f:A->U),
            Ieq (Imu e (fun x => singl (f x))) (singl (mu e f)).
@@ -957,7 +957,7 @@ unfold Iin,Imu; simpl; split.
 apply (mu_monotonic e); intro x; case (H x); auto.
 apply (mu_monotonic e); intro x; case (H x); auto.
 Qed.
-Hint Resolve Iin_mu_Imu.
+Hint Resolve Iin_mu_Imu: core.
 
 Definition Iok (A:Type) (I:IU) (e:Distr A) (F:A->IU) := Iincl (Imu e F) I.
 Definition Iokfun (A B:Type)(I:A->IU) (e:A->Distr B) (F:A->B->IU)
@@ -995,7 +995,7 @@ Lemma Ilet_eq : forall (A B : Type) (a:Distr A) (f:A->Distr B)(I:IU)(G:B->IU),
    Ieq (Imu (Mlet a f) G) (Imu a (fun x => Imu (f x) G)).
 unfold Ieq,Imu,Mlet,Iincl; simpl; intuition.
 Qed.
-Hint Resolve Ilet_eq.
+Hint Resolve Ilet_eq: core.
 
 Lemma Iapply_rule : forall (A B : Type) (a:Distr A) (f:A->Distr B)(I:IU)(F:A->IU)(G:B->IU),
     Iok I a F -> Iokfun F f (fun x => G) -> Iok I (Mlet a f) G.
@@ -1106,7 +1106,7 @@ apply lub_glb_le; intros; auto.
 case (H n x); intros.
 apply Ole_trans with (up (Imu (Miter F n x) (Q x))); auto.
 Qed.
-Hint Resolve Iincl_fix_ifix.
+Hint Resolve Iincl_fix_ifix: core.
 
 (*
 Hypothesis Iincl_ImuF_F :
@@ -1132,7 +1132,7 @@ case (Iiter_decr ImuF ImuF_mon x n); auto.
 case (H n x); intros.
 apply Ole_trans with (up (Imu (iter F n x) (Q x))); auto.
 Qed.
-Hint Resolve Iincl_fix_mu.
+Hint Resolve Iincl_fix_mu: core.
 
 Lemma Iincl_ImuF : forall f, (forall x, Iincl (f x) (ImuF f x)) -> forall x, Iincl (Imu (Mfix F F_mon x) (Q x)) (f x).
 intros; apply Iincl_trans with (Ifix ImuF ImuF_mon x); auto.
@@ -1156,7 +1156,7 @@ apply le_lub with (f:=fun n => mu (iter F n y) f); auto.
 Qed.
 
 End F_muF_results.
-Hint Resolve mu_mufix_le mufix_mu_le.
+Hint Resolve mu_mufix_le mufix_mu_le: core.
 
 Lemma mufix_mu :
    (forall f x, (forall y, le_Distr (f y) (Mfix F F_mon y))
@@ -1166,7 +1166,7 @@ intros; apply Ole_antisym; auto.
 apply mufix_mu_le; intros; auto.
 rewrite (H f x0); auto.
 Qed.
-Hint Resolve mufix_mu.
+Hint Resolve mufix_mu: core.
 End Fix_muF.
 
 Section Fix_Term.
@@ -1190,7 +1190,7 @@ apply muF_stable; auto.
 red; intros; auto.
 apply (mufix_mu (fun (x:A) => f_one B) muF_mon F_muF_eq_one x0).
 Qed.
-Hint Resolve muF_pterm.
+Hint Resolve muF_pterm: core.
 End Fix_Term.
 
 Section Fix_muF_Term.
@@ -1259,17 +1259,17 @@ Lemma okup_Flip :   forall q : bool -> U, okup ([1/2] * q true + [1/2] * q false
 red; unfold Flip, flip; simpl; auto.
 Qed.
 
-Hint Resolve ok_Flip okup_Flip Flip_ctrue Flip_cfalse.
+Hint Resolve ok_Flip okup_Flip Flip_ctrue Flip_cfalse: core.
 
 Lemma Flip_eq : forall q : bool -> U, mu Flip q == [1/2] * q true + [1/2] * q false.
 intros; apply Ole_antisym; auto.
 Qed.
-Hint Resolve Flip_eq.
+Hint Resolve Flip_eq: core.
 
 Lemma IFlip_eq : forall Q : bool -> IU, Ieq (Imu Flip Q) (Iplus (Imultk [1/2] (Q true)) (Imultk [1/2] (Q false))).
 red; unfold Flip, flip; simpl; auto.
 Qed.
-Hint Resolve IFlip_eq.
+Hint Resolve IFlip_eq: core.
 
 (** ** Rules for total (well-founded) fixpoints *)
 

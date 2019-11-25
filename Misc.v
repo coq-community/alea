@@ -37,7 +37,7 @@ Qed.
 Lemma class_false : class False.
 unfold class; intuition.
 Qed.
-Hint Resolve class_neg class_false.
+Hint Resolve class_neg class_false: core.
 
 Definition orc (A B:Prop) := forall C:Prop, class C -> (A ->C) -> (B->C) -> C.
 
@@ -49,7 +49,7 @@ Lemma orc_right : forall A B:Prop, B -> orc A B.
 red;intuition.
 Qed.
 
-Hint Resolve orc_left orc_right.
+Hint Resolve orc_left orc_right: core.
 
 Lemma class_orc : forall A B, class (orc A B).
 repeat red; intros.
@@ -104,7 +104,7 @@ Lemma not_and_elim_right : forall A B, ~ (A /\ B) -> B -> ~A.
 intuition.
 Qed.
 
-Hint Resolve class_orc class_and class_exc excluded_middle.
+Hint Resolve class_orc class_and class_exc excluded_middle: core.
 
 Lemma class_double_neg : forall P Q: Prop, class Q -> (P -> Q) -> ~~P -> Q.
 intros.
@@ -128,9 +128,9 @@ unfold feq; intros.
 transitivity (g x); auto.
 Qed.
 
-Hint Resolve feq_refl.
-Hint Immediate feq_sym.
-Hint Unfold feq.
+Hint Resolve feq_refl: core.
+Hint Immediate feq_sym: core.
+Hint Unfold feq: core.
 
 Add Parametric Relation (A B : Type) : (A -> B) (feq (A:=A) (B:=B)) 
   reflexivity proved by (feq_refl (A:=A) (B:=B))
