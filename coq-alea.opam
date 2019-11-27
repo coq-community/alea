@@ -1,0 +1,32 @@
+opam-version: "2.0"
+maintainer: "vovaglad00@gmail.com"
+
+homepage: "https://github.com/coq-community/alea"
+dev-repo: "git+https://github.com/coq-community/alea.git"
+bug-reports: "https://github.com/coq-community/alea/issues"
+license: "GPL-3.0-or-later"
+
+synopsis: "A library for reasoning on randomized algorithms in Coq"
+description: """
+A library for reasoning on randomized algorithms. Likely outdated now by more modern libraries such as Polaris,
+but interesting for its applications (CertiCrypt). More about the
+library and links to related papers: https://www.lri.fr/~paulin/ALEA/
+"""
+
+build: [make "-j%{jobs}%"]
+install: [make "install"]
+depends: [
+  "ocaml"
+  "coq" {(>= "8.8" & < "8.12~") | (= "dev")}
+]
+
+tags: [
+  "category:Computer Science/Data Types and Data Structures"
+  "keyword:randomized algorithm"
+  "logpath:"
+]
+authors: [
+  "Christine Paulin-Mohring"
+  "David Baelde"
+  "Pierre Courtieu"
+]

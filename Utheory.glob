@@ -1,0 +1,322 @@
+DIGEST 5a9cfaf14ef1a78619cda11cf4a30119
+FALEA.Utheory
+R101:104 ALEA.Misc <> <> lib
+R122:125 ALEA.Ccpo <> <> lib
+modtype 419:426 <> Universe
+ax 439:439 Universe U
+R443:445 ALEA.Ccpo <> cpo rec
+ax 517:518 Universe U1
+R522:522 ALEA.Utheory Universe U defax
+ax 537:541 Universe Uplus
+ax 543:547 Universe Umult
+ax 549:552 Universe Udiv
+R556:559 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R561:564 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R565:565 ALEA.Utheory Universe U defax
+R560:560 ALEA.Utheory Universe U defax
+R555:555 ALEA.Utheory Universe U defax
+ax 578:581 Universe Uinv
+R586:589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R590:590 ALEA.Utheory Universe U defax
+R585:585 ALEA.Utheory Universe U defax
+ax 603:606 Universe Unth
+R613:616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R617:617 ALEA.Utheory Universe U defax
+R610:612 Coq.Init.Datatypes <> nat ind
+R710:714 ALEA.Utheory Universe Uplus defax
+not 703:703 Universe ::U_scope:x_'+'_x
+R741:745 ALEA.Utheory Universe Umult defax
+not 733:733 Universe ::U_scope:x_'*'_x
+R773:776 ALEA.Utheory Universe Udiv defax
+not 765:765 Universe ::U_scope:x_'/'_x
+R812:815 ALEA.Utheory Universe Uinv defax
+not 799:799 Universe ::U_scope:'[1-]'_x
+R883:884 ALEA.Utheory Universe U1 defax
+not 876:876 Universe ::U_scope:'1'
+R921:924 ALEA.Utheory Universe Unth defax
+not 906:906 Universe ::U_scope:'[1/]1+'_x
+ax 1035:1043 Universe Udiff_0_1
+R1047:1047 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1049:1052 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+ax 1068:1071 Universe Unit
+R1084:1084 ALEA.Utheory Universe U defax
+R1088:1091 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R1087:1087 ALEA.Utheory <> x var
+ax 1108:1116 Universe Uplus_sym
+R1131:1131 ALEA.Utheory Universe U defax
+R1139:1142 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1135:1137 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1134:1134 ALEA.Utheory <> x var
+R1138:1138 ALEA.Utheory <> y var
+R1144:1146 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1143:1143 ALEA.Utheory <> y var
+R1147:1147 ALEA.Utheory <> x var
+ax 1161:1171 Universe Uplus_assoc
+R1188:1188 ALEA.Utheory Universe U defax
+R1202:1205 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1192:1195 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1201:1201 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1191:1191 ALEA.Utheory <> x var
+R1197:1199 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1196:1196 ALEA.Utheory <> y var
+R1200:1200 ALEA.Utheory <> z var
+R1211:1213 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1207:1209 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1206:1206 ALEA.Utheory <> x var
+R1210:1210 ALEA.Utheory <> y var
+R1214:1214 ALEA.Utheory <> z var
+ax 1228:1242 Universe Uplus_zero_left
+R1255:1255 ALEA.Utheory Universe U defax
+R1263:1266 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1259:1261 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1262:1262 ALEA.Utheory <> x var
+R1267:1267 ALEA.Utheory <> x var
+ax 1282:1290 Universe Umult_sym
+R1305:1305 ALEA.Utheory Universe U defax
+R1313:1316 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1309:1311 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1308:1308 ALEA.Utheory <> x var
+R1312:1312 ALEA.Utheory <> y var
+R1318:1320 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1317:1317 ALEA.Utheory <> y var
+R1321:1321 ALEA.Utheory <> x var
+ax 1335:1345 Universe Umult_assoc
+R1362:1362 ALEA.Utheory Universe U defax
+R1376:1379 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1366:1369 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1375:1375 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1365:1365 ALEA.Utheory <> x var
+R1371:1373 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1370:1370 ALEA.Utheory <> y var
+R1374:1374 ALEA.Utheory <> z var
+R1385:1387 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1381:1383 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1380:1380 ALEA.Utheory <> x var
+R1384:1384 ALEA.Utheory <> y var
+R1388:1388 ALEA.Utheory <> z var
+ax 1402:1415 Universe Umult_one_left
+R1428:1428 ALEA.Utheory Universe U defax
+R1436:1439 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1432:1434 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1435:1435 ALEA.Utheory <> x var
+R1440:1440 ALEA.Utheory <> x var
+ax 1455:1462 Universe Uinv_one
+R1472:1475 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1466:1470 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+ax 1491:1503 Universe Uinv_opp_left
+R1527:1530 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1523:1525 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1517:1521 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R1522:1522 ALEA.Utheory <> x var
+R1526:1526 ALEA.Utheory <> x var
+ax 1546:1554 Universe Umult_div
+R1577:1580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1587:1590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1600:1603 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1592:1595 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1599:1599 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R1591:1591 ALEA.Utheory <> y var
+R1597:1597 ALEA.Utheory Universe ::U_scope:x_'/'_x not
+R1596:1596 ALEA.Utheory <> x var
+R1598:1598 ALEA.Utheory <> y var
+R1604:1604 ALEA.Utheory <> x var
+R1582:1585 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R1581:1581 ALEA.Utheory <> x var
+R1586:1586 ALEA.Utheory <> y var
+R1570:1570 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1572:1575 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1576:1576 ALEA.Utheory <> y var
+ax 1618:1628 Universe Udiv_le_one
+R1652:1655 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1662:1665 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1666:1666 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1670:1674 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1668:1668 ALEA.Utheory Universe ::U_scope:x_'/'_x not
+R1667:1667 ALEA.Utheory <> x var
+R1669:1669 ALEA.Utheory <> y var
+R1657:1660 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R1656:1656 ALEA.Utheory <> y var
+R1661:1661 ALEA.Utheory <> x var
+R1645:1645 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1647:1650 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1651:1651 ALEA.Utheory <> y var
+ax 1689:1700 Universe Udiv_by_zero
+R1723:1726 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1727:1727 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1731:1735 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1729:1729 ALEA.Utheory Universe ::U_scope:x_'/'_x not
+R1728:1728 ALEA.Utheory <> x var
+R1730:1730 ALEA.Utheory <> y var
+R1718:1721 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1722:1722 ALEA.Utheory <> y var
+ax 1827:1840 Universe Uinv_plus_left
+R1867:1870 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1887:1890 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R1883:1885 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1871:1876 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R1882:1882 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R1878:1880 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R1877:1877 ALEA.Utheory <> x var
+R1881:1881 ALEA.Utheory <> y var
+R1886:1886 ALEA.Utheory <> x var
+R1891:1895 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R1896:1896 ALEA.Utheory <> y var
+R1857:1860 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R1856:1856 ALEA.Utheory <> y var
+R1861:1865 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R1866:1866 ALEA.Utheory <> x var
+ax 2018:2034 Universe Udistr_plus_right
+R2057:2060 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2056:2056 ALEA.Utheory <> x var
+R2061:2065 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R2066:2066 ALEA.Utheory <> y var
+R2081:2084 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R2070:2070 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2076:2079 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2072:2074 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R2071:2071 ALEA.Utheory <> x var
+R2075:2075 ALEA.Utheory <> y var
+R2080:2080 ALEA.Utheory <> z var
+R2090:2092 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R2086:2088 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2085:2085 ALEA.Utheory <> x var
+R2089:2089 ALEA.Utheory <> z var
+R2094:2096 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2093:2093 ALEA.Utheory <> y var
+R2097:2097 ALEA.Utheory <> z var
+ax 2178:2193 Universe Udistr_inv_right
+R2208:2208 ALEA.Utheory Universe U defax
+R2224:2227 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R2212:2217 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R2223:2223 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R2219:2221 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2218:2218 ALEA.Utheory <> x var
+R2222:2222 ALEA.Utheory <> y var
+R2240:2242 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R2228:2228 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2235:2238 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2229:2233 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R2234:2234 ALEA.Utheory <> x var
+R2239:2239 ALEA.Utheory <> y var
+R2243:2247 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R2248:2248 ALEA.Utheory <> y var
+ax 2294:2302 Universe Ule_class
+R2319:2319 ALEA.Utheory Universe U defax
+R2322:2326 ALEA.Misc <> class def
+R2330:2333 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2329:2329 ALEA.Utheory <> x var
+R2334:2334 ALEA.Utheory <> y var
+ax 2350:2358 Universe Ule_total
+R2375:2375 ALEA.Utheory Universe U defax
+R2378:2380 ALEA.Misc <> orc def
+R2391:2392 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2390:2390 ALEA.Utheory <> y var
+R2393:2393 ALEA.Utheory <> x var
+R2384:2385 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2383:2383 ALEA.Utheory <> x var
+R2386:2386 ALEA.Utheory <> y var
+R2407:2415 ALEA.Utheory Universe Ule_total prfax
+R2407:2415 ALEA.Utheory Universe Ule_total prfax
+ax 2510:2530 Universe Uplus_le_compat_right
+R2547:2547 ALEA.Utheory Universe U defax
+R2556:2559 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2565:2568 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2561:2563 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R2560:2560 ALEA.Utheory <> x var
+R2564:2564 ALEA.Utheory <> y var
+R2570:2572 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R2569:2569 ALEA.Utheory <> x var
+R2573:2573 ALEA.Utheory <> z var
+R2551:2554 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2550:2550 ALEA.Utheory <> y var
+R2555:2555 ALEA.Utheory <> z var
+ax 2588:2608 Universe Umult_le_compat_right
+R2625:2625 ALEA.Utheory Universe U defax
+R2634:2637 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2643:2646 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2639:2641 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2638:2638 ALEA.Utheory <> x var
+R2642:2642 ALEA.Utheory <> y var
+R2648:2650 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2647:2647 ALEA.Utheory <> x var
+R2651:2651 ALEA.Utheory <> z var
+R2629:2632 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2628:2628 ALEA.Utheory <> y var
+R2633:2633 ALEA.Utheory <> z var
+ax 2666:2679 Universe Uinv_le_compat
+R2694:2694 ALEA.Utheory Universe U defax
+R2703:2706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2713:2716 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2707:2711 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R2712:2712 ALEA.Utheory <> y var
+R2717:2721 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R2722:2722 ALEA.Utheory <> x var
+R2698:2701 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2697:2697 ALEA.Utheory <> x var
+R2702:2702 ALEA.Utheory <> y var
+ax 2804:2823 Universe Uplus_le_simpl_right
+R2852:2855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2870:2873 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2875:2878 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2874:2874 ALEA.Utheory <> x var
+R2879:2879 ALEA.Utheory <> y var
+R2861:2864 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2857:2859 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R2856:2856 ALEA.Utheory <> x var
+R2860:2860 ALEA.Utheory <> z var
+R2866:2868 ALEA.Utheory Universe ::U_scope:x_'+'_x not
+R2865:2865 ALEA.Utheory <> y var
+R2869:2869 ALEA.Utheory <> z var
+R2842:2845 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2841:2841 ALEA.Utheory <> z var
+R2846:2850 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R2851:2851 ALEA.Utheory <> x var
+ax 2894:2912 Universe Umult_le_simpl_left
+R2930:2930 ALEA.Utheory Universe U defax
+R2940:2943 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2958:2961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2963:2966 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2962:2962 ALEA.Utheory <> x var
+R2967:2967 ALEA.Utheory <> y var
+R2949:2952 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R2945:2947 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2944:2944 ALEA.Utheory <> z var
+R2948:2948 ALEA.Utheory <> x var
+R2954:2956 ALEA.Utheory Universe ::U_scope:x_'*'_x not
+R2953:2953 ALEA.Utheory <> z var
+R2957:2957 ALEA.Utheory <> y var
+R2933:2933 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2935:2938 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R2939:2939 ALEA.Utheory <> z var
+ax 3055:3063 Universe Unth_prop
+R3084:3087 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R3077:3082 ALEA.Utheory Universe ::U_scope:'[1/]1+'_x not
+R3083:3083 ALEA.Utheory <> n var
+R3088:3092 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R3126:3126 ALEA.Utheory Universe ::U_scope:'[1-]'_x not
+R3093:3096 ALEA.Misc <> comp def
+R3125:3125 ALEA.Utheory <> n var
+R3116:3121 ALEA.Utheory Universe ::U_scope:'[1/]1+'_x not
+R3122:3122 ALEA.Utheory <> n var
+R3098:3102 ALEA.Utheory Universe Uplus defax
+ax 3171:3181 Universe archimedian
+R3202:3205 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3206:3208 ALEA.Misc <> exc def
+R3227:3230 ALEA.Ccpo <> ::O_scope:x_'<='_x not
+R3220:3225 ALEA.Utheory Universe ::U_scope:'[1/]1+'_x not
+R3226:3226 ALEA.Utheory <> n var
+R3231:3231 ALEA.Utheory <> x var
+R3195:3195 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3197:3200 ALEA.Ccpo <> ::O_scope:x_'=='_x not
+R3201:3201 ALEA.Utheory <> x var
+ax 3314:3335 Universe Uplus_right_continuous
+R3349:3358 ALEA.Ccpo <> continuous def
+R3361:3368 ALEA.Ccpo <> mk_fmono constr
+R3371:3391 ALEA.Utheory Universe Uplus_le_compat_right prfax
+R3393:3393 ALEA.Utheory <> k var
+ax 3409:3430 Universe Umult_right_continuous
+R3444:3453 ALEA.Ccpo <> continuous def
+R3456:3463 ALEA.Ccpo <> mk_fmono constr
+R3466:3486 ALEA.Utheory Universe Umult_le_compat_right prfax
+R3488:3488 ALEA.Utheory <> k var
+R3498:3505 ALEA.Utheory Universe <> modtype
