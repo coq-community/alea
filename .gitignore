@@ -4,3 +4,6 @@ CoqMakefile.conf
 *.vo
 .coqdeps.d
 *.aux
+*.vos
+*.vok
+*.glob
