@@ -7,3 +7,4 @@ CoqMakefile.conf
 *.vos
 *.vok
 *.glob
+*.mustache

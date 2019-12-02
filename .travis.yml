@@ -55,4 +55,34 @@ matrix:
     - CONTRIB_NAME=coq-alea
     - NJOBS=2
     <<: *OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:8.12~
+    - CONTRIB_NAME=coq-alea
+    - NJOBS=2
+    <<: *OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:8.11
+    - CONTRIB_NAME=coq-alea
+    - NJOBS=2
+    <<: *OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:8.1
+    - CONTRIB_NAME=coq-alea
+    - NJOBS=2
+    <<: *OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:8.9
+    - CONTRIB_NAME=coq-alea
+    - NJOBS=2
+    <<: *OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:8.8
+    - CONTRIB_NAME=coq-alea
+    - NJOBS=2
+    <<: *OPAM
+  - env:
+    - COQ_IMAGE=coqorg/coq:8.7
+    - CONTRIB_NAME=coq-alea
+    - NJOBS=2
+    <<: *OPAM
 
