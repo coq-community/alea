@@ -1,12 +1,9 @@
 # ALEA
 
-[![Travis][travis-shield]][travis-link]
 [![Contributing][contributing-shield]][contributing-link]
 [![Code of Conduct][conduct-shield]][conduct-link]
 [![Gitter][gitter-shield]][gitter-link]
 
-[travis-shield]: https://travis-ci.com/coq-community/alea.svg?branch=master
-[travis-link]: https://travis-ci.com/coq-community/alea/builds
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
@@ -34,7 +31,7 @@ library and links to related papers: https://www.lri.fr/~paulin/ALEA/
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Vladimir Gladstein ([**@volodeyka**](https://github.com/volodeyka))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
-- Compatible Coq versions: 8.7 or later (use releases for other Coq versions)
+- Compatible Coq versions: 8.11 or later (use releases for other Coq versions)
 - Additional Coq dependencies: none
 
 ## Building and installation instructions
