@@ -47,20 +47,25 @@ Hint Immediate equiv_sym: core.
 Lemma set_setoid : Setoid_Theory set equiv.
 split; red; auto.
 exact equiv_trans.
-Qed.
+Qed. 
 
 Add Setoid set equiv set_setoid as Set_setoid.
 
-Add Morphism add : equiv_add.
+
+
+Add Parametric Morphism a : (add a)
+with signature (equiv ==> equiv) as equiv_add. 
 unfold equiv,add; firstorder.
 Qed.
 
-Add Morphism rem : equiv_rem.
+Add Parametric Morphism a : (rem a)
+with signature (equiv ==> equiv) as equiv_rem. 
 unfold equiv,rem; firstorder.
 Qed.
 Hint Resolve equiv_add equiv_rem: core.
 
-Add Morphism union : equiv_union.
+Add Morphism union 
+ with signature (equiv ==> equiv ==> equiv) as equiv_union.
 unfold equiv,union; firstorder.
 Qed.
 Hint Immediate equiv_union: core.
@@ -79,13 +84,15 @@ Qed.
 
 Hint Resolve equiv_union_left equiv_union_right: core.
 
-Add Morphism inter : equiv_inter.
+Add Morphism inter 
+ with signature (equiv ==> equiv ==> equiv) as equiv_inter.
 unfold equiv,inter; firstorder.
 Qed.
 Hint Immediate equiv_inter: core.
 
-Add Morphism compl : equiv_compl.
-unfold equiv,compl; firstorder.
+Add Morphism compl 
+ with signature (equiv ==> equiv) as equiv_compl.
+unfold equiv,union; firstorder.
 Qed.
 Hint Resolve equiv_compl: core.
 
