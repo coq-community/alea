@@ -1,8 +1,4 @@
 (** * Ccpo.v: Specification and properties of a cpo *)
-
-Global Unset Automatic Introduction.
-Global Set Automatic Coercions Import.
-
 Require Export Setoid.
 Require Export Arith.
 Require Export Omega.
