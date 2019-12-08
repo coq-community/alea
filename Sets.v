@@ -144,8 +144,6 @@ apply (@equiv_add_empty x Q); auto.
 apply equiv_trans with P; auto.
 Qed.
 
-Print fin_eq_add.
-
 (** *** Size of a finite set *)
 Fixpoint size (P:set) (f:finite P) {struct f}: nat :=
    match f with 
@@ -605,8 +603,6 @@ unfold inter; intro.
 generalize (H x); intuition.
 Qed.
 
-Set Printing All.
-Print fin_eq_add.
 
 (** *** Selecting elements in a finite set *)
 

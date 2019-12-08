@@ -681,8 +681,6 @@ unfold fnth at 1.
 apply Ole_trans with ([1-] (sigma (fnth n) n)); auto with arith.
 Qed.
 
-Print fnth_retract.
-
 Arguments fnth_retract n [k].
 
 (** ** Distributions and general summations *)
@@ -870,8 +868,6 @@ trivial.
 Qed.
 
 (** *** Properties of [random] *)
-
-Print fnth_retract.
 
 Lemma random_stable_inv : forall n, stable_inv (random n).
 unfold random, stable_inv, finv; intros; simpl.

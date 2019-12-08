@@ -747,8 +747,6 @@ intros; apply Ole_trans with ([1-] y); auto.
 Qed.
 Hint Resolve Uinv_mult_simpl: core.
 
-Print Udistr_plus_left.
-
 Lemma Umult_inv_plus :   forall x y, x * [1-] y + y == x + y * [1-] x.
 intros; apply Oeq_trans with (x * [1-] y + y * ([1-] x + x)).
 setoid_rewrite (Uinv_opp_left x); auto.

@@ -218,8 +218,6 @@ apply (cover_incl_fle H H0); auto.
 apply (cover_incl_fle H0 H); auto.
 Qed.
 
-Print equiv.
-
 Lemma cover_equiv_stable : forall (A:Type)(P Q:set A)(EQ : equiv P Q )(f:MF A),
       cover P f -> cover Q f.
 unfold cover; firstorder.

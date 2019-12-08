@@ -14,7 +14,6 @@ Import UP MP.
 Open Scope U_scope.
 Open Scope O_scope.
 (* end hide *)
-Print distr.
 
 (** ** Conditional *)
 
