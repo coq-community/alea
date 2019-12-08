@@ -609,7 +609,7 @@ Record cpo : Type := mk_cpo
     lub_le : forall (f : natO -m> tcpo) (x : tcpo), (forall n, f n <= x) -> lub f <= x
   }.
 
-Arguments D0 [c].
+Arguments D0 {c}.
 Notation "0" := D0 : O_scope.
 
 Hint Resolve Dbot le_lub lub_le: core.
