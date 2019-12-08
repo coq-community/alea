@@ -1,3 +1,5 @@
+Require Import Arith.
+Require Import Lt.
 Set Implicit Arguments.
 Set Strict Implicit.
 Require Export Setoid.
@@ -467,22 +469,6 @@ case (e a); unfold add; intuition.
 case n0; auto.
 Qed.
 
-(* bug lie a intuition
-Lemma size_finite_rem: 
-   forall (P:set) (a:A) (f:finite P), 
-    (P a) -> size f = S (size (finite_rem a f)).
-induction f;  intuition.
-case (equiv_empty_false a e H).
-simpl; case (decA x a); simpl; intros.
-case e0; unfold eq_rect_r;simpl; auto.
-rewrite size_equiv; auto.
-rewrite IHf; auto.
-case (e a); unfold add; intuition.
-case f0; auto.
-Qed.
-*)
-Require Import Arith.
-
 Lemma size_incl : 
   forall (P:set)(f:finite P) (Q:set)(g:finite Q), 
   (incl P Q)-> size f <= size g.
@@ -559,7 +545,6 @@ intros; apply finite_incl with full; auto.
 unfold full,incl; auto.
 Qed.
 
-Require Import Lt.
 
 (** *** Filter operation *)
 
