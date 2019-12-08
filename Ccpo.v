@@ -18,8 +18,7 @@ Hint Resolve Ole_refl Ole_trans: core.
 
 Hint Extern 2  (@Ole ?X1 ?X2 ?X3 ) => simpl Ole: core.
 
-Bind Scope O_scope with tord.
-Delimit Scope O_scope with tord.
+Declare Scope O_scope.
 
 Infix "<=" := Ole : O_scope.
 Open Scope O_scope.

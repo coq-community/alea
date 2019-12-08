@@ -1,7 +1,5 @@
 (** * Utheory.v: Specification of $U$, interval $[0,1]$ *)
 
-(*Load Ccpo.
-Load Misc.*)
 Require Export Misc.
 Require Export Ccpo.
 Set Implicit Arguments.
@@ -15,9 +13,7 @@ Open Scope O_scope.
 *)
 Module Type Universe.
 Parameter U : cpo.
-Bind Scope U_scope with U.
-Delimit Scope U_scope with U.
-
+Declare Scope U_scope.
 
 Parameter U1 : U. 
 Parameters Uplus Umult Udiv: U -> U -> U.
