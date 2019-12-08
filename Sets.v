@@ -49,7 +49,13 @@ split; red; auto.
 exact equiv_trans.
 Qed. 
 
-Add Setoid set equiv set_setoid as Set_setoid.
+
+
+Add Relation set equiv
+  reflexivity proved by equiv_refl
+  symmetry proved by equiv_sym
+  transitivity proved by equiv_trans
+as Set_setoid.
 
 
 
