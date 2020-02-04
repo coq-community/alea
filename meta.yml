@@ -3,6 +3,9 @@ fullname: ALEA
 shortname: alea
 organization: coq-community
 community: true
+travis: true
+coqdoc: false
+doi: 10.1016/j.scico.2007.09.002
 
 synopsis: >-
   A library for reasoning on randomized algorithms in Coq
@@ -11,6 +14,11 @@ description: |
   but interesting for its applications (CertiCrypt). More about the
   library and links to related papers: https://www.lri.fr/~paulin/ALEA/
   
+publications:
+- pub_url: https://reader.elsevier.com/reader/sd/pii/S0167642309000240?token=38F5619A5A8F109416ABDC3BDEE4DA09BC78CE13109386C7CD4897AE230BA1A029C5F0EEB52A9073F71EEE83EDCE0051
+  pub_title: "Proofs of randomized algorithms in Coq"
+  pub_doi: 10.1016/j.scico.2007.09.002
+
 authors:
 - name: Christine Paulin-Mohring
   initial: true
@@ -44,8 +52,11 @@ tested_coq_opam_versions:
 
 dependencies:
 
+namespace: ALEA
+
 keywords:
 - name: randomized algorithm
+- name: probability
 
 categories:
 - name: Computer Science/Data Types and Data Structures

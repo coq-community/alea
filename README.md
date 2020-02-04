@@ -1,9 +1,13 @@
 # ALEA
 
+[![Travis][travis-shield]][travis-link]
 [![Contributing][contributing-shield]][contributing-link]
 [![Code of Conduct][conduct-shield]][conduct-link]
 [![Gitter][gitter-shield]][gitter-link]
+[![DOI][doi-shield]][doi-link]
 
+[travis-shield]: https://travis-ci.com/coq-community/alea.svg?branch=master
+[travis-link]: https://travis-ci.com/coq-community/alea/builds
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
@@ -15,10 +19,12 @@
 [gitter-link]: https://gitter.im/coq-community/Lobby
 
 
+[doi-shield]: https://zenodo.org/badge/DOI/10.1016/j.scico.2007.09.002.svg
+[doi-link]: https://doi.org/10.1016/j.scico.2007.09.002
+
 A library for reasoning on randomized algorithms. Likely outdated now by more modern libraries such as Polaris,
 but interesting for its applications (CertiCrypt). More about the
 library and links to related papers: https://www.lri.fr/~paulin/ALEA/
-
 
 
 ## Meta
@@ -32,7 +38,10 @@ library and links to related papers: https://www.lri.fr/~paulin/ALEA/
   - Vladimir Gladstein ([**@volodeyka**](https://github.com/volodeyka))
 - License: [GNU General Public License v3.0 or later](LICENSE.md)
 - Compatible Coq versions: 8.11 or later (use releases for other Coq versions)
-- Additional Coq dependencies: none
+- Additional dependencies: none
+- Coq namespace: `ALEA`
+- Related publication(s):
+  - [Proofs of randomized algorithms in Coq](https://reader.elsevier.com/reader/sd/pii/S0167642309000240?token=38F5619A5A8F109416ABDC3BDEE4DA09BC78CE13109386C7CD4897AE230BA1A029C5F0EEB52A9073F71EEE83EDCE0051) doi:[10.1016/j.scico.2007.09.002](https://doi.org/10.1016/j.scico.2007.09.002)
 
 ## Building and installation instructions
 
@@ -52,9 +61,6 @@ cd alea
 make   # or make -j <number-of-cores-on-your-machine>
 make install
 ```
-
-After installation, the included modules are available under
-the `` namespace.
 
 
 ## Files described in the paper
