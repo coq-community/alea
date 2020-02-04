@@ -1,5 +1,6 @@
 opam-version: "2.0"
 maintainer: "vovaglad00@gmail.com"
+version: "dev"
 
 homepage: "https://github.com/coq-community/alea"
 dev-repo: "git+https://github.com/coq-community/alea.git"
@@ -16,14 +17,14 @@ library and links to related papers: https://www.lri.fr/~paulin/ALEA/
 build: [make "-j%{jobs}%"]
 install: [make "install"]
 depends: [
-  "ocaml"
   "coq" {(>= "8.11" & < "8.12~") | (= "dev")}
 ]
 
 tags: [
   "category:Computer Science/Data Types and Data Structures"
   "keyword:randomized algorithm"
-  "logpath:"
+  "keyword:probability"
+  "logpath:ALEA"
 ]
 authors: [
   "Christine Paulin-Mohring"
