@@ -1,5 +1,6 @@
 CoqMakefile
 CoqMakefile.conf
+.CoqMakefile.d
 *.v.d
 *.vo
 *.vos
