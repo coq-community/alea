@@ -36,7 +36,7 @@ library and links to related papers: https://www.lri.fr/~paulin/ALEA/
 - Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Vladimir Gladstein ([**@volodeyka**](https://github.com/volodeyka))
-- License: [GNU General Public License v3.0 or later](LICENSE.md)
+- License: [GNU General Public License v2.1](LICENSE.md)
 - Compatible Coq versions: 8.11 or later (use releases for other Coq versions)
 - Additional dependencies: none
 - Coq namespace: `ALEA`

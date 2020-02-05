@@ -5,7 +5,7 @@ version: "dev"
 homepage: "https://github.com/coq-community/alea"
 dev-repo: "git+https://github.com/coq-community/alea.git"
 bug-reports: "https://github.com/coq-community/alea/issues"
-license: "GPL-3.0-or-later"
+license: "GPL-2.1-only"
 
 synopsis: "A library for reasoning on randomized algorithms in Coq"
 description: """

@@ -36,8 +36,8 @@ maintainers:
 opam-file-maintainer: vovaglad00@gmail.com
 
 license:
-  fullname: GNU General Public License v3.0 or later
-  identifier: GPL-3.0-or-later
+  fullname: GNU General Public License v2.1
+  identifier: GPL-2.1-only
   file: LICENSE.md
 
 supported_coq_versions:
