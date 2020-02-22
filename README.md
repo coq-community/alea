@@ -41,6 +41,8 @@ as probability distributions.
 - Coq namespace: `ALEA`
 - Related publication(s):
   - [Proofs of randomized algorithms in Coq](https://hal.inria.fr/inria-00431771) doi:[10.1016/j.scico.2007.09.002](https://doi.org/10.1016/j.scico.2007.09.002)
+- Old ALEA repo
+  - https://github.com/coq-contribs/random/
 
 ## Building and installation instructions
 
