@@ -8,3 +8,4 @@ CoqMakefile.conf
 .coqdeps.d
 *.aux
 *.glob
+#*#
