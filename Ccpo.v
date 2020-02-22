@@ -1,7 +1,7 @@
 (** * Ccpo.v: Specification and properties of a cpo *)
-Require Export Setoid.
-Require Export Arith.
-Require Export Omega.
+From Coq Require Export Setoid.
+From Coq Require Export Arith.
+From Coq Require Export Omega.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Open Scope nat_scope.

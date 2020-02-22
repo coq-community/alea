@@ -1,8 +1,8 @@
 (** * Probas.v: The monad for distributions *)
+From Coq Require Arith.
 
-Require Import Monads.
-Require Import Utheory.
-Require Arith.
+From ALEA Require Import Monads.
+From ALEA Require Import Utheory.
 Set Implicit Arguments.
 Module Proba (Univ : Universe).
 Module MP := (Monad Univ).

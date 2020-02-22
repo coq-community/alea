@@ -1,8 +1,8 @@
 (** * Uprop.v : Properties of operators on [[0,1]] *)
+From Coq Require Export Arith.
+From Coq Require Export Omega.
+From ALEA Require Import Utheory.
 Set Implicit Arguments.
-Require Import Utheory.
-Require Export Arith.
-Require Export Omega.
 
 Module Univ_prop (Univ : Universe).
 Include Univ.

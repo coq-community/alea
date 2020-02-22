@@ -1,9 +1,10 @@
 (** * Cover.v: Characteristic functions *)
-Require Export Prog.
+From Coq Require Export Arith.
+From ALEA Require Export Prog.
+From ALEA Require Import Utheory.
+From ALEA Require Import Sets.
 Set Implicit Arguments.
-Require Export Arith.
-Require Import Utheory.
-Require Import Sets.
+
 Module CoverFun (Univ:Universe).
 
 Module RP := (Rules Univ).
