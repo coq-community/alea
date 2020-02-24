@@ -1,9 +1,9 @@
-Require Import Arith.
-Require Import Lt.
+From Coq Require Import Arith.
+From Coq Require Import Lt.
+From Coq Require Export Setoid.
+From Coq Require Omega.
 Set Implicit Arguments.
 Set Strict Implicit.
-Require Export Setoid.
-Require Omega.
 
 (** * Sets.v: Definition of sets as predicates over a type A *)
 

@@ -25,6 +25,8 @@
 ALEA is a library for reasoning on randomized algorithms
 in Coq, based on interpreting programs inside a monad
 as probability distributions.
+This repository used to be maintained at [coq-contribs/random](https://github.com/coq-contribs/random).
+For more information visit https://www.lri.fr/~paulin/ALEA.
 
 ## Meta
 

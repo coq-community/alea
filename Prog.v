@@ -1,8 +1,8 @@
 (** * Prog.v: Composition of distributions *)
 
-Require Import Probas.
+From ALEA Require Import Probas.
+From ALEA Require Import Utheory.
 Set Implicit Arguments.
-Require Import Utheory.
 
 
 Module Rules (Univ:Universe).

@@ -1,8 +1,8 @@
 (** * Monads.v: Monads for randomized constructions *)
 
+From ALEA Require Import Uprop.
+From ALEA Require Import Utheory.
 Set Implicit Arguments.
-Require Import Uprop.
-Require Import Utheory.
 
 Module Monad (Univ : Universe).
 Module UP := (Univ_prop Univ).

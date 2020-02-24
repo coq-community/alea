@@ -1,5 +1,6 @@
+From Coq Require Export Setoid.
 Set Implicit Arguments.
-Require Export Setoid.
+
 (** * Preliminaries *)
 (** ** Definition of iterator [comp]
    [comp f u n x] is defined as $(f~(u~(n-1)).. (f (u~ 0)~x))$ *)

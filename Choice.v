@@ -1,6 +1,6 @@
 (** * Choice.v: An example of probabilistic choice *)
-Require Import Utheory.
-Require Export Prog.
+From ALEA Require Import Utheory.
+From ALEA Require Export Prog.
 Set Implicit Arguments.
 Module Choice (Univ : Universe).
 Module RP := (Rules Univ).
