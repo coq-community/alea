@@ -36,7 +36,7 @@ maintainers:
 opam-file-maintainer: vovaglad00@gmail.com
 
 license:
-  fullname: GNU General Public License v2.1
+  fullname: GNU Lesser General Public License v2.1
   identifier: LGPL-2.1-only
   file: LICENSE
 

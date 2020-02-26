@@ -35,7 +35,7 @@ as probability distributions.
 - Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Vladimir Gladstein ([**@volodeyka**](https://github.com/volodeyka))
-- License: [GNU General Public License v2.1](LICENSE)
+- License: [GNU Lesser General Public License v2.1](LICENSE)
 - Compatible Coq versions: 8.11 or later (use releases for other Coq versions)
 - Additional dependencies: none
 - Coq namespace: `ALEA`
