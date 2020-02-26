@@ -37,8 +37,8 @@ opam-file-maintainer: vovaglad00@gmail.com
 
 license:
   fullname: GNU General Public License v2.1
-  identifier: GPL-2.1-only
-  file: LICENSE.md
+  identifier: LGPL-2.1-only
+  file: LICENSE
 
 supported_coq_versions:
   text: 8.11 or later (use releases for other Coq versions)
