@@ -32,6 +32,7 @@ as probability distributions.
   - Christine Paulin-Mohring (initial)
   - David Baelde (initial)
   - Pierre Courtieu (initial)
+
 - Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Vladimir Gladstein ([**@volodeyka**](https://github.com/volodeyka))
@@ -57,7 +58,7 @@ To instead build and install manually, do:
 ``` shell
 git clone https://github.com/coq-community/alea.git
 cd alea
-make   # or make -j <number-of-cores-on-your-machine>
+make   # or make -j <number-of-cores-on-your-machine> 
 make install
 ```
 

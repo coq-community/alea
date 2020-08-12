@@ -1,0 +1,4 @@
+(coq.theory
+ (name ALEA)
+ (package coq-alea)
+ (synopsis "Coq library for reasoning on randomized algorithms"))
