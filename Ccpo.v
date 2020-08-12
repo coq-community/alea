@@ -1,7 +1,7 @@
 (** * Ccpo.v: Specification and properties of a cpo *)
 From Coq Require Export Setoid.
 From Coq Require Export Arith.
-From Coq Require Export Omega.
+From Coq Require Export Lia.
 Set Implicit Arguments.
 Unset Strict Implicit.
 Open Scope nat_scope.
@@ -2048,13 +2048,13 @@ Definition norm (O:ord) (x:O) (k:nat) (f: natk_ord O k) : natk_ord O k :=
 Lemma norm_simpl_lt : forall (O:ord) (x:O) (k:nat) (f: natk_ord O k) (n:nat),
        n < k -> norm x f n = f n.
 unfold norm; intros; case (le_lt_dec k n); auto.
-intros; casetype False; omega.
+intros; casetype False; lia.
 Qed.
 
 Lemma norm_simpl_le : forall (O:ord) (x:O) (k:nat) (f: natk_ord O k) (n:nat),
        (k <= n)%nat -> norm x f n = x.
 unfold norm; intros; case (le_lt_dec k n); auto.
-intros; casetype False; omega.
+intros; casetype False; lia.
 Qed. 
 
 Definition natk_mon_shift : forall (O1 O2 : ord)(x:O2) (k:nat),

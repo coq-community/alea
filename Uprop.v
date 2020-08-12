@@ -1,6 +1,6 @@
 (** * Uprop.v : Properties of operators on [[0,1]] *)
-From Coq Require Export Arith.
-From Coq Require Export Omega.
+From Coq Require Export Arith ZArith.
+From Coq Require Export Lia.
 From ALEA Require Import Utheory.
 Set Implicit Arguments.
 
@@ -829,7 +829,7 @@ Qed.
 
 Lemma Uexp_zero : forall n, (0<n)%nat -> 0^n==0.
 destruct n; simpl; intro; auto.
-casetype False; omega.
+casetype False; lia.
 Qed.
 
 Lemma Uexp_one : forall n, 1^n==1.
@@ -867,7 +867,7 @@ Qed.
 
 Lemma Uexp_lt_compat : forall p q n, (O<n)%nat->(p<q)->(p^n<q^n).
 induction n; simpl; intros; auto.
-casetype False; omega.
+casetype False; lia.
 destruct n; auto.
 apply Umult_lt_compat; auto with arith.
 Qed.
@@ -1561,7 +1561,7 @@ apply H0; clear H0; intros.
 apply exc_intro_class; intros.
 case (dec_le n n0); intro.
 apply (incr_decomp_aux f g) with (n1:=n) (n2:=n0); auto.
-apply (incr_decomp_aux g f) with (n1:=n0) (n2:=n); auto; omega.
+apply (incr_decomp_aux g f) with (n1:=n0) (n2:=n); auto; lia.
 Qed.
 
 
@@ -1828,10 +1828,10 @@ Qed.
 
 Lemma sigma_not_zero : forall f n k, (k<n)%nat -> 0 < f k -> 0 < sigma f n.
 induction n; intros; auto.
-casetype False; omega.
+casetype False; lia.
 rewrite sigma_S.
 assert (k < n \/ k = n)%nat.
-omega.
+lia.
 case H1; intros; subst; auto.
 apply Ult_le_trans with (sigma f n); auto.
 apply (IHn k); auto.
@@ -1848,10 +1848,10 @@ Hint Resolve sigma_eq_compat sigma_le_compat sigma_zero: core.
 
 Lemma sigma_le : forall f n k, (k<n)%nat -> f k <= sigma f n.
 induction n; intros.
-casetype False; omega.
+casetype False; lia.
 rewrite sigma_S.
 assert (k < n \/ k = n)%nat.
-omega.
+lia.
 case H0; intros; subst; auto.
 apply Ole_trans with (sigma f n); auto.
 Qed.
@@ -1931,7 +1931,7 @@ induction n; simpl; intros; auto.
 absurd ((k < 0)%nat); auto with arith.
 rewrite prod_S.
 assert (k < n \/ k = n)%nat.
-omega.
+lia.
 case H1; intros; subst; auto.
 rewrite (IHn k); auto.
 rewrite H0; auto.
@@ -1956,10 +1956,10 @@ Hint Resolve prod_eq_compat prod_le_compat prod_not_zero: core.
 
 Lemma prod_le : forall f n k, (k<n)%nat -> prod f n <= f k.
 induction n; simpl; intros.
-casetype False; omega.
+casetype False; lia.
 rewrite prod_S.
 assert (k < n \/ k = n)%nat.
-omega.
+lia.
 case H0; intros; subst; auto.
 apply Ole_trans with (prod f n); auto.
 Qed.
@@ -3353,7 +3353,7 @@ Hint Immediate retractS_inv: core.
 Lemma retractS_intro: forall (f : nat -> U) (n : nat),
    retract f n -> f n <= [1-] (sigma f n) -> retract f (S n).
 unfold retract; intros.
-assert ((k<n)%nat \/ k=n); try omega; intuition; subst; auto.
+assert ((k<n)%nat \/ k=n); try lia; intuition; subst; auto.
 Qed.
 
 Hint Resolve retract0 retractS_intro: core.
@@ -3681,7 +3681,7 @@ Lemma Uinv_Nmult : forall k n, [1-] (k */ [1/]1+n) == ((S n) - k)  */ [1/]1+n.
 intros k n; case (le_lt_dec (S n) k); intro.
 rewrite (Nmult_ge_Sn_Unth l).
 replace (S n - k)%nat with O; auto.
-omega.
+lia.
 induction k; intros.
 rewrite Nmult_0; rewrite Uinv_zero.
 replace (S n - O)%nat with (S n); auto with arith.
@@ -3689,13 +3689,13 @@ rewrite (Nmult_S k ([1/]1+n)).
 apply Uplus_eq_simpl_right with ([1/]1+n); auto.
 apply Uinv_le_perm_right.
 apply Nmult_le_n_Unth.
-omega.
+lia.
 apply Oeq_trans with (((S n - S k) + (S O)) */ [1/]1+n).
 replace ((S n - S k) + (S O))%nat with (S n - k)%nat.
 apply Oeq_trans with ([1-] (k */ [1/]1+n)); auto with arith.
 apply Uinv_plus_left.
-apply Nmult_le_n_Unth; omega.
-omega.
+apply Nmult_le_n_Unth; lia.
+lia.
 rewrite (plus_Nmult_distr (S n - S k) (S O) ([1/]1+n)); auto.
 Qed.
 
@@ -3996,7 +3996,7 @@ Ltac Usimpl :=  match goal with
  |  |- context [([1/]1+O)]        => setoid_rewrite Unth_zero
  |  |- context [?x^O] => setoid_rewrite (Uexp_0 x)
  |  |- context [?x^(S O)] => setoid_rewrite (Uexp_1 x)
- |  |- context [0^(?n)] => setoid_rewrite Uexp_zero; [idtac|omega]
+ |  |- context [0^(?n)] => setoid_rewrite Uexp_zero; [idtac|lia]
  |  |- context [U1^(?n)] => setoid_rewrite Uexp_one
  |  |- context [(Nmult 0 ?x)]     => setoid_rewrite (Nmult_0 x)
  |  |- context [(Nmult 1 ?x)]     => setoid_rewrite (Nmult_1 x)
@@ -4387,7 +4387,7 @@ Definition finf (f : nat -> U) (n : nat) :=
 Lemma fsup_mon : forall (f:nat->U) n, fsup f (S n) <= fsup f n.
 unfold fsup; intros.
 apply Ulub_le; intros.
-replace (S n+n0)%nat with (n+S n0)%nat; try omega.
+replace (S n+n0)%nat with (n+S n0)%nat; try lia.
 apply le_Ulub with (f:=fun k : nat => f (n+k)%nat).
 Qed.
 Hint Resolve fsup_mon: core.
@@ -4395,7 +4395,7 @@ Hint Resolve fsup_mon: core.
 Lemma finf_mon : forall (f:nat->U) n, finf f n <= finf f (S n).
 unfold finf; intros.
 apply le_Uglb; intros.
-replace (S n+n0)%nat with (n+S n0)%nat; try omega.
+replace (S n+n0)%nat with (n+S n0)%nat; try lia.
 apply Uglb_le with (f:=fun k : nat => f (n+k)%nat).
 Qed.
 
@@ -4766,7 +4766,7 @@ Lemma retract_zero_wretract :
        forall f n, retract f n -> (forall k, (n <= k)%nat -> f k == 0) -> wretract f.
 red; intros.
 assert (k < n \/ n <= k)%nat; intuition.
-omega.
+lia.
 rewrite H0; auto.
 Qed.
 
