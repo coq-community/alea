@@ -8,4 +8,5 @@ CoqMakefile.conf
 .coqdeps.d
 *.aux
 *.glob
+.lia.cache
 #*#

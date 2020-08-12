@@ -797,7 +797,7 @@ Variable P : A->Prop.
 Variable FP : finite P.
 Let s:= (size FP - 1)%nat.
 Lemma pred_size_le : (size FP <=S s)%nat.
-unfold s; omega.
+unfold s; lia.
 Qed.
 Hint Resolve pred_size_le: core.
 
@@ -805,7 +805,7 @@ Hint Resolve pred_size_le: core.
 Lemma pred_size_eq : notempty P -> size FP =S s.
 destruct FP; intros; simpl.
 unfold notempty in *; contradiction.
-unfold s; simpl; omega.
+unfold s; simpl; lia.
 Qed.
 
 Definition random_fin :M A := fun (f:A->U) => sigma_fin (fun k => Unth s *  f k) FP.

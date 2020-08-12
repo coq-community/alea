@@ -1,7 +1,7 @@
 From Coq Require Import Arith.
 From Coq Require Import Lt.
 From Coq Require Export Setoid.
-From Coq Require Omega.
+From Coq Require Lia.
 Set Implicit Arguments.
 Set Strict Implicit.
 
