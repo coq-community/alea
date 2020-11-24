@@ -3,7 +3,7 @@ fullname: ALEA
 shortname: alea
 organization: coq-community
 community: true
-travis: true
+action: true
 coqdoc: false
 doi: 10.1016/j.scico.2007.09.002
 
@@ -45,6 +45,7 @@ supported_coq_versions:
   opam: '{(>= "8.11" & < "8.13~") | (= "dev")}'
 
 tested_coq_nix_versions:
+- version_or_url: https://github.com/coq/coq-on-cachix/tarball/master
 
 tested_coq_opam_versions:
 - version: dev

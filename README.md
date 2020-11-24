@@ -1,13 +1,13 @@
 # ALEA
 
-[![Travis][travis-shield]][travis-link]
+[![CI][action-shield]][action-link]
 [![Contributing][contributing-shield]][contributing-link]
 [![Code of Conduct][conduct-shield]][conduct-link]
 [![Zulip][zulip-shield]][zulip-link]
 [![DOI][doi-shield]][doi-link]
 
-[travis-shield]: https://travis-ci.com/coq-community/alea.svg?branch=master
-[travis-link]: https://travis-ci.com/coq-community/alea/builds
+[action-shield]: https://github.com/coq-community/alea/workflows/CI/badge.svg?branch=master
+[action-link]: https://github.com/coq-community/alea/actions?query=workflow%3ACI
 
 [contributing-shield]: https://img.shields.io/badge/contributions-welcome-%23f7931e.svg
 [contributing-link]: https://github.com/coq-community/manifesto/blob/master/CONTRIBUTING.md
@@ -32,7 +32,6 @@ as probability distributions.
   - Christine Paulin-Mohring (initial)
   - David Baelde (initial)
   - Pierre Courtieu (initial)
-
 - Coq-community maintainer(s):
   - Anton Trunov ([**@anton-trunov**](https://github.com/anton-trunov))
   - Vladimir Gladstein ([**@volodeyka**](https://github.com/volodeyka))
